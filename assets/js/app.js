@@ -290,12 +290,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else if (state.selectedTimePeriod === 'future') {
             if (state.selectedActionType === 'simple') {
-                question = 'Это предсказание, обещание или спонтанное решение?';
+                question = 'Это предсказание, обещание, спонтанное решение или факт о будущем?';
                 options = [
-                    { value: 'yes', text: 'Да, это предсказание, обещание или решение' },
-                    { value: 'no', text: 'Нет, это не предсказание/обещание/решение' }
+                    { value: 'yes', text: 'Да, это предсказание, обещание или спонтанное решение' },
+                    { value: 'no', text: 'Нет, это запланированное действие или намерение' }
                 ];
-                clarificationHint = 'Для предсказаний, обещаний или спонтанных решений о будущем используйте Future Simple. Например: «Я позвоню тебе завтра», «Я думаю, он скоро приедет».';
+                clarificationHint = 'Для предсказаний, обещаний или спонтанных решений о будущем используйте Future Simple (will). Для запланированных действий или намерений лучше использовать конструкцию "going to" или Present Continuous. Сравните: "Я позвоню тебе завтра" (спонтанное решение, will) vs "Я собираюсь позвонить тебе завтра" (запланированное действие, going to).';
             } else if (state.selectedActionType === 'continuous') {
                 question = 'Это действие будет происходить в определенный момент в будущем?';
                 options = [
@@ -395,7 +395,13 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (selectedActionType === 'continuous') {
                 return 'present-continuous';
             } else if (selectedActionType === 'perfect') {
-                return 'present-perfect';
+                if (selectedClarification === 'yes') {
+                    // Действие завершено с результатом в настоящем
+                    return 'present-perfect';
+                } else {
+                    // Предложить альтернативное время в зависимости от контекста
+                    return 'present-perfect'; // По умолчанию всё равно Present Perfect
+                }
             } else if (selectedActionType === 'perfect-continuous') {
                 return 'present-perfect-continuous';
             }
@@ -408,22 +414,55 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (selectedActionType === 'continuous') {
                 return 'past-continuous';
             } else if (selectedActionType === 'perfect') {
-                return 'past-perfect';
+                if (selectedClarification === 'yes') {
+                    // Действие произошло до другого действия в прошлом
+                    return 'past-perfect';
+                } else {
+                    // Если действие не предшествовало другому, предложить Past Simple
+                    return 'past-simple';
+                }
             } else if (selectedActionType === 'perfect-continuous') {
-                return 'past-perfect-continuous';
+                if (selectedClarification === 'yes') {
+                    // Действие продолжалось до определенного момента в прошлом
+                    return 'past-perfect-continuous';
+                } else {
+                    // Если действие не продолжалось до определенного момента, предложить Past Continuous
+                    return 'past-continuous';
+                }
             }
         }
         
         // Future tenses
         else if (selectedTimePeriod === 'future') {
             if (selectedActionType === 'simple') {
-                return 'future-simple';
+                if (selectedClarification === 'yes') {
+                    // Это предсказание, обещание или спонтанное решение
+                    return 'future-simple';
+                } else {
+                    // Если это запланированное действие, предложить Present Continuous для будущего
+                    return 'going-to-future';
+                }
             } else if (selectedActionType === 'continuous') {
-                return 'future-continuous';
+                if (selectedClarification === 'yes') {
+                    // Действие будет происходить в конкретный момент в будущем
+                    return 'future-continuous';
+                } else {
+                    return 'future-simple';
+                }
             } else if (selectedActionType === 'perfect') {
-                return 'future-perfect';
+                if (selectedClarification === 'yes') {
+                    // Действие завершится к определенному моменту в будущем
+                    return 'future-perfect';
+                } else {
+                    return 'future-simple';
+                }
             } else if (selectedActionType === 'perfect-continuous') {
-                return 'future-perfect-continuous';
+                if (selectedClarification === 'yes') {
+                    // Действие будет длиться до определенного момента в будущем
+                    return 'future-perfect-continuous';
+                } else {
+                    return 'future-continuous';
+                }
             }
         }
         
@@ -432,6 +471,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Tense data
     const tensesData = {
+        'going-to-future': {
+            name: 'Going to Future',
+            translation: 'Конструкция "собираться" для будущего',
+            icon: '🔮',
+            formulas: {
+                positive: 'Subject + am/is/are + going to + V1',
+                negative: 'Subject + am/is/are + not + going to + V1',
+                question: 'Am/Is/Are + Subject + going to + V1 + ?'
+            },
+            examples: [
+                { original: 'I am going to visit my parents this weekend.', translation: 'Я собираюсь навестить родителей в эти выходные.' },
+                { original: 'She is not going to attend the meeting.', translation: 'Она не собирается присутствовать на встрече.' },
+                { original: 'Are they going to buy a new car?', translation: 'Они собираются купить новую машину?' }
+            ],
+            usage: [
+                'Запланированные действия в будущем',
+                'Действия, для которых уже есть договоренность или намерение',
+                'События, которые, вероятно, произойдут (по имеющимся признакам)',
+                'Ситуации, когда говорящий уверен в событии будущего'
+            ],
+            markers: ['this weekend', 'next week', 'tomorrow', 'soon', 'plan to', 'intend to']
+        },
         'present-simple': {
             name: 'Present Simple',
             translation: 'Настоящее простое время',
@@ -491,12 +552,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 { original: 'Have they visited Paris?', translation: 'Они посещали Париж?' }
             ],
             usage: [
-                'Действие завершилось к настоящему моменту и важен результат',
-                'Действие произошло в неуказанное время в прошлом',
+                'Действие завершилось к настоящему моменту и важен результат (акцент на результате, а не на времени действия)',
+                'Действие произошло в неуказанное время в прошлом, которое связано с настоящим',
                 'Жизненный опыт или то, что случилось хотя бы раз в жизни',
-                'Действие началось в прошлом и продолжается до настоящего времени'
+                'Новости или недавние события, которые имеют значение для настоящего момента'
             ],
-            markers: ['already', 'just', 'yet', 'ever', 'never', 'for', 'since', 'recently', 'so far']
+            markers: ['already', 'just', 'yet', 'ever', 'never', 'recently', 'so far', 'today', 'this week']
         },
         'present-perfect-continuous': {
             name: 'Present Perfect Continuous',
@@ -513,12 +574,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 { original: 'Have they been waiting for a long time?', translation: 'Они ждут уже долго?' }
             ],
             usage: [
-                'Длительное действие, которое началось в прошлом и продолжается до настоящего момента',
-                'Действие, длящееся в течение некоторого периода времени и имеющее результат',
-                'Объяснение причины текущей ситуации',
-                'Акцент на продолжительности действия'
+                'Длительное действие, которое началось в прошлом и продолжается до настоящего момента (акцент на процессе)',
+                'Действие, длящееся в течение определенного периода времени (с указанием продолжительности)',
+                'Объяснение причины текущей ситуации ("Почему ты устал? — Я работал весь день")',
+                'Акцент на продолжительности и непрерывности действия'
             ],
-            markers: ['for', 'since', 'how long', 'all day', 'all week', 'recently']
+            markers: ['for + период времени', 'since + момент начала', 'how long', 'all day', 'all week', 'recently', 'lately']
         },
         'past-simple': {
             name: 'Past Simple',
@@ -623,12 +684,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 { original: 'Will they help us?', translation: 'Они помогут нам?' }
             ],
             usage: [
-                'Предсказания о будущем',
-                'Спонтанные решения, принятые в момент речи',
-                'Обещания, предложения, предупреждения, угрозы',
-                'События, которые точно произойдут в будущем'
+                'Предсказания о будущем без твердых доказательств ("Я думаю, что завтра будет дождь")',
+                'Спонтанные решения, принятые в момент речи ("Я открою окно")',
+                'Обещания, предложения, предупреждения, угрозы ("Я обещаю, что помогу тебе")',
+                'Факты о будущем, которые невозможно контролировать ("Мне будет 30 лет в следующем году")'
             ],
-            markers: ['tomorrow', 'next week', 'next year', 'soon', 'in 2030']
+            markers: ['tomorrow', 'next week', 'next year', 'soon', 'in 2030', 'I think', 'probably', 'perhaps']
         },
         'future-continuous': {
             name: 'Future Continuous',
@@ -860,17 +921,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
         resultHTML += `</ul>`;
 
-        // Add markers
+        // Add markers with explanations for special cases
         resultHTML += `
             <div class="section-title">Слова-маркеры</div>
-            <div class="markers-box">
         `;
+        
+        // Добавим объяснения для маркеров, если это необходимо
+        if (tense === 'present-perfect') {
+            resultHTML += `
+                <p style="font-size: 14px; margin-bottom: 10px;">Эти слова часто указывают на использование Present Perfect:</p>
+                <div class="markers-box">
+                    <div class="marker-tag" title="Уже, указывает на завершенность действия">already</div>
+                    <div class="marker-tag" title="Только что, указывает на недавно завершившееся действие">just</div>
+                    <div class="marker-tag" title="Ещё (в вопросах и отрицаниях)">yet</div>
+                    <div class="marker-tag" title="Когда-либо, в вопросах об опыте">ever</div>
+                    <div class="marker-tag" title="Никогда, в отрицаниях об опыте">never</div>
+                    <div class="marker-tag" title="В последнее время, недавно">recently</div>
+                    <div class="marker-tag" title="До сих пор, на данный момент">so far</div>
+                    <div class="marker-tag" title="Сегодня (когда день еще не закончился)">today</div>
+                    <div class="marker-tag" title="На этой неделе (когда неделя еще не закончилась)">this week</div>
+                </div>
+            `;
+        } else if (tense === 'present-perfect-continuous') {
+            resultHTML += `
+                <p style="font-size: 14px; margin-bottom: 10px;">Эти слова часто указывают на использование Present Perfect Continuous:</p>
+                <div class="markers-box">
+                    <div class="marker-tag" title="В течение [периода времени] - указывает на продолжительность">for + период времени</div>
+                    <div class="marker-tag" title="С [момента начала] - указывает на начало действия">since + момент начала</div>
+                    <div class="marker-tag" title="Как долго">how long</div>
+                    <div class="marker-tag" title="Весь день">all day</div>
+                    <div class="marker-tag" title="Всю неделю">all week</div>
+                    <div class="marker-tag" title="В последнее время">recently</div>
+                    <div class="marker-tag" title="В последнее время">lately</div>
+                </div>
+            `;
+        } else if (tense === 'future-simple' || tense === 'going-to-future') {
+            // Объясним разницу между маркерами для will и going to
+            if (tense === 'future-simple') {
+                resultHTML += `
+                    <p style="font-size: 14px; margin-bottom: 10px;">Эти слова часто используются с Future Simple (will) для предсказаний и спонтанных решений:</p>
+                `;
+            } else {
+                resultHTML += `
+                    <p style="font-size: 14px; margin-bottom: 10px;">Эти слова часто используются с Going to Future для запланированных действий:</p>
+                `;
+            }
+            
+            resultHTML += `<div class="markers-box">`;
+            tenseData.markers.forEach(marker => {
+                resultHTML += `<div class="marker-tag">${marker}</div>`;
+            });
+            resultHTML += `</div>`;
+            
+        } else {
+            // Для остальных времен просто показываем маркеры без дополнительных объяснений
+            resultHTML += `<div class="markers-box">`;
+            tenseData.markers.forEach(marker => {
+                resultHTML += `<div class="marker-tag">${marker}</div>`;
+            });
+            resultHTML += `</div>`;
+        }
 
-        tenseData.markers.forEach(marker => {
-            resultHTML += `<div class="marker-tag">${marker}</div>`;
-        });
-
-        resultHTML += `</div>`;
+        resultHTML += ``;
 
         // Update result card
         document.getElementById('result-card').innerHTML = resultHTML;
@@ -879,36 +991,91 @@ document.addEventListener('DOMContentLoaded', function() {
         let comparisonTense = null;
         
         if (tense === 'present-perfect') {
+            // Сначала сравниваем с Past Simple
             comparisonTense = 'past-simple';
+            
+            // Позже мы добавим дополнительное сравнение с Present Perfect Continuous
         } else if (tense === 'past-simple') {
             comparisonTense = 'present-perfect';
         } else if (tense === 'present-continuous') {
             comparisonTense = 'present-simple';
         } else if (tense === 'future-simple') {
-            comparisonTense = 'present-continuous'; // "going to" future
+            comparisonTense = 'going-to-future';
+        } else if (tense === 'going-to-future') {
+            comparisonTense = 'future-simple';
+        } else if (tense === 'present-perfect-continuous') {
+            comparisonTense = 'present-perfect';
         }
 
         if (comparisonTense && tensesData[comparisonTense]) {
             const comparisonData = tensesData[comparisonTense];
+            // Создаем объяснения для сравнения времен
+            let comparisonExplanation = '';
+            
+            if (tense === 'present-perfect' && comparisonTense === 'past-simple') {
+                comparisonExplanation = 'Present Perfect описывает действие, которое связано с настоящим временем и акцентирует внимание на результате действия, а не на времени его совершения. Past Simple описывает действие, которое произошло в конкретное время в прошлом.';
+            } else if (tense === 'past-simple' && comparisonTense === 'present-perfect') {
+                comparisonExplanation = 'Past Simple описывает действие, которое произошло в конкретное время в прошлом. Present Perfect описывает действие, которое связано с настоящим временем и акцентирует внимание на результате.';
+            } else if (tense === 'present-continuous' && comparisonTense === 'present-simple') {
+                comparisonExplanation = 'Present Continuous описывает действие, которое происходит в момент речи или временно. Present Simple описывает регулярные действия или общеизвестные факты.';
+            } else if (tense === 'future-simple' && comparisonTense === 'going-to-future') {
+                comparisonExplanation = 'Future Simple (will) используется для предсказаний, спонтанных решений или обещаний. Going to Future используется для запланированных действий или намерений.';
+            } else if (tense === 'going-to-future' && comparisonTense === 'future-simple') {
+                comparisonExplanation = 'Going to Future используется для запланированных действий или намерений. Future Simple (will) используется для предсказаний, спонтанных решений или обещаний.';
+            } else if (tense === 'present-perfect-continuous' && comparisonTense === 'present-perfect') {
+                comparisonExplanation = 'Present Perfect Continuous акцентирует внимание на процессе и продолжительности действия. Present Perfect акцентирует внимание на результате действия.';
+            } else if (tense === 'present-perfect' && comparisonTense === 'present-perfect-continuous') {
+                comparisonExplanation = 'Present Perfect акцентирует внимание на результате действия. Present Perfect Continuous акцентирует внимание на процессе и продолжительности действия.';
+            }
+            
             let comparisonHTML = `
                 <div class="section-title">Сравнение с другими временами</div>
                 <p>${tenseData.name} vs. ${comparisonData.name}</p>
+                <p style="margin-bottom: 15px; font-size: 14px; color: var(--dark);">${comparisonExplanation}</p>
             `;
 
             // Add example comparison
             comparisonHTML += `
                 <div class="example-box">
                     <div class="example-original">${tenseData.examples[0].original} (${tenseData.name})</div>
-                    <div class="example-translation">${tenseData.examples[0].translation} (Акцент на ${tenseData.name === 'Present Perfect' ? 'результате' : 'действии'})</div>
+                    <div class="example-translation">${tenseData.examples[0].translation}</div>
                 </div>
 
                 <div class="example-box">
                     <div class="example-original">${comparisonData.examples[0].original} (${comparisonData.name})</div>
-                    <div class="example-translation">${comparisonData.examples[0].translation} (Акцент на ${comparisonData.name === 'Present Perfect' ? 'результате' : 'действии'})</div>
+                    <div class="example-translation">${comparisonData.examples[0].translation}</div>
                 </div>
             `;
 
             document.getElementById('comparison-card').innerHTML = comparisonHTML;
+            
+            // Добавляем дополнительное сравнение для Present Perfect vs Present Perfect Continuous
+            if (tense === 'present-perfect') {
+                const additionalComparisonTense = 'present-perfect-continuous';
+                if (tensesData[additionalComparisonTense]) {
+                    const additionalComparisonData = tensesData[additionalComparisonTense];
+                    const additionalExplanation = 'Present Perfect акцентирует внимание на результате действия. Present Perfect Continuous акцентирует внимание на процессе и продолжительности действия.';
+                    
+                    let additionalComparisonHTML = `
+                        <div class="section-title" style="margin-top: 30px;">Дополнительное сравнение</div>
+                        <p>${tenseData.name} vs. ${additionalComparisonData.name}</p>
+                        <p style="margin-bottom: 15px; font-size: 14px; color: var(--dark);">${additionalExplanation}</p>
+                        
+                        <div class="example-box">
+                            <div class="example-original">I have read this book. (${tenseData.name})</div>
+                            <div class="example-translation">Я прочитал эту книгу. (Акцент на результате - книга прочитана)</div>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-original">I have been reading this book for two hours. (${additionalComparisonData.name})</div>
+                            <div class="example-translation">Я читаю эту книгу уже два часа. (Акцент на процессе - чтение всё ещё продолжается)</div>
+                        </div>
+                    `;
+                    
+                    // Добавляем дополнительное сравнение к существующему
+                    document.getElementById('comparison-card').innerHTML += additionalComparisonHTML;
+                }
+            }
         } else {
             document.getElementById('comparison-card').innerHTML = '';
         }
