@@ -36,6 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             document.querySelector('#step2-page .next-btn').disabled = true;
             
+            // Если пользователь вернулся назад, сбрасываем выбор типа действия
+            if (state.currentPage === 'step3-page') {
+                state.selectedActionType = null;
+                state.selectedClarification = null;
+            }
+            
             // Устанавливаем общую подсказку для второго шага, если нет выбранного периода времени
             if (!state.selectedTimePeriod) {
                 document.querySelector('#step2-page .card:last-child p').textContent = 
@@ -62,6 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('#step3-page .next-btn').disabled = false;
             }
         } else if (pageId === 'result-page') {
+            // Проверяем, что уточнение было выбрано, прежде чем показывать результат
+            if (!state.selectedClarification) {
+                // Если уточнение не выбрано, возвращаемся на шаг 3
+                navigateTo('step3-page');
+                return;
+            }
             showResult();
         } else if (pageId === 'tenses-page') {
             loadTensesData();
@@ -73,6 +85,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize navigation buttons
     document.querySelectorAll('[data-nav]').forEach(button => {
         button.addEventListener('click', function() {
+            // Если это кнопка "Показать результат", проверяем, что выбрано уточнение
+            if (this.classList.contains('next-btn') && this.closest('#step3-page') && 
+                this.getAttribute('data-nav') === 'result' && !state.selectedClarification) {
+                // Если уточнение не выбрано, блокируем переход
+                return;
+            }
+            
+            // Если это кнопка "Назад" на шаге 3, сбрасываем выбранное уточнение
+            if (this.classList.contains('back-btn') && this.closest('#step3-page')) {
+                state.selectedClarification = null;
+            }
+            
             navigateTo(this.getAttribute('data-nav') + '-page');
         });
     });
@@ -388,6 +412,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Update state
                     state.selectedClarification = this.getAttribute('data-value');
+                    
+                    // Разблокируем кнопку "Показать результат"
+                    document.querySelector('#step3-page .next-btn').disabled = false;
                     
                     // Обновляем подсказку на основе выбранного уточнения
                     let resultHint = "";
