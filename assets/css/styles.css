@@ -481,10 +481,17 @@ header {
     font-size: 14px;
 }
 
+.verb-form-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 15px 0;
+    -webkit-overflow-scrolling: touch; /* Для плавного скролла на iOS */
+}
+
 .verb-form-table {
     width: 100%;
+    min-width: 480px; /* Минимальная ширина таблицы, чтобы на мобильных устройствах был скролл */
     border-collapse: collapse;
-    margin: 15px 0;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -494,6 +501,7 @@ header {
     color: white;
     text-align: left;
     padding: 10px 15px;
+    white-space: nowrap; /* Чтобы заголовки не переносились */
 }
 
 .verb-form-table td {
@@ -507,6 +515,25 @@ header {
 
 .verb-form-table tr:nth-child(even) {
     background-color: #f8fafc;
+}
+
+/* Стиль скроллбара для Webkit-браузеров */
+.verb-form-table-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.verb-form-table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.verb-form-table-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.verb-form-table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
 }
 
 .usage-list {

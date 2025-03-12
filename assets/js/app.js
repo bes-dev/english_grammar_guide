@@ -875,24 +875,26 @@ document.addEventListener('DOMContentLoaded', function() {
             if (verbForms) {
                 resultHTML += `
                     <div class="section-title">Формы глагола "${exampleVerb}" (${verbForms.translation})</div>
-                    <table class="verb-form-table">
-                        <thead>
-                            <tr>
-                                <th>Базовая форма (V1)</th>
-                                <th>Прошедшее время (V2)</th>
-                                <th>Причастие (V3)</th>
-                                <th>-ing форма</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${verbForms.v1}</td>
-                                <td>${verbForms.v2}</td>
-                                <td>${verbForms.v3}</td>
-                                <td>${verbForms.v1}ing</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="verb-form-table-container">
+                        <table class="verb-form-table">
+                            <thead>
+                                <tr>
+                                    <th>Базовая форма (V1)</th>
+                                    <th>Прошедшее время (V2)</th>
+                                    <th>Причастие (V3)</th>
+                                    <th>-ing форма</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${verbForms.v1}</td>
+                                    <td>${verbForms.v2}</td>
+                                    <td>${verbForms.v3}</td>
+                                    <td>${verbForms.v1}ing</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 `;
             }
         }
