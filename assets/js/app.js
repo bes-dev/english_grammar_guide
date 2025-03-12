@@ -54,6 +54,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else if (pageId === 'step3-page') {
             updateClarificationQuestion();
+            // По умолчанию кнопка "Показать результат" заблокирована, если не показывается заглушка
+            // В функции updateClarificationQuestion() мы разблокируем кнопку, если показывается заглушка
+            if (!state.selectedClarification) {
+                document.querySelector('#step3-page .next-btn').disabled = true;
+            } else {
+                document.querySelector('#step3-page .next-btn').disabled = false;
+            }
         } else if (pageId === 'result-page') {
             showResult();
         } else if (pageId === 'tenses-page') {
@@ -228,52 +235,57 @@ document.addEventListener('DOMContentLoaded', function() {
         let options = [];
         let clarificationHint = '';
 
-        if (state.selectedTimePeriod === 'present') {
-            if (state.selectedActionType === 'simple') {
-                question = 'Это регулярное действие или общеизвестный факт?';
-                options = [
-                    { value: 'yes', text: 'Да, это регулярное действие или факт' },
-                    { value: 'no', text: 'Нет, это не регулярное действие' }
-                ];
-                clarificationHint = 'Для регулярных действий или общеизвестных фактов используйте Present Simple. Например: «Я каждый день хожу на работу», «Солнце встает на востоке».';
-            } else if (state.selectedActionType === 'continuous') {
-                question = 'Это действие происходит прямо сейчас или временно?';
-                options = [
-                    { value: 'yes', text: 'Да, это происходит прямо сейчас или временно' },
-                    { value: 'no', text: 'Нет, это не происходит сейчас' }
-                ];
-                clarificationHint = 'Если действие происходит прямо сейчас или временно в настоящий период, используйте Present Continuous. Например: «Я сейчас разговариваю по телефону», «В этом году я изучаю испанский».';
-            } else if (state.selectedActionType === 'perfect') {
-                question = 'Это действие, начавшееся в прошлом, с результатом в настоящем?';
-                options = [
-                    { value: 'yes', text: 'Да, действие завершено с результатом в настоящем' },
-                    { value: 'no', text: 'Нет, действие не имеет результата в настоящем' }
-                ];
-                clarificationHint = 'Когда нас интересует результат действия, а не время его совершения, используйте Present Perfect. Например: «Я уже посмотрел этот фильм», «Я никогда не был в Японии».';
-            } else if (state.selectedActionType === 'perfect-continuous') {
-                question = 'Это действие, которое длится уже какое-то время до настоящего момента?';
-                options = [
-                    { value: 'yes', text: 'Да, действие длится до настоящего момента' },
-                    { value: 'no', text: 'Нет, действие не длится до настоящего момента' }
-                ];
-                clarificationHint = 'Для описания действия, которое началось в прошлом и продолжается до сих пор, используйте Present Perfect Continuous. Например: «Я изучаю английский уже 5 лет», «Она ждет автобус уже 20 минут».';
-            }
-        } else if (state.selectedTimePeriod === 'past') {
-            if (state.selectedActionType === 'simple') {
-                question = 'Это однократное завершенное действие в прошлом?';
-                options = [
-                    { value: 'yes', text: 'Да, это однократное завершенное действие' },
-                    { value: 'no', text: 'Нет, это не однократное действие' }
-                ];
-                clarificationHint = 'Для завершенных действий в прошлом используйте Past Simple. Например: «Я вчера ходил в кино», «Она окончила университет в 2015 году».';
-            } else if (state.selectedActionType === 'continuous') {
-                question = 'Это действие было в процессе в определенный момент прошлого?';
-                options = [
-                    { value: 'yes', text: 'Да, действие было в процессе в конкретный момент' },
-                    { value: 'no', text: 'Нет, действие не было в процессе в конкретный момент' }
-                ];
-                clarificationHint = 'Для действий, которые были в процессе в конкретный момент прошлого, используйте Past Continuous. Например: «Вчера в 8 вечера я смотрел фильм», «Когда зазвонил телефон, я принимал душ».';
-            } else if (state.selectedActionType === 'perfect') {
+        // Проверяем комбинации, для которых не требуется уточняющий вопрос
+        // и устанавливаем соответствующие заглушки
+        let showPlaceholderMessage = false;
+        let placeholderMessage = '';
+        let tenseType = '';
+
+        // Present Simple
+        if (state.selectedTimePeriod === 'present' && state.selectedActionType === 'simple') {
+            showPlaceholderMessage = true;
+            placeholderMessage = 'Не важно, повторяется ли действие или оно представляет собой общеизвестный факт – мы определили, что для вас оптимальным выбором является Present Simple (Настоящее простое время).';
+            tenseType = 'present-simple';
+            clarificationHint = 'Present Simple используется как для регулярных действий, так и для общеизвестных фактов. Например: «Я каждый день хожу на работу», «Солнце встает на востоке».';
+        } 
+        // Present Continuous
+        else if (state.selectedTimePeriod === 'present' && state.selectedActionType === 'continuous') {
+            showPlaceholderMessage = true;
+            placeholderMessage = 'Не важно, происходит ли действие прямо сейчас или носит временный характер – подходящим для вас временем будет Present Continuous (Настоящее длительное время).';
+            tenseType = 'present-continuous';
+            clarificationHint = 'Present Continuous используется для действий, происходящих сейчас или имеющих временный характер. Например: «Я сейчас разговариваю по телефону», «В этом году я изучаю испанский».';
+        }
+        // Present Perfect
+        else if (state.selectedTimePeriod === 'present' && state.selectedActionType === 'perfect') {
+            showPlaceholderMessage = true;
+            placeholderMessage = 'Не важно, какие детали результата вы учитываете – мы поняли, что для описания вашего действия оптимальным выбором является Present Perfect (Настоящее совершенное время).';
+            tenseType = 'present-perfect';
+            clarificationHint = 'Present Perfect используется, когда нас интересует результат действия в настоящем. Например: «Я уже посмотрел этот фильм», «Я никогда не был в Японии».';
+        }
+        // Present Perfect Continuous
+        else if (state.selectedTimePeriod === 'present' && state.selectedActionType === 'perfect-continuous') {
+            showPlaceholderMessage = true;
+            placeholderMessage = 'Не важно, насколько длительно действие продолжается до настоящего момента – подходящим временем для вас станет Present Perfect Continuous (Настоящее совершенное длительное время).';
+            tenseType = 'present-perfect-continuous';
+            clarificationHint = 'Present Perfect Continuous используется для описания действия, которое началось в прошлом и продолжается до сих пор. Например: «Я изучаю английский уже 5 лет», «Она ждет автобус уже 20 минут».';
+        } 
+        // Past Simple
+        else if (state.selectedTimePeriod === 'past' && state.selectedActionType === 'simple') {
+            showPlaceholderMessage = true;
+            placeholderMessage = 'Не важно, что действие уже завершилось в прошлом – мы определили, что оптимальным выбором для вашего случая является Past Simple (Прошедшее простое время).';
+            tenseType = 'past-simple';
+            clarificationHint = 'Past Simple используется для завершенных действий в прошлом. Например: «Я вчера ходил в кино», «Она окончила университет в 2015 году».';
+        }
+        // Past Continuous
+        else if (state.selectedTimePeriod === 'past' && state.selectedActionType === 'continuous') {
+            showPlaceholderMessage = true;
+            placeholderMessage = 'Не важно, что действие происходило в определённый момент в прошлом – подходящим для вас временем будет Past Continuous (Прошедшее длительное время).';
+            tenseType = 'past-continuous';
+            clarificationHint = 'Past Continuous используется для действий, которые были в процессе в конкретный момент прошлого. Например: «Вчера в 8 вечера я смотрел фильм», «Когда зазвонил телефон, я принимал душ».';
+        }
+        // Для остальных комбинаций показываем обычные уточняющие вопросы
+        else if (state.selectedTimePeriod === 'past') {
+            if (state.selectedActionType === 'perfect') {
                 question = 'Это действие произошло до другого действия в прошлом?';
                 options = [
                     { value: 'yes', text: 'Да, действие произошло до другого действия' },
@@ -320,63 +332,116 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Build the clarification question UI
-        let html = '<div class="question-title">' + question + '</div>';
+        // Создаем HTML контент в зависимости от того, показываем заглушку или уточняющий вопрос
+        let html = '';
         
-        options.forEach(option => {
-            html += `
-                <button class="option-btn" data-value="${option.value}">
-                    <span class="option-icon">${option.value === 'yes' ? '✓' : '✗'}</span> ${option.text}
-                </button>
+        if (showPlaceholderMessage) {
+            // Для заглушки обновляем заголовок
+            document.querySelector('#step3-page .question-title').textContent = 'Необходимое время уже определено';
+            
+            // Создаем HTML с заглушкой
+            html = `
+                <div class="placeholder-message" style="background-color: rgba(76, 201, 240, 0.08); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 3px solid var(--accent);">
+                    <p style="margin: 0;">${placeholderMessage}</p>
+                </div>
+                <input type="hidden" id="clarification-value" value="yes">
             `;
-        });
+            
+            // Автоматически устанавливаем значение уточнения
+            state.selectedClarification = 'yes';
+            
+            // Разблокируем кнопку "Показать результат"
+            document.querySelector('#step3-page .next-btn').disabled = false;
+        } else {
+            // Для обычного уточняющего вопроса обновляем заголовок
+            document.querySelector('#step3-page .question-title').textContent = 'Уточняющий вопрос';
+            
+            // Создаем стандартный HTML с вопросом и опциями
+            html = '<div class="question-title">' + question + '</div>';
+            
+            options.forEach(option => {
+                html += `
+                    <button class="option-btn" data-value="${option.value}">
+                        <span class="option-icon">${option.value === 'yes' ? '✓' : '✗'}</span> ${option.text}
+                    </button>
+                `;
+            });
+        }
         
+        // Обновляем контейнер
         clarificationContainer.innerHTML = html;
 
         // Update hint for clarification step
         document.querySelector('#step3-page .card:last-child p').textContent = clarificationHint;
 
-        // Add event listeners to new buttons
-        document.querySelectorAll('#clarification-question .option-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                // Reset previously selected button
-                document.querySelectorAll('#clarification-question .option-btn').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                
-                // Mark this button as selected
-                this.classList.add('selected');
-                
-                // Update state
-                state.selectedClarification = this.getAttribute('data-value');
-                
-                // Обновляем подсказку на основе выбранного уточнения
-                let resultHint = "";
-                const tense = determineTense();
-                
-                if (tense && tensesData[tense]) {
-                    const tenseData = tensesData[tense];
+        // Если не показываем заглушку, добавляем обработчики событий для кнопок
+        if (!showPlaceholderMessage) {
+            document.querySelectorAll('#clarification-question .option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Reset previously selected button
+                    document.querySelectorAll('#clarification-question .option-btn').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
                     
-                    // Формируем дополнительную информацию о времени
-                    resultHint = `Вы выбрали время ${tenseData.name} (${tenseData.translation}). Используйте его для: ${tenseData.usage[0].toLowerCase()}. Пример: "${tenseData.examples[0].original}" (${tenseData.examples[0].translation})`;
+                    // Mark this button as selected
+                    this.classList.add('selected');
                     
-                    // Обновляем подсказку
-                    document.querySelector('#step3-page .card:last-child p').textContent = resultHint;
+                    // Update state
+                    state.selectedClarification = this.getAttribute('data-value');
                     
-                    // Подсвечиваем блок подсказки
-                    const hintBox = document.querySelector('#step3-page .card:last-child .hint-box');
-                    if (hintBox) {
-                        hintBox.style.transition = 'all 0.3s ease';
-                        hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
+                    // Обновляем подсказку на основе выбранного уточнения
+                    let resultHint = "";
+                    const tense = determineTense();
+                    
+                    if (tense && tensesData[tense]) {
+                        const tenseData = tensesData[tense];
                         
-                        // Возвращаем исходный фон через некоторое время
-                        setTimeout(() => {
-                            hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
-                        }, 300);
+                        // Формируем дополнительную информацию о времени
+                        resultHint = `Вы выбрали время ${tenseData.name} (${tenseData.translation}). Используйте его для: ${tenseData.usage[0].toLowerCase()}. Пример: "${tenseData.examples[0].original}" (${tenseData.examples[0].translation})`;
+                        
+                        // Обновляем подсказку
+                        document.querySelector('#step3-page .card:last-child p').textContent = resultHint;
+                        
+                        // Подсвечиваем блок подсказки
+                        const hintBox = document.querySelector('#step3-page .card:last-child .hint-box');
+                        if (hintBox) {
+                            hintBox.style.transition = 'all 0.3s ease';
+                            hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
+                            
+                            // Возвращаем исходный фон через некоторое время
+                            setTimeout(() => {
+                                hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
+                            }, 300);
+                        }
                     }
-                }
+                });
             });
-        });
+        } else {
+            // Если показываем заглушку, то также обновляем подсказку на основе уже выбранного времени
+            const tense = tenseType; // Уже определено выше
+            
+            if (tense && tensesData[tense]) {
+                const tenseData = tensesData[tense];
+                
+                // Формируем дополнительную информацию о времени
+                const resultHint = `${tenseData.name} (${tenseData.translation}) используется для: ${tenseData.usage[0].toLowerCase()}. Пример: "${tenseData.examples[0].original}" (${tenseData.examples[0].translation})`;
+                
+                // Обновляем подсказку
+                document.querySelector('#step3-page .card:last-child p').textContent = resultHint;
+                
+                // Подсвечиваем блок подсказки
+                const hintBox = document.querySelector('#step3-page .card:last-child .hint-box');
+                if (hintBox) {
+                    hintBox.style.transition = 'all 0.3s ease';
+                    hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
+                    
+                    // Возвращаем исходный фон через некоторое время
+                    setTimeout(() => {
+                        hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
+                    }, 300);
+                }
+            }
+        }
     }
 
     // Determine the tense based on selections
