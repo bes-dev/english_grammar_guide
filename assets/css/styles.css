@@ -58,6 +58,8 @@ header {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     padding: 25px;
     margin-bottom: 20px;
+    max-width: 100%; /* Ограничиваем ширину карточки */
+    overflow: hidden; /* Скрываем выходящий за границы контент */
 }
 
 .card-title {
@@ -486,14 +488,17 @@ header {
     overflow-x: auto;
     margin: 15px 0;
     -webkit-overflow-scrolling: touch; /* Для плавного скролла на iOS */
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Ограничиваем ширину контейнера */
 }
 
 .verb-form-table {
     width: 100%;
     min-width: 480px; /* Минимальная ширина таблицы, чтобы на мобильных устройствах был скролл */
     border-collapse: collapse;
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 0; /* Убираем скругление у таблицы */
+    overflow: visible; /* Позволяет таблице выходить за границы, но контейнер предотвратит это */
 }
 
 .verb-form-table th {
@@ -632,6 +637,23 @@ header {
     display: block;
 }
 
+/* Анимация пульсации для подсказки скролла */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* Стили для подсказки скролла на десктопе */
+.mobile-scroll-hint {
+    display: none; /* По умолчанию скрыта */
+    text-align: center;
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 5px;
+    animation: pulse 2s infinite;
+}
+
 /* Responsive styles */
 @media (max-width: 480px) {
     .container {
@@ -653,5 +675,24 @@ header {
     .nav-tab {
         padding: 10px 10px;
         font-size: 14px;
+    }
+    
+    /* Улучшаем отображение таблицы на мобильных устройствах */
+    .verb-form-table-container {
+        margin-left: -20px; /* Компенсируем отступы карточки */
+        margin-right: -20px;
+        width: calc(100% + 40px); /* Расширяем контейнер на величину отступов */
+        border-radius: 0; /* Убираем скругление для полного растягивания */
+    }
+    
+    .verb-form-table th,
+    .verb-form-table td {
+        padding: 8px 10px; /* Уменьшаем отступы в ячейках */
+        font-size: 13px; /* Уменьшаем размер шрифта */
+    }
+    
+    /* Показываем подсказку на мобильных устройствах */
+    .mobile-scroll-hint {
+        display: block;
     }
 }

@@ -895,6 +895,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </tbody>
                         </table>
                     </div>
+                    <div class="mobile-scroll-hint">&#8592; Прокрутите таблицу вправо и влево &#8594;</div>
                 `;
             }
         }
