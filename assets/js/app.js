@@ -14,7 +14,45 @@ document.addEventListener('DOMContentLoaded', function() {
         state.currentPage = pageId;
 
         // Update UI based on current page
-        if (pageId === 'step3-page') {
+        if (pageId === 'step1-page') {
+            // Сбрасываем выбор кнопок при переходе на первый шаг
+            document.querySelectorAll('#step1-page .option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.querySelector('#step1-page .next-btn').disabled = true;
+            
+            // Устанавливаем общую подсказку для первого шага
+            document.querySelector('#step1-page .card:last-child p').textContent = 
+                "Прошедшее время описывает действие, которое уже завершилось. Настоящее время используется для действий, происходящих сейчас или регулярно. Будущее время описывает то, что произойдет.";
+            
+            // Сбрасываем состояние, если пользователь начинает заново
+            state.selectedTimePeriod = null;
+            state.selectedActionType = null;
+            state.selectedClarification = null;
+        } else if (pageId === 'step2-page') {
+            // Сбрасываем выбор кнопок при переходе на второй шаг
+            document.querySelectorAll('#step2-page .option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.querySelector('#step2-page .next-btn').disabled = true;
+            
+            // Устанавливаем общую подсказку для второго шага, если нет выбранного периода времени
+            if (!state.selectedTimePeriod) {
+                document.querySelector('#step2-page .card:last-child p').textContent = 
+                    "Simple - простое действие или факт. Continuous - процесс в развитии. Perfect - результат действия. Perfect Continuous - длительный процесс с результатом.";
+            } else {
+                // Если период времени выбран, но тип действия не выбран, устанавливаем подсказку для выбранного периода
+                let periodHint = "Выберите характер действия, соответствующий вашей ситуации.";
+                if (state.selectedTimePeriod === 'past') {
+                    periodHint = "Выберите характер действия в прошлом. Simple для фактов, Continuous для процессов, Perfect для предшествующих действий, Perfect Continuous для длительных процессов с результатом.";
+                } else if (state.selectedTimePeriod === 'present') {
+                    periodHint = "Выберите характер действия в настоящем. Simple для регулярных действий, Continuous для текущих процессов, Perfect для завершенных действий с результатом, Perfect Continuous для длительных процессов.";
+                } else if (state.selectedTimePeriod === 'future') {
+                    periodHint = "Выберите характер действия в будущем. Simple для предсказаний, Continuous для процессов в будущем, Perfect для завершенных действий к моменту в будущем, Perfect Continuous для длительных процессов до момента в будущем.";
+                }
+                document.querySelector('#step2-page .card:last-child p').textContent = periodHint;
+            }
+        } else if (pageId === 'step3-page') {
             updateClarificationQuestion();
         } else if (pageId === 'result-page') {
             showResult();
@@ -54,6 +92,91 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Подсказки для каждого этапа
+    const hintData = {
+        // Подсказки для периода времени (шаг 1)
+        timePeriod: {
+            past: "Выберите «В прошлом», если действие уже произошло и закончилось в прошлом. Например: «Я сделал домашнюю работу вчера», «Она посетила Париж в прошлом году».",
+            present: "Выберите «В настоящем», если действие происходит сейчас, регулярно повторяется или представляет собой общую истину. Например: «Я работаю в офисе», «Я читаю книгу прямо сейчас», «Земля вращается вокруг Солнца».",
+            future: "Выберите «В будущем», если действие произойдет позже или планируется на будущее. Например: «Я поеду в отпуск следующим летом», «Она приготовит ужин завтра»."
+        },
+        // Подсказки для характера действия (шаг 2)
+        actionType: {
+            // Прошлое
+            past: {
+                simple: "Простой факт или законченное действие в прошлом. Например: «Я купил новую машину на прошлой неделе», «Она посетила Лондон в 2019 году».",
+                continuous: "Действие, которое было в процессе в определенный момент прошлого. Например: «В 7 вечера вчера я готовил ужин», «Когда он позвонил, я принимал душ».",
+                perfect: "Действие, которое произошло до другого действия или момента в прошлом. Например: «К 6 вечера я уже закончил работу», «Она уже ушла, когда я пришел».",
+                "perfect-continuous": "Длительное действие, которое началось и продолжалось до определенного момента в прошлом. Например: «К моменту выпуска я учился в этой школе 5 лет», «Она работала над проектом 3 часа до того, как шеф пришел»."
+            },
+            // Настоящее
+            present: {
+                simple: "Регулярное действие, факт или общая истина. Например: «Я работаю в банке», «Он играет в футбол по выходным», «Вода закипает при 100 градусах».",
+                continuous: "Действие, происходящее прямо сейчас или временно. Например: «Я читаю интересную книгу (сейчас или в целом в этот период)», «Она учит французский в этом семестре».",
+                perfect: "Действие, которое началось в прошлом и имеет результат или связь с настоящим. Например: «Я уже сделал домашнюю работу», «Она никогда не была в Париже».",
+                "perfect-continuous": "Действие, которое началось в прошлом и продолжается до настоящего момента. Например: «Я изучаю английский 5 лет», «Она ждет автобус уже 20 минут»."
+            },
+            // Будущее
+            future: {
+                simple: "Простое действие, которое произойдет в будущем. Например: «Я позвоню тебе завтра», «Она приедет на следующей неделе».",
+                continuous: "Действие, которое будет происходить в определенный момент в будущем. Например: «Завтра в 5 часов я буду работать», «В это время завтра она будет лететь в Лондон».",
+                perfect: "Действие, которое завершится к определенному моменту в будущем. Например: «К следующему вторнику я закончу проект», «К 2025 году она получит диплом».",
+                "perfect-continuous": "Действие, которое начнется в будущем и будет продолжаться до определенного момента в будущем. Например: «К концу года я буду работать в компании уже 10 лет», «К вечеру она будет учиться уже 8 часов»."
+            }
+        },
+        // Подсказки для уточняющих вопросов (шаг 3) могут быть добавлены здесь
+        clarification: {
+            // Структура будет добавлена в соответствии с выбранными опциями
+        }
+    };
+
+    // Функция для обновления подсказки
+    function updateHint(step, value, secondValue = null) {
+        let hintText = "";
+        
+        if (step === "time") {
+            hintText = hintData.timePeriod[value];
+        } else if (step === "action") {
+            if (state.selectedTimePeriod && value) {
+                hintText = hintData.actionType[state.selectedTimePeriod][value];
+            }
+        } else if (step === "clarification") {
+            // Для третьего шага подсказки можно добавить позже
+            hintText = "Отвечая на уточняющий вопрос, обратите внимание на конкретные обстоятельства действия. Это поможет точно определить нужное время.";
+        }
+        
+        // Обновляем текст подсказки на соответствующей странице с анимацией
+        let hintElement;
+        if (step === "time") {
+            hintElement = document.querySelector('#step1-page .card:last-child p');
+        } else if (step === "action") {
+            hintElement = document.querySelector('#step2-page .card:last-child p');
+        } else if (step === "clarification") {
+            hintElement = document.querySelector('#step3-page .card:last-child p');
+        }
+        
+        if (hintElement) {
+            // Добавляем анимацию с помощью классов
+            const hintBox = hintElement.closest('.hint-box');
+            if (hintBox) {
+                // Добавляем временный класс для анимации
+                hintBox.style.transition = 'all 0.3s ease';
+                hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
+                
+                // Обновляем текст подсказки
+                hintElement.textContent = hintText;
+                
+                // Возвращаем исходный фон через некоторое время
+                setTimeout(() => {
+                    hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
+                }, 300);
+            } else {
+                // Если нет блока hint-box, просто обновляем текст
+                hintElement.textContent = hintText;
+            }
+        }
+    }
+
     // Initialize option buttons in step 1
     document.querySelectorAll('#step1-page .option-btn').forEach(button => {
         button.addEventListener('click', function() {
@@ -67,6 +190,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update state
             state.selectedTimePeriod = this.getAttribute('data-value');
+            
+            // Update hint
+            updateHint("time", state.selectedTimePeriod);
             
             // Enable next button
             document.querySelector('#step1-page .next-btn').disabled = false;
@@ -87,6 +213,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update state
             state.selectedActionType = this.getAttribute('data-value');
             
+            // Update hint
+            updateHint("action", state.selectedActionType);
+            
             // Enable next button
             document.querySelector('#step2-page .next-btn').disabled = false;
         });
@@ -97,6 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const clarificationContainer = document.getElementById('clarification-question');
         let question = '';
         let options = [];
+        let clarificationHint = '';
 
         if (state.selectedTimePeriod === 'present') {
             if (state.selectedActionType === 'simple') {
@@ -105,24 +235,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     { value: 'yes', text: 'Да, это регулярное действие или факт' },
                     { value: 'no', text: 'Нет, это не регулярное действие' }
                 ];
+                clarificationHint = 'Для регулярных действий или общеизвестных фактов используйте Present Simple. Например: «Я каждый день хожу на работу», «Солнце встает на востоке».';
             } else if (state.selectedActionType === 'continuous') {
                 question = 'Это действие происходит прямо сейчас или временно?';
                 options = [
                     { value: 'yes', text: 'Да, это происходит прямо сейчас или временно' },
                     { value: 'no', text: 'Нет, это не происходит сейчас' }
                 ];
+                clarificationHint = 'Если действие происходит прямо сейчас или временно в настоящий период, используйте Present Continuous. Например: «Я сейчас разговариваю по телефону», «В этом году я изучаю испанский».';
             } else if (state.selectedActionType === 'perfect') {
                 question = 'Это действие, начавшееся в прошлом, с результатом в настоящем?';
                 options = [
                     { value: 'yes', text: 'Да, действие завершено с результатом в настоящем' },
                     { value: 'no', text: 'Нет, действие не имеет результата в настоящем' }
                 ];
+                clarificationHint = 'Когда нас интересует результат действия, а не время его совершения, используйте Present Perfect. Например: «Я уже посмотрел этот фильм», «Я никогда не был в Японии».';
             } else if (state.selectedActionType === 'perfect-continuous') {
                 question = 'Это действие, которое длится уже какое-то время до настоящего момента?';
                 options = [
                     { value: 'yes', text: 'Да, действие длится до настоящего момента' },
                     { value: 'no', text: 'Нет, действие не длится до настоящего момента' }
                 ];
+                clarificationHint = 'Для описания действия, которое началось в прошлом и продолжается до сих пор, используйте Present Perfect Continuous. Например: «Я изучаю английский уже 5 лет», «Она ждет автобус уже 20 минут».';
             }
         } else if (state.selectedTimePeriod === 'past') {
             if (state.selectedActionType === 'simple') {
@@ -131,24 +265,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     { value: 'yes', text: 'Да, это однократное завершенное действие' },
                     { value: 'no', text: 'Нет, это не однократное действие' }
                 ];
+                clarificationHint = 'Для завершенных действий в прошлом используйте Past Simple. Например: «Я вчера ходил в кино», «Она окончила университет в 2015 году».';
             } else if (state.selectedActionType === 'continuous') {
                 question = 'Это действие было в процессе в определенный момент прошлого?';
                 options = [
                     { value: 'yes', text: 'Да, действие было в процессе в конкретный момент' },
                     { value: 'no', text: 'Нет, действие не было в процессе в конкретный момент' }
                 ];
+                clarificationHint = 'Для действий, которые были в процессе в конкретный момент прошлого, используйте Past Continuous. Например: «Вчера в 8 вечера я смотрел фильм», «Когда зазвонил телефон, я принимал душ».';
             } else if (state.selectedActionType === 'perfect') {
                 question = 'Это действие произошло до другого действия в прошлом?';
                 options = [
                     { value: 'yes', text: 'Да, действие произошло до другого действия' },
                     { value: 'no', text: 'Нет, действие не предшествовало другому' }
                 ];
+                clarificationHint = 'Для действий, которые произошли до другого момента в прошлом, используйте Past Perfect. Например: «К моменту его приезда я уже приготовил ужин», «Она сказала, что уже видела этот фильм».';
             } else if (state.selectedActionType === 'perfect-continuous') {
                 question = 'Это длительное действие, которое продолжалось до определенного момента в прошлом?';
                 options = [
                     { value: 'yes', text: 'Да, действие продолжалось до определенного момента' },
                     { value: 'no', text: 'Нет, действие не продолжалось до определенного момента' }
                 ];
+                clarificationHint = 'Для длительных действий, которые продолжались до определенного момента в прошлом, используйте Past Perfect Continuous. Например: «К моменту нашей встречи она ждала уже два часа», «Я работал над проектом пять часов, прежде чем закончил его».';
             }
         } else if (state.selectedTimePeriod === 'future') {
             if (state.selectedActionType === 'simple') {
@@ -157,24 +295,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     { value: 'yes', text: 'Да, это предсказание, обещание или решение' },
                     { value: 'no', text: 'Нет, это не предсказание/обещание/решение' }
                 ];
+                clarificationHint = 'Для предсказаний, обещаний или спонтанных решений о будущем используйте Future Simple. Например: «Я позвоню тебе завтра», «Я думаю, он скоро приедет».';
             } else if (state.selectedActionType === 'continuous') {
                 question = 'Это действие будет происходить в определенный момент в будущем?';
                 options = [
                     { value: 'yes', text: 'Да, действие будет происходить в конкретный момент' },
                     { value: 'no', text: 'Нет, действие не будет происходить в конкретный момент' }
                 ];
+                clarificationHint = 'Для действий, которые будут происходить в определенный момент в будущем, используйте Future Continuous. Например: «Завтра в 10 утра я буду ехать на работу», «В это время завтра мы будем лететь в Париж».';
             } else if (state.selectedActionType === 'perfect') {
                 question = 'Это действие завершится к определенному моменту в будущем?';
                 options = [
                     { value: 'yes', text: 'Да, действие завершится к определенному моменту' },
                     { value: 'no', text: 'Нет, действие не завершится к определенному моменту' }
                 ];
+                clarificationHint = 'Для действий, которые завершатся к определенному моменту в будущем, используйте Future Perfect. Например: «К концу недели я закончу этот проект», «К 2025 году она получит степень доктора наук».';
             } else if (state.selectedActionType === 'perfect-continuous') {
                 question = 'Это действие, которое будет длиться до определенного момента в будущем?';
                 options = [
                     { value: 'yes', text: 'Да, действие будет длиться до определенного момента' },
                     { value: 'no', text: 'Нет, действие не будет длиться до определенного момента' }
                 ];
+                clarificationHint = 'Для действий, которые начнутся до определенного момента в будущем и будут продолжаться до этого момента, используйте Future Perfect Continuous. Например: «К концу года я буду работать в компании уже 10 лет», «К тому времени, когда он приедет, я буду ждать уже два часа».';
             }
         }
 
@@ -191,6 +333,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         clarificationContainer.innerHTML = html;
 
+        // Update hint for clarification step
+        document.querySelector('#step3-page .card:last-child p').textContent = clarificationHint;
+
         // Add event listeners to new buttons
         document.querySelectorAll('#clarification-question .option-btn').forEach(button => {
             button.addEventListener('click', function() {
@@ -204,6 +349,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Update state
                 state.selectedClarification = this.getAttribute('data-value');
+                
+                // Обновляем подсказку на основе выбранного уточнения
+                let resultHint = "";
+                const tense = determineTense();
+                
+                if (tense && tensesData[tense]) {
+                    const tenseData = tensesData[tense];
+                    
+                    // Формируем дополнительную информацию о времени
+                    resultHint = `Вы выбрали время ${tenseData.name} (${tenseData.translation}). Используйте его для: ${tenseData.usage[0].toLowerCase()}. Пример: "${tenseData.examples[0].original}" (${tenseData.examples[0].translation})`;
+                    
+                    // Обновляем подсказку
+                    document.querySelector('#step3-page .card:last-child p').textContent = resultHint;
+                    
+                    // Подсвечиваем блок подсказки
+                    const hintBox = document.querySelector('#step3-page .card:last-child .hint-box');
+                    if (hintBox) {
+                        hintBox.style.transition = 'all 0.3s ease';
+                        hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
+                        
+                        // Возвращаем исходный фон через некоторое время
+                        setTimeout(() => {
+                            hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
+                        }, 300);
+                    }
+                }
             });
         });
     }
