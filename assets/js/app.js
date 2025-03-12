@@ -375,7 +375,13 @@ document.addEventListener('DOMContentLoaded', function() {
             state.selectedClarification = 'yes';
             
             // Разблокируем кнопку "Показать результат"
-            document.querySelector('#step3-page .next-btn').disabled = false;
+            const nextButton = document.querySelector('#step3-page .next-btn');
+            nextButton.disabled = false;
+            
+            // Убедимся, что работает на мобильных устройствах, добавив явный обработчик событий
+            nextButton.onclick = function() {
+                navigateTo('result-page');
+            };
         } else {
             // Для обычного уточняющего вопроса обновляем заголовок
             document.querySelector('#step3-page .question-title').textContent = 'Уточняющий вопрос';
