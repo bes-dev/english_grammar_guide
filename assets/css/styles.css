@@ -703,7 +703,7 @@ header {
 .quiz-toggle-container {
     display: flex;
     align-items: center;
-    width: 100%;
+    flex-grow: 1;
 }
 
 .quiz-toggle-container.enhanced {
@@ -712,7 +712,16 @@ header {
     border-radius: 10px;
     border: 1px solid rgba(76, 201, 240, 0.1);
     transition: all 0.2s ease;
-    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .quiz-toggle-container {
+        width: 100%;
+    }
+    
+    .quiz-toggle-container.enhanced {
+        justify-content: center;
+    }
 }
 
 .quiz-toggle-container.enhanced:hover {
@@ -826,7 +835,13 @@ input:checked + .quiz-toggle-slider:before {
     border: 1px solid rgba(76, 201, 240, 0.1);
     font-size: 15px;
     transition: all 0.2s ease;
-    width: 100%;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .quiz-option-input.enhanced {
+        width: 100%;
+    }
 }
 
 .quiz-option-input.enhanced:hover {
@@ -916,17 +931,24 @@ input:checked + .quiz-toggle-slider:before {
     margin-bottom: 20px;
 }
 
+/* Десктопная версия (по умолчанию) */
 .quiz-option-group:not(#categories-config) {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+}
+
+/* Мобильная версия (применяется через медиа-запрос) */
+@media (max-width: 768px) {
+    .quiz-option-group:not(#categories-config) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 .config-header {
     display: flex;
     align-items: flex-start;
     margin-bottom: 15px;
-    width: 100%;
 }
 
 .config-icon {
@@ -953,16 +975,31 @@ input:checked + .quiz-toggle-slider:before {
     font-weight: 600;
     color: var(--primary);
     font-size: 16px;
-    margin-bottom: 8px;
-    display: block;
-    width: 100%;
+    margin-right: 10px;
+    min-width: 180px;
+}
+
+@media (max-width: 768px) {
+    .quiz-option-label {
+        margin-bottom: 8px;
+        margin-right: 0;
+        min-width: auto;
+        display: block;
+        width: 100%;
+    }
 }
 
 .quiz-option-select {
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
-    width: 100%;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .quiz-option-select {
+        width: 100%;
+    }
 }
 
 /* Стили для панели выбора категорий и подкатегорий */
@@ -1349,7 +1386,7 @@ input:checked + .quiz-toggle-slider:before {
         display: block;
     }
     
-    /* Мобильные стили уже применены глобально */
+    /* Специфические стили для мобильных устройств */
     
     .quiz-navigation {
         flex-direction: column;
