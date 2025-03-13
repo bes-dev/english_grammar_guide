@@ -802,6 +802,61 @@ input:checked + .quiz-toggle-slider:before {
     flex-grow: 1;
 }
 
+/* Стили для панели выбора категорий и подкатегорий */
+.quiz-categories-container {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    margin-top: 10px;
+}
+
+.quiz-category-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quiz-category-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.quiz-subcategories-container {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.quiz-subcategory-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.quiz-subcategory-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: rgba(76, 201, 240, 0.05);
+    border-radius: 15px;
+    transition: background-color 0.2s;
+}
+
+.quiz-subcategory-checkbox:hover {
+    background-color: rgba(76, 201, 240, 0.1);
+}
+
+.quiz-subcategory-checkbox input:checked + span {
+    color: var(--accent);
+    font-weight: 600;
+}
+
 .quiz-progress {
     margin-bottom: 20px;
 }

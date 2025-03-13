@@ -13,7 +13,21 @@ document.addEventListener('DOMContentLoaded', function() {
             correctAnswers: 0,
             totalQuestions: 10,
             isLoading: false,
-            useAI: false
+            useAI: false,
+            // Добавляем конфигурацию категорий и подкатегорий
+            categories: {
+                tenses: true
+            },
+            subcategories: {
+                grammar: true,
+                sentences: true,
+                words: true,
+                usage: true,
+                translation: true,
+                formula: true,
+                examples: true,
+                additional: true
+            }
         }
     };
 
@@ -1470,6 +1484,9 @@ document.addEventListener('DOMContentLoaded', function() {
         hideSection(questionScreen);
         hideSection(resultScreen);
 
+        // Инициализация состояния чекбоксов категорий и подкатегорий
+        initCategoryCheckboxes();
+
         // Используем делегирование событий для кнопки "На главную"
         // Добавляем один обработчик на родительский элемент
         document.getElementById('quiz-question-screen').addEventListener('click', function(event) {
@@ -1503,11 +1520,71 @@ document.addEventListener('DOMContentLoaded', function() {
                 apiKeyContainer.style.display = 'none';
             }
         });
+        
+        // Инициализация обработчиков для чекбоксов категорий и подкатегорий
+        function initCategoryCheckboxes() {
+            // Получаем все чекбоксы категорий
+            const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+            const subcategoryCheckboxes = document.querySelectorAll('.subcategory-checkbox');
+            
+            // Устанавливаем обработчики событий для категорий
+            categoryCheckboxes.forEach(checkbox => {
+                // Устанавливаем начальное состояние из state
+                const categoryId = checkbox.id.replace('category-', '');
+                checkbox.checked = state.quiz.categories[categoryId];
+                
+                // Обработчик изменения
+                checkbox.addEventListener('change', function() {
+                    const categoryId = this.id.replace('category-', '');
+                    state.quiz.categories[categoryId] = this.checked;
+                    
+                    // Получаем связанные подкатегории
+                    const relatedSubcategories = document.querySelectorAll(`[data-parent="${this.id}"] .subcategory-checkbox`);
+                    
+                    // Включаем/выключаем все подкатегории
+                    relatedSubcategories.forEach(subcategory => {
+                        subcategory.disabled = !this.checked;
+                        
+                        // Если категория выключена, то подкатегории тоже выключены
+                        if (!this.checked) {
+                            subcategory.parentElement.style.opacity = '0.5';
+                        } else {
+                            subcategory.parentElement.style.opacity = '1';
+                        }
+                    });
+                });
+                
+                // Вызываем событие изменения для установки начального состояния
+                checkbox.dispatchEvent(new Event('change'));
+            });
+            
+            // Устанавливаем обработчики событий для подкатегорий
+            subcategoryCheckboxes.forEach(checkbox => {
+                // Устанавливаем начальное состояние из state
+                const subcategoryId = checkbox.id.replace('subcategory-', '');
+                checkbox.checked = state.quiz.subcategories[subcategoryId];
+                
+                // Обработчик изменения
+                checkbox.addEventListener('change', function() {
+                    const subcategoryId = this.id.replace('subcategory-', '');
+                    state.quiz.subcategories[subcategoryId] = this.checked;
+                });
+            });
+        }
 
         // Начало викторины
         startBtn.addEventListener('click', async function() {
             // Получаем выбранное количество вопросов
             state.quiz.totalQuestions = parseInt(questionsCountSelect.value);
+
+            // Проверка, что выбрана хотя бы одна категория и подкатегория
+            const hasSelectedCategories = Object.values(state.quiz.categories).some(value => value === true);
+            const hasSelectedSubcategories = Object.values(state.quiz.subcategories).some(value => value === true);
+            
+            if (!hasSelectedCategories || !hasSelectedSubcategories) {
+                alert('Пожалуйста, выберите хотя бы одну категорию и подкатегорию для викторины.');
+                return;
+            }
 
             // Если используем AI-генерацию, проверяем наличие API ключа
             if (state.quiz.useAI) {
@@ -1531,6 +1608,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     loadingIndicator.style.display = 'none';
                     startBtn.disabled = false;
 
+                    // Убедимся, что у нас есть хотя бы один вопрос
+                    if (!state.quiz.questions || state.quiz.questions.length === 0) {
+                        throw new Error('Не удалось сгенерировать вопросы');
+                    }
+
                     // Показываем экран вопроса
                     hideSection(startScreen);
                     showSection(questionScreen);
@@ -1552,16 +1634,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     startBtn.disabled = true;
 
                     // Используем стандартные вопросы из JSON-файла
-                    await prepareQuiz();
+                    const quizPrepared = await prepareQuiz();
+                    
+                    // Скрываем индикатор загрузки
+                    loadingIndicator.style.display = 'none';
+                    startBtn.disabled = false;
+                    
+                    // Проверяем результат подготовки викторины
+                    if (!quizPrepared) {
+                        // prepareQuiz уже показало сообщение об ошибке
+                        return;
+                    }
 
                     // Убедимся, что у нас есть хотя бы один вопрос
                     if (!state.quiz.questions || state.quiz.questions.length === 0) {
                         throw new Error('Нет доступных вопросов для викторины');
                     }
-
-                    // Скрываем индикатор загрузки
-                    loadingIndicator.style.display = 'none';
-                    startBtn.disabled = false;
 
                     // Показываем экран вопроса
                     hideSection(startScreen);
@@ -1660,25 +1748,48 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Подготовка викторины с вопросами из JSON');
 
             // Получаем вопросы с помощью функции loadStandardQuestions
-            const availableQuestions = await loadStandardQuestions();
+            const allQuestions = await loadStandardQuestions();
 
             // Проверяем, что у нас есть вопросы
-            if (!availableQuestions || availableQuestions.length === 0) {
+            if (!allQuestions || allQuestions.length === 0) {
                 throw new Error('Не удалось загрузить вопросы для викторины');
             }
 
-            console.log('Подготовка викторины, доступно вопросов:', availableQuestions.length);
+            console.log('Подготовка викторины, всего доступно вопросов:', allQuestions.length);
+
+            // Фильтруем вопросы по выбранным категориям и подкатегориям
+            const filteredQuestions = allQuestions.filter(question => {
+                // Проверяем, что категория включена
+                if (!question.category || !state.quiz.categories[question.category]) {
+                    return false;
+                }
+                
+                // Проверяем, что подкатегория включена
+                if (!question.subcategory || !state.quiz.subcategories[question.subcategory]) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            console.log('После фильтрации осталось вопросов:', filteredQuestions.length);
+            
+            // Если нет вопросов после фильтрации, показываем сообщение
+            if (filteredQuestions.length === 0) {
+                alert('Нет вопросов, соответствующих выбранным категориям и подкатегориям. Пожалуйста, измените настройки фильтрации.');
+                return false; // Возвращаем false, чтобы сигнализировать об ошибке
+            }
 
             // Регулируем количество вопросов в викторине
-            if (availableQuestions.length < state.quiz.totalQuestions) {
-                console.log('Доступно вопросов: ' + availableQuestions.length + ', запрошено: ' + state.quiz.totalQuestions);
+            if (filteredQuestions.length < state.quiz.totalQuestions) {
+                console.log('Доступно вопросов: ' + filteredQuestions.length + ', запрошено: ' + state.quiz.totalQuestions);
                 // Если вопросов меньше, чем запрошено, уменьшаем количество
-                state.quiz.totalQuestions = availableQuestions.length;
+                state.quiz.totalQuestions = filteredQuestions.length;
                 console.log('Новое количество вопросов в викторине:', state.quiz.totalQuestions);
             }
 
             // Перемешиваем массив вопросов
-            const shuffledQuestions = shuffleArray([...availableQuestions]);
+            const shuffledQuestions = shuffleArray([...filteredQuestions]);
 
             // Берем нужное количество вопросов
             state.quiz.questions = shuffledQuestions.slice(0, state.quiz.totalQuestions);
@@ -1688,6 +1799,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Обновляем счетчики
             document.getElementById('total-questions').textContent = state.quiz.totalQuestions;
             document.getElementById('total-answers').textContent = state.quiz.totalQuestions;
+            
+            // Возвращаем true если всё успешно
+            return true;
         } catch (error) {
             console.error('Ошибка при подготовке викторины:', error);
 
@@ -1705,10 +1819,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Обновляем счетчики
                 document.getElementById('total-questions').textContent = state.quiz.totalQuestions;
                 document.getElementById('total-answers').textContent = state.quiz.totalQuestions;
+                
+                return true; // Возвращаем true, так как смогли подготовить вопросы
             } else {
                 // Если даже резервные вопросы недоступны, показываем ошибку
                 alert('Произошла ошибка при подготовке викторины: ' + error.message);
-                throw error;
+                return false; // Возвращаем false, чтобы сигнализировать об ошибке
             }
         }
     }
@@ -1916,6 +2032,19 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: "future-perfect-continuous", text: "Future Perfect Continuous" },
             { id: "going-to-future", text: "Going to Future" }
         ];
+        
+        // Получаем выбранные категории и подкатегории
+        const selectedCategories = Object.entries(state.quiz.categories)
+            .filter(([_, value]) => value)
+            .map(([key, _]) => key);
+            
+        const selectedSubcategories = Object.entries(state.quiz.subcategories)
+            .filter(([_, value]) => value)
+            .map(([key, _]) => key);
+            
+        // Преобразуем их для вставки в промпт
+        const categoriesStr = selectedCategories.join(', ');
+        const subcategoriesStr = selectedSubcategories.join(', ');
 
         // Строим промпт для OpenAI
         const prompt = `Создай ${numQuestions} вопросов для викторины по временам английского языка.
@@ -1931,6 +2060,8 @@ document.addEventListener('DOMContentLoaded', function() {
 [
   {
     "question": "Это время используется для регулярных, повторяющихся действий и общеизвестных фактов.",
+    "category": "tenses",
+    "subcategory": "grammar",
     "correctAnswer": "present-simple",
     "options": [
       { "id": "present-simple", "text": "Present Simple" },
@@ -1944,11 +2075,17 @@ document.addEventListener('DOMContentLoaded', function() {
 Доступные времена (id и text должны точно соответствовать этому списку):
 ${JSON.stringify(tenseOptions, null, 2)}
 
+Выбранные категории: ${categoriesStr}
+Выбранные подкатегории: ${subcategoriesStr}
+
 Важно:
 - Используй только указанные выше id и text для вариантов ответов
 - У каждого вопроса должно быть ровно 4 варианта ответа (1 правильный и 3 неправильных)
 - Все варианты в options должны быть уникальны (не повторяться)
 - Вопросы должны быть разнообразными и охватывать разные времена
+- Каждый вопрос должен иметь поля category и subcategory из списка выбранных
+- Категория всегда должна быть "tenses" (в текущей версии пока только она доступна)
+- Подкатегория должна выбираться из: grammar, sentences, words, usage, formula, translation, examples, additional
 - Формат JSON должен быть строго соблюден
 
 Верни только JSON без дополнительного текста.`;
@@ -1996,6 +2133,23 @@ ${JSON.stringify(tenseOptions, null, 2)}
             const validQuestions = questions.filter(q => {
                 // Проверяем наличие всех необходимых полей
                 if (!q.question || !q.correctAnswer || !q.options || q.options.length !== 4) {
+                    return false;
+                }
+                
+                // Проверяем наличие полей category и subcategory
+                if (!q.category || !q.subcategory) {
+                    // Если полей нет, добавляем их со значениями по умолчанию
+                    q.category = 'tenses';
+                    q.subcategory = 'grammar';
+                }
+                
+                // Проверяем, что категория выбрана пользователем
+                if (!state.quiz.categories[q.category]) {
+                    return false;
+                }
+                
+                // Проверяем, что подкатегория выбрана пользователем
+                if (!state.quiz.subcategories[q.subcategory]) {
                     return false;
                 }
 

@@ -526,6 +526,59 @@
                                 <small>Ключ не будет сохранен на сервере и используется только для генерации вопросов.</small>
                             </div>
                         </div>
+                        
+                        <!-- Новая панель конфигурации для категорий и подкатегорий -->
+                        <div class="quiz-option-group" id="categories-config">
+                            <label class="quiz-option-label">Выбор категорий и подкатегорий:</label>
+                            <div class="quiz-categories-container">
+                                <div class="quiz-category-row">
+                                    <label class="quiz-category-checkbox">
+                                        <input type="checkbox" id="category-tenses" class="category-checkbox" checked>
+                                        <span>Времена глаголов</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="quiz-subcategories-container">
+                                    <!-- Подкатегории для времён -->
+                                    <div class="quiz-subcategory-row" data-parent="category-tenses">
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-grammar" class="subcategory-checkbox" checked>
+                                            <span>Грамматика</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-sentences" class="subcategory-checkbox" checked>
+                                            <span>Предложения</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-words" class="subcategory-checkbox" checked>
+                                            <span>Слова-маркеры</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-usage" class="subcategory-checkbox" checked>
+                                            <span>Использование</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-translation" class="subcategory-checkbox" checked>
+                                            <span>Перевод</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-formula" class="subcategory-checkbox" checked>
+                                            <span>Формулы</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-examples" class="subcategory-checkbox" checked>
+                                            <span>Примеры</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-additional" class="subcategory-checkbox" checked>
+                                            <span>Дополнительно</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Место для добавления других категорий в будущем -->
+                            </div>
+                        </div>
                     </div>
                     
                     <button id="start-quiz-btn" class="btn btn-primary btn-block" style="margin-top: 20px;">Начать викторину</button>
