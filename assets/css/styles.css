@@ -912,6 +912,11 @@ input:checked + .quiz-toggle-slider:before {
     margin-right: 15px;
 }
 
+.quiz-buttons {
+    display: flex;
+    gap: 10px;
+}
+
 .quiz-feedback.correct {
     color: var(--success);
 }

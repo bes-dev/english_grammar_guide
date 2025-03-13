@@ -1463,11 +1463,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const apiKeyContainer = document.getElementById('api-key-container');
         const questionsCountSelect = document.getElementById('quiz-questions-count');
         const loadingIndicator = document.getElementById('loading-indicator');
+        const homeBtn = document.getElementById('quiz-home-btn');
 
         // Показываем начальный экран и скрываем остальные
         showSection(startScreen);
         hideSection(questionScreen);
         hideSection(resultScreen);
+        
+        // Добавляем обработчик для кнопки "На главную" в режиме вопросов
+        if (homeBtn) {
+            homeBtn.addEventListener('click', function() {
+                navigateTo('home');
+            });
+        }
 
         // Обработчик переключателя AI-генерации
         useAIToggle.addEventListener('change', function() {
@@ -1752,6 +1760,12 @@ document.addEventListener('DOMContentLoaded', function() {
         answerElements.forEach(answer => {
             answer.addEventListener('click', handleAnswerSelection);
         });
+        
+        // Добавляем обработчик для кнопки "На главную"
+        const homeBtn = document.getElementById('quiz-home-btn');
+        homeBtn.onclick = function() {
+            navigateTo('home');
+        };
     }
 
     // Обработка выбора ответа
