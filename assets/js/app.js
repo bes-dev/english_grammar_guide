@@ -1470,15 +1470,8 @@ document.addEventListener('DOMContentLoaded', function() {
         hideSection(questionScreen);
         hideSection(resultScreen);
 
-        // Добавляем обработчик для кнопки "На главную" в режиме вопросов
-        if (homeBtn) {
-            homeBtn.addEventListener('click', function() {
-                // Показываем подтверждение
-                if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
-                    navigateTo('home');
-                }
-            });
-        }
+        // Удаляем привязку событий для кнопки "На главную", чтобы избежать дублирования
+        // Обработчик будет добавлен позже в функции showQuestion
 
         // Обработчик переключателя AI-генерации
         useAIToggle.addEventListener('change', function() {
@@ -1766,10 +1759,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Добавляем обработчик для кнопки "На главную"
         const homeBtn = document.getElementById('quiz-home-btn');
+        // Удаляем предыдущие обработчики, если они есть
+        homeBtn.onclick = null;
+        // Устанавливаем новый обработчик
         homeBtn.onclick = function() {
             // Показываем подтверждение
             if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
-                navigateTo('home');
+                navigateTo('home-page');
             }
         };
     }

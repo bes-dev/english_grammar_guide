@@ -914,6 +914,7 @@ input:checked + .quiz-toggle-slider:before {
 
 .quiz-buttons {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     flex-shrink: 0;
 }
@@ -1073,6 +1074,14 @@ input:checked + .quiz-toggle-slider:before {
     
     .quiz-buttons button {
         width: 100%;
+    }
+    
+    #next-question-btn {
+        order: 1;
+    }
+    
+    #quiz-home-btn {
+        order: 2;
     }
     
     .quiz-actions {
