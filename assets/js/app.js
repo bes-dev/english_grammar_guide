@@ -16,14 +16,15 @@ document.addEventListener('DOMContentLoaded', function() {
             useAI: false,
             // Добавляем конфигурацию категорий и подкатегорий
             categories: {
-                tenses: true
+                tenses: true,
+                conditionals: true,
+                'passive-voice': true
             },
             subcategories: {
                 grammar: true,
                 sentences: true,
                 words: true,
                 usage: true,
-                translation: true,
                 formula: true,
                 examples: true,
                 additional: true
@@ -1521,6 +1522,45 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        // Функция для обновления цвета кнопки начала викторины
+        function updateStartQuizButtonColor() {
+            const startBtn = document.getElementById('start-quiz-btn');
+            const activeCategories = Object.entries(state.quiz.categories).filter(([_, value]) => value);
+            
+            // Получаем количество активных категорий
+            const count = activeCategories.length;
+            
+            if (count === 0) {
+                // Если нет активных категорий - серый цвет
+                startBtn.style.background = 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)';
+                startBtn.style.boxShadow = '0 6px 15px rgba(100, 116, 139, 0.3)';
+                startBtn.disabled = true;
+            } else if (count === 1) {
+                // Если только одна категория
+                const category = activeCategories[0][0];
+                
+                if (category === 'tenses') {
+                    // Тема "Времена" - синий градиент
+                    startBtn.style.background = 'linear-gradient(135deg, #4361ee 0%, #3f37c9 100%)';
+                    startBtn.style.boxShadow = '0 6px 15px rgba(67, 97, 238, 0.3)';
+                } else if (category === 'conditionals') {
+                    // Тема "Условные предложения" - фиолетовый градиент
+                    startBtn.style.background = 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)';
+                    startBtn.style.boxShadow = '0 6px 15px rgba(139, 92, 246, 0.3)';
+                } else if (category === 'passive-voice') {
+                    // Тема "Пассивный залог" - зеленый градиент
+                    startBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                    startBtn.style.boxShadow = '0 6px 15px rgba(16, 185, 129, 0.3)';
+                }
+                startBtn.disabled = false;
+            } else {
+                // Если несколько категорий - разноцветный градиент
+                startBtn.style.background = 'linear-gradient(135deg, #4361ee 0%, #4cc9f0 50%, #7c3aed 100%)';
+                startBtn.style.boxShadow = '0 6px 15px rgba(67, 97, 238, 0.3)';
+                startBtn.disabled = false;
+            }
+        }
+        
         // Инициализация обработчиков для чекбоксов категорий и подкатегорий
         function initCategoryCheckboxes() {
             // Получаем все чекбоксы категорий
@@ -1531,7 +1571,10 @@ document.addEventListener('DOMContentLoaded', function() {
             categoryCheckboxes.forEach(checkbox => {
                 // Устанавливаем начальное состояние из state
                 const categoryId = checkbox.id.replace('category-', '');
-                checkbox.checked = state.quiz.categories[categoryId];
+                checkbox.checked = state.quiz.categories[categoryId] !== undefined ? state.quiz.categories[categoryId] : true;
+                
+                // Обновляем стейт в соответствии с текущим состоянием чекбокса
+                state.quiz.categories[categoryId] = checkbox.checked;
                 
                 // Обработчик изменения
                 checkbox.addEventListener('change', function() {
@@ -1547,11 +1590,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Если категория выключена, то подкатегории тоже выключены
                         if (!this.checked) {
+                            subcategory.parentElement.classList.add('disabled');
                             subcategory.parentElement.style.opacity = '0.5';
                         } else {
+                            subcategory.parentElement.classList.remove('disabled');
                             subcategory.parentElement.style.opacity = '1';
                         }
                     });
+                    
+                    // Адаптируем цвет кнопки начала викторины в зависимости от выбранных категорий
+                    updateStartQuizButtonColor();
                 });
                 
                 // Вызываем событие изменения для установки начального состояния
@@ -1562,12 +1610,24 @@ document.addEventListener('DOMContentLoaded', function() {
             subcategoryCheckboxes.forEach(checkbox => {
                 // Устанавливаем начальное состояние из state
                 const subcategoryId = checkbox.id.replace('subcategory-', '');
-                checkbox.checked = state.quiz.subcategories[subcategoryId];
+                checkbox.checked = state.quiz.subcategories[subcategoryId] !== undefined ? state.quiz.subcategories[subcategoryId] : true;
+                
+                // Обновляем стейт в соответствии с текущим состоянием чекбокса
+                state.quiz.subcategories[subcategoryId] = checkbox.checked;
                 
                 // Обработчик изменения
                 checkbox.addEventListener('change', function() {
                     const subcategoryId = this.id.replace('subcategory-', '');
                     state.quiz.subcategories[subcategoryId] = this.checked;
+                    
+                    // Добавляем визуальный эффект при клике
+                    const parentLabel = this.closest('.quiz-subcategory-checkbox');
+                    if (this.checked) {
+                        parentLabel.style.backgroundColor = 'rgba(76, 201, 240, 0.15)';
+                        setTimeout(() => {
+                            parentLabel.style.backgroundColor = '';
+                        }, 300);
+                    }
                 });
             });
         }
@@ -1759,13 +1819,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Фильтруем вопросы по выбранным категориям и подкатегориям
             const filteredQuestions = allQuestions.filter(question => {
-                // Проверяем, что категория включена
-                if (!question.category || !state.quiz.categories[question.category]) {
+                // Нормализуем имена категорий для соответствия нашим ID
+                let categoryId = question.category;
+                
+                // Обработка особого случая с категорией "passive voice"
+                if (categoryId === 'passive voice') {
+                    categoryId = 'passive-voice';
+                }
+                
+                // Проверяем, что категория существует и включена
+                if (!categoryId || state.quiz.categories[categoryId] === undefined || !state.quiz.categories[categoryId]) {
                     return false;
                 }
                 
                 // Проверяем, что подкатегория включена
-                if (!question.subcategory || !state.quiz.subcategories[question.subcategory]) {
+                if (!question.subcategory || state.quiz.subcategories[question.subcategory] === undefined || !state.quiz.subcategories[question.subcategory]) {
                     return false;
                 }
                 
@@ -2045,16 +2113,28 @@ document.addEventListener('DOMContentLoaded', function() {
         // Преобразуем их для вставки в промпт
         const categoriesStr = selectedCategories.join(', ');
         const subcategoriesStr = selectedSubcategories.join(', ');
+        
+        // Определяем тематики для вопросов на основе выбранных категорий
+        const topicsMap = {
+            'tenses': 'временам',
+            'conditionals': 'условным предложениям',
+            'passive-voice': 'пассивному залогу'
+        };
+        
+        // Формируем список тем для промпта
+        const topicsList = selectedCategories
+            .map(category => topicsMap[category] || category)
+            .join(', ');
 
         // Строим промпт для OpenAI
-        const prompt = `Создай ${numQuestions} вопросов для викторины по временам английского языка.
+        const prompt = `Создай ${numQuestions} вопросов для викторины по ${topicsList} английского языка.
 Для каждого вопроса укажи правильный ответ и 3 неправильных варианта.
 Вопросы должны быть на русском языке и могут быть следующих типов:
-1. Описание случаев использования времени
-2. Определение времени в конкретном предложении
-3. Выбор правильной формулы построения для времени
-4. Определение времени по словам-маркерам
-5. Дано предложение на английском - определить время
+1. Описание случаев использования грамматической конструкции
+2. Определение типа конструкции в конкретном предложении
+3. Выбор правильной формулы построения
+4. Определение конструкции по словам-маркерам
+5. Дано предложение на английском - определить тип конструкции
 
 Формат ответа должен быть в JSON, например:
 [

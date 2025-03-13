@@ -498,8 +498,14 @@
                     
                     <div class="quiz-options">
                         <div class="quiz-option-group">
-                            <label class="quiz-option-label">Количество вопросов:</label>
-                            <select id="quiz-questions-count" class="quiz-option-select">
+                            <div class="config-header">
+                                <div class="config-icon">🔢</div>
+                                <div>
+                                    <label class="quiz-option-label">Количество вопросов</label>
+                                    <p class="config-description">Выберите количество вопросов для викторины. Чем больше вопросов, тем дольше продлится тест.</p>
+                                </div>
+                            </div>
+                            <select id="quiz-questions-count" class="quiz-option-select enhanced">
                                 <option value="5">5 вопросов</option>
                                 <option value="10" selected>10 вопросов</option>
                                 <option value="15">15 вопросов</option>
@@ -508,8 +514,14 @@
                         </div>
                         
                         <div class="quiz-option-group">
-                            <label class="quiz-option-label">Источник вопросов:</label>
-                            <div class="quiz-toggle-container">
+                            <div class="config-header">
+                                <div class="config-icon">🤖</div>
+                                <div>
+                                    <label class="quiz-option-label">Источник вопросов</label>
+                                    <p class="config-description">Выберите, хотите ли вы использовать стандартные вопросы из базы или создать новые с помощью искусственного интеллекта.</p>
+                                </div>
+                            </div>
+                            <div class="quiz-toggle-container enhanced">
                                 <span class="quiz-toggle-label">Стандартные</span>
                                 <label class="quiz-toggle">
                                     <input type="checkbox" id="use-ai-toggle">
@@ -520,17 +532,33 @@
                         </div>
                         
                         <div id="api-key-container" class="quiz-option-group" style="display: none;">
-                            <label class="quiz-option-label">OpenAI API Key:</label>
-                            <input type="password" id="openai-api-key" class="quiz-option-input" placeholder="Введите ваш API ключ">
-                            <div class="api-key-info">
-                                <small>Ключ не будет сохранен на сервере и используется только для генерации вопросов.</small>
+                            <div class="config-header">
+                                <div class="config-icon">🔑</div>
+                                <div>
+                                    <label class="quiz-option-label">OpenAI API Key</label>
+                                    <p class="config-description">Введите ваш API ключ OpenAI для генерации новых вопросов. Ключ не будет сохранен на сервере и используется только для создания вопросов.</p>
+                                </div>
+                            </div>
+                            <div class="api-key-input-container">
+                                <input type="password" id="openai-api-key" class="quiz-option-input enhanced" placeholder="Введите ваш API ключ">
+                                <div class="api-key-info">
+                                    <span class="api-key-security-icon">🔒</span>
+                                    <span>Ваш ключ будет использован только для этой сессии и не будет сохранён</span>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Новая панель конфигурации для категорий и подкатегорий -->
+                        <!-- Обновленная панель конфигурации для категорий и подкатегорий -->
                         <div class="quiz-option-group" id="categories-config">
-                            <label class="quiz-option-label">Выбор категорий и подкатегорий:</label>
+                            <div class="config-header">
+                                <div class="config-icon">🔍</div>
+                                <div>
+                                    <label class="quiz-option-label">Выбор тем и типов вопросов</label>
+                                    <p class="config-description">Настройте свою викторину, выбрав темы и типы вопросов, которые вы хотите включить. Отметьте интересующие вас категории и подкатегории.</p>
+                                </div>
+                            </div>
                             <div class="quiz-categories-container">
+                                <!-- Категория: Времена глаголов -->
                                 <div class="quiz-category-row">
                                     <label class="quiz-category-checkbox">
                                         <input type="checkbox" id="category-tenses" class="category-checkbox" checked>
@@ -539,7 +567,6 @@
                                 </div>
                                 
                                 <div class="quiz-subcategories-container">
-                                    <!-- Подкатегории для времён -->
                                     <div class="quiz-subcategory-row" data-parent="category-tenses">
                                         <label class="quiz-subcategory-checkbox">
                                             <input type="checkbox" id="subcategory-grammar" class="subcategory-checkbox" checked>
@@ -558,10 +585,6 @@
                                             <span>Использование</span>
                                         </label>
                                         <label class="quiz-subcategory-checkbox">
-                                            <input type="checkbox" id="subcategory-translation" class="subcategory-checkbox" checked>
-                                            <span>Перевод</span>
-                                        </label>
-                                        <label class="quiz-subcategory-checkbox">
                                             <input type="checkbox" id="subcategory-formula" class="subcategory-checkbox" checked>
                                             <span>Формулы</span>
                                         </label>
@@ -576,12 +599,63 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Место для добавления других категорий в будущем -->
+                                <!-- Категория: Условные предложения -->
+                                <div class="quiz-category-row">
+                                    <label class="quiz-category-checkbox">
+                                        <input type="checkbox" id="category-conditionals" class="category-checkbox" checked>
+                                        <span>Условные предложения</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="quiz-subcategories-container">
+                                    <div class="quiz-subcategory-row" data-parent="category-conditionals">
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-grammar" class="subcategory-checkbox" checked>
+                                            <span>Грамматика</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-sentences" class="subcategory-checkbox" checked>
+                                            <span>Предложения</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-usage" class="subcategory-checkbox" checked>
+                                            <span>Использование</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-formula" class="subcategory-checkbox" checked>
+                                            <span>Формулы</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Категория: Пассивный залог -->
+                                <div class="quiz-category-row">
+                                    <label class="quiz-category-checkbox">
+                                        <input type="checkbox" id="category-passive-voice" class="category-checkbox" checked>
+                                        <span>Пассивный залог</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="quiz-subcategories-container">
+                                    <div class="quiz-subcategory-row" data-parent="category-passive-voice">
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-formula" class="subcategory-checkbox" checked>
+                                            <span>Формулы</span>
+                                        </label>
+                                        <label class="quiz-subcategory-checkbox">
+                                            <input type="checkbox" id="subcategory-sentences" class="subcategory-checkbox" checked>
+                                            <span>Предложения</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <button id="start-quiz-btn" class="btn btn-primary btn-block" style="margin-top: 20px;">Начать викторину</button>
+                    <button id="start-quiz-btn" class="btn btn-primary btn-block btn-large btn-start-quiz" style="margin-top: 30px;">
+                        <span class="btn-icon">🚀</span>
+                        <span class="btn-text">Начать викторину</span>
+                    </button>
                     <div id="loading-indicator" class="loading-spinner" style="display: none;">
                         <div class="spinner"></div>
                         <div class="loading-text">Генерация вопросов с помощью AI...</div>
