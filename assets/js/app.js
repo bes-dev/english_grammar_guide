@@ -1464,15 +1464,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const apiKeyContainer = document.getElementById('api-key-container');
         const questionsCountSelect = document.getElementById('quiz-questions-count');
         const loadingIndicator = document.getElementById('loading-indicator');
-        const homeBtn = document.getElementById('quiz-home-btn');
 
         // Показываем начальный экран и скрываем остальные
         showSection(startScreen);
         hideSection(questionScreen);
         hideSection(resultScreen);
 
-        // Удаляем привязку событий для кнопки "На главную", чтобы избежать дублирования
-        // Обработчик будет добавлен позже в функции showQuestion
+        // Используем делегирование событий для кнопки "На главную"
+        // Добавляем один обработчик на родительский элемент
+        document.getElementById('quiz-question-screen').addEventListener('click', function(event) {
+            // Проверяем, был ли клик по кнопке "На главную" или её потомкам
+            const homeBtn = document.getElementById('quiz-home-btn');
+            if (event.target === homeBtn || homeBtn.contains(event.target)) {
+                // Предотвращаем стандартное поведение и всплытие события
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Показываем подтверждение
+                if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
+                    // Переходим на главную
+                    document.getElementById('quiz-page').classList.remove('active');
+                    document.getElementById('home-page').classList.add('active');
+                    state.currentPage = 'home-page';
+                    
+                    // Активируем все нужные элементы на главной
+                    loadTensesData();
+                    loadIrregularVerbs();
+                }
+            }
+        });
 
         // Обработчик переключателя AI-генерации
         useAIToggle.addEventListener('change', function() {
@@ -1761,31 +1781,8 @@ document.addEventListener('DOMContentLoaded', function() {
             answer.addEventListener('click', handleAnswerSelection);
         });
 
-        // Добавляем обработчик для кнопки "На главную"
-        const homeBtn = document.getElementById('quiz-home-btn');
-        
-        // Очищаем все обработчики событий с кнопки, создавая клон
-        const newHomeBtn = homeBtn.cloneNode(true);
-        homeBtn.parentNode.replaceChild(newHomeBtn, homeBtn);
-        
-        // Устанавливаем новый обработчик на клонированную кнопку
-        newHomeBtn.addEventListener('click', function(event) {
-            // Предотвращаем стандартное поведение и всплытие события
-            event.preventDefault();
-            event.stopPropagation();
-            
-            // Показываем подтверждение только один раз
-            if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
-                // Переходим на главную
-                document.getElementById('quiz-page').classList.remove('active');
-                document.getElementById('home-page').classList.add('active');
-                state.currentPage = 'home-page';
-                
-                // Активируем все нужные элементы на главной
-                loadTensesData();
-                loadIrregularVerbs();
-            }
-        });
+        // Обратите внимание: обработчик для кнопки "На главную" добавляется 
+        // на родительский элемент один раз в функции initQuiz(), используя делегирование событий
     }
 
     // Обработка выбора ответа
