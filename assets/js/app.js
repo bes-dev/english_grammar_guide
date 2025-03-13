@@ -1512,11 +1512,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 questionElement.textContent = '';
             }
             
-            // Сбрасываем состояние кнопки "Следующий вопрос" - просто блокируем ее
-            const nextBtn = document.getElementById('next-question-btn');
-            if (nextBtn) {
-                nextBtn.disabled = true;
-            }
+            // Создаем новую кнопку "Следующий вопрос" в заблокированном состоянии
+            createNewNextButton(false);
         }
 
         // Показываем начальный экран и скрываем остальные
@@ -1767,30 +1764,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Используем делегирование событий для кнопки "Следующий вопрос"
-        // Добавляем обработчик к родительскому элементу (контейнеру кнопок)
-        const quizNavigationContainer = document.querySelector('.quiz-navigation');
-        quizNavigationContainer.addEventListener('click', function(event) {
-            // Проверяем, был ли клик по кнопке "Следующий вопрос" или её потомкам
-            const nextBtn = document.getElementById('next-question-btn');
-            if (event.target === nextBtn || nextBtn.contains(event.target)) {
-                // Проверяем, активна ли кнопка
-                if (!nextBtn.disabled) {
-                    // Вызываем функцию перехода к следующему вопросу
-                    goToNextQuestion();
-                }
-            }
-        });
+        // Создаем кнопку "Следующий вопрос" при инициализации викторины
+        createNewNextButton(false);
         
-        // Добавим дополнительную клавиатурную навигацию для доступности
+        // Добавляем обработчик для клавиатурной навигации для доступности
         document.addEventListener('keydown', function(event) {
-            // Если нажата клавиша Enter или Space, и кнопка "Следующий вопрос" активна
-            const nextBtn = document.getElementById('next-question-btn');
+            // Если нажата клавиша Enter или Space, и есть выбранный ответ
             if ((event.key === 'Enter' || event.key === ' ') && 
-                nextBtn && !nextBtn.disabled &&
                 document.querySelector('.quiz-answer.selected')) {
-                // Вызываем функцию перехода к следующему вопросу
-                goToNextQuestion();
+                
+                // Находим кнопку "Следующий вопрос"
+                const nextBtn = document.getElementById('next-question-btn');
+                
+                // Проверяем, активна ли кнопка
+                if (nextBtn && !nextBtn.disabled) {
+                    // Программно запускаем клик по кнопке
+                    nextBtn.click();
+                }
             }
         });
 
@@ -2005,9 +1995,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Устанавливаем HTML вариантов ответов
         answersElement.innerHTML = answersHTML;
 
-        // Сбрасываем состояние кнопки "Следующий вопрос" - просто блокируем её
-        const nextBtn = document.getElementById('next-question-btn');
-        nextBtn.disabled = true;
+        // Создаем новую кнопку "Следующий вопрос" для нового вопроса
+        createNewNextButton(false);
 
         // Сбрасываем обратную связь
         const feedback = document.getElementById('quiz-feedback');
@@ -2088,8 +2077,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Прокручиваем к области обратной связи, чтобы была видна надпись
         feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // Просто активируем кнопку "Следующий вопрос"
-        nextBtn.disabled = false;
+        // Создаем новую активную кнопку "Следующий вопрос" после выбора ответа
+        createNewNextButton(true);
 
         // Блокируем все варианты ответов
         const answerElements = document.querySelectorAll('.quiz-answer');
@@ -2147,20 +2136,56 @@ document.addEventListener('DOMContentLoaded', function() {
         resultMessageElement.textContent = resultMessage;
     }
 
-    // Функция, которая обрабатывает нажатие на кнопку "Следующий вопрос"
-    function goToNextQuestion() {
-        // Блокируем кнопку, чтобы предотвратить многократные клики
-        const nextBtn = document.getElementById('next-question-btn');
-        nextBtn.disabled = true;
+    // Уникальный индекс для создания новых кнопок
+    let nextButtonCounter = 0;
+    
+    // Функция для создания полностью новой кнопки "Следующий вопрос"
+    function createNewNextButton(enabled) {
+        // Увеличиваем счетчик для уникального ID
+        nextButtonCounter++;
         
-        // Если это последний вопрос, показываем результаты
-        if (state.quiz.currentQuestion >= state.quiz.totalQuestions - 1 || 
-            state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
-            showQuizResults();
-        } else {
-            // Иначе показываем следующий вопрос
-            showQuestion(state.quiz.currentQuestion + 1);
+        // Получаем родительский контейнер
+        const buttonsContainer = document.querySelector('.quiz-buttons');
+        if (!buttonsContainer) return null;
+        
+        // Удаляем старую кнопку, если она существует
+        const oldButton = document.getElementById('next-question-btn');
+        if (oldButton) {
+            oldButton.remove();
         }
+        
+        // Создаем новую кнопку с уникальным ID
+        const newButton = document.createElement('button');
+        newButton.id = 'next-question-btn';
+        newButton.className = 'btn btn-primary';
+        newButton.style.cssText = 'padding: 16px; font-size: 18px; width: 100%; margin-bottom: 10px;';
+        newButton.textContent = 'Следующий вопрос';
+        newButton.disabled = !enabled;
+        
+        // Добавляем обработчик события для новой кнопки
+        newButton.addEventListener('click', function onNextButtonClick(e) {
+            // Предотвращаем дальнейшее всплытие события
+            e.stopPropagation();
+            
+            // Блокируем кнопку, чтобы предотвратить многократные клики
+            newButton.disabled = true;
+            
+            // Удаляем обработчик, чтобы предотвратить многократное выполнение
+            newButton.removeEventListener('click', onNextButtonClick);
+            
+            // Продолжаем к следующему вопросу
+            if (state.quiz.currentQuestion >= state.quiz.totalQuestions - 1 || 
+                state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
+                showQuizResults();
+            } else {
+                showQuestion(state.quiz.currentQuestion + 1);
+            }
+        });
+        
+        // Вставляем новую кнопку в начало контейнера
+        buttonsContainer.insertBefore(newButton, buttonsContainer.firstChild);
+        
+        return newButton;
     }
 
     // Вспомогательные функции для управления секциями викторины
