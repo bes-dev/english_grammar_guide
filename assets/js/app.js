@@ -1512,10 +1512,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 questionElement.textContent = '';
             }
             
-            // Сбрасываем состояние кнопки "Следующий вопрос"
+            // Сбрасываем состояние кнопки "Следующий вопрос" и удаляем все обработчики
             const nextBtn = document.getElementById('next-question-btn');
             if (nextBtn) {
-                nextBtn.disabled = true;
+                // Клонируем и заменяем кнопку для гарантированного удаления всех обработчиков
+                const newBtn = nextBtn.cloneNode(true);
+                nextBtn.parentNode.replaceChild(newBtn, nextBtn);
+                newBtn.disabled = true;
             }
         }
 
@@ -1771,13 +1774,15 @@ document.addEventListener('DOMContentLoaded', function() {
         nextBtn.addEventListener('click', function() {
             // Удаляем все слушатели событий, чтобы избежать дублирования
             nextBtn.disabled = true;
-
+            
             // Если это последний вопрос, показываем результаты
             if (state.quiz.currentQuestion >= state.quiz.totalQuestions - 1 || 
                 state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
                 showQuizResults();
             } else {
                 // Иначе показываем следующий вопрос
+                // Важно: удаляем все существующие обработчики события клика с кнопки
+                nextBtn.removeEventListener('click', arguments.callee);
                 showQuestion(state.quiz.currentQuestion + 1);
             }
         });
@@ -1961,7 +1966,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Отображение вопроса
     function showQuestion(questionIndex) {
-        // Обновляем текущий вопрос
+        // Обновляем текущий вопрос 
+        // Важно: убеждаемся, что мы не дублируем инкремент, который мог быть сделан ранее
         state.quiz.currentQuestion = questionIndex;
 
         // Проверяем наличие вопросов
