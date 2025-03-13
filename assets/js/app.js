@@ -1339,8 +1339,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Переменные для хранения вопросов викторины
     let quizQuestions = [];
     let quizQuestionsBackup = [];
-    
-    // Резервные вопросы, которые будут использованы только если 
+
+    // Резервные вопросы, которые будут использованы только если
     // загрузка из JSON полностью не удастся (для обеспечения работоспособности)
     const fallbackQuestions = [
         {
@@ -1394,46 +1394,46 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         }
     ];
-    
+
     // Загрузка вопросов из JSON при инициализации приложения
     (async function loadQuizQuestionsFromJSON() {
         try {
             // Основной путь к файлу вопросов (подходит для GitHub Pages)
             const jsonFilePath = 'assets/data/quiz-questions.json';
             console.log('Попытка загрузки вопросов из JSON файла:', jsonFilePath);
-            
+
             const response = await fetch(jsonFilePath);
-            
+
             if (!response.ok) {
                 throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`);
             }
-            
+
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
                 console.warn('Предупреждение: ответ не является JSON, получен тип:', contentType);
             }
-            
+
             const data = await response.json();
-            
+
             if (!Array.isArray(data) || data.length === 0) {
                 throw new Error('Загруженные данные не представляют собой массив или массив пуст');
             }
-            
+
             // Устанавливаем данные для викторины
             quizQuestions = data;
             // Создаем копию для возможного дублирования
             quizQuestionsBackup = [...data];
-            
+
             console.log('Вопросы успешно загружены из JSON файла:', quizQuestions.length);
-            
+
             // Проверка формата первого вопроса (для отладки)
             if (quizQuestions.length > 0) {
-                console.log('Пример формата вопроса:', 
+                console.log('Пример формата вопроса:',
                     JSON.stringify(quizQuestions[0]).substring(0, 100) + '...');
             }
         } catch (error) {
             console.error('Ошибка при загрузке вопросов из JSON:', error.message);
-            
+
             // В случае ошибки используем резервные вопросы
             console.warn('Используем резервные вопросы для обеспечения работоспособности');
             quizQuestions = [...fallbackQuestions];
@@ -1469,11 +1469,14 @@ document.addEventListener('DOMContentLoaded', function() {
         showSection(startScreen);
         hideSection(questionScreen);
         hideSection(resultScreen);
-        
+
         // Добавляем обработчик для кнопки "На главную" в режиме вопросов
         if (homeBtn) {
             homeBtn.addEventListener('click', function() {
-                navigateTo('home');
+                // Показываем подтверждение
+                if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
+                    navigateTo('home');
+                }
             });
         }
 
@@ -1533,24 +1536,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Показываем индикатор загрузки
                     loadingIndicator.style.display = 'flex';
                     startBtn.disabled = true;
-                    
+
                     // Используем стандартные вопросы из JSON-файла
                     await prepareQuiz();
-                    
+
                     // Убедимся, что у нас есть хотя бы один вопрос
                     if (!state.quiz.questions || state.quiz.questions.length === 0) {
                         throw new Error('Нет доступных вопросов для викторины');
                     }
-                    
+
                     // Скрываем индикатор загрузки
                     loadingIndicator.style.display = 'none';
                     startBtn.disabled = false;
-                    
+
                     // Показываем экран вопроса
                     hideSection(startScreen);
                     showSection(questionScreen);
                     hideSection(resultScreen);
-                    
+
                     // Отображаем первый вопрос
                     showQuestion(0);
                 } catch (error) {
@@ -1587,26 +1590,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Функция для получения загруженных вопросов
     async function loadStandardQuestions() {
         console.log('Проверка загруженных вопросов викторины...');
-        
+
         // Если вопросы уже были загружены ранее из JSON
         if (quizQuestions && quizQuestions.length > 0) {
             console.log('Используем ранее загруженные вопросы:', quizQuestions.length);
             return quizQuestions;
         }
-        
+
         // Если основной массив вопросов пуст, но у нас есть резервная копия
         if (quizQuestionsBackup && quizQuestionsBackup.length > 0) {
             console.log('Используем резервную копию вопросов');
             quizQuestions = [...quizQuestionsBackup];
             return quizQuestions;
         }
-        
+
         // Если по какой-то причине вопросы ещё не были загружены, пробуем еще раз загрузить из JSON
         try {
             console.log('Попытка загрузить вопросы снова...');
             const jsonFilePath = 'assets/data/quiz-questions.json';
             const response = await fetch(jsonFilePath);
-            
+
             if (response.ok) {
                 const data = await response.json();
                 if (Array.isArray(data) && data.length > 0) {
@@ -1616,20 +1619,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     return quizQuestions;
                 }
             }
-            
+
             // Если загрузка не удалась, используем fallback вопросы
             console.warn('Повторная загрузка не удалась, используем резервные вопросы');
             quizQuestions = [...fallbackQuestions];
             return quizQuestions;
         } catch (error) {
             console.error('Ошибка при повторной загрузке вопросов:', error);
-            
+
             // В случае ошибки используем fallback вопросы
             quizQuestions = [...fallbackQuestions];
             return quizQuestions;
         }
     }
-    
+
     async function prepareQuiz() {
         // Сбрасываем состояние
         state.quiz.questions = [];
@@ -1640,17 +1643,17 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // Загружаем вопросы из JSON
             console.log('Подготовка викторины с вопросами из JSON');
-            
+
             // Получаем вопросы с помощью функции loadStandardQuestions
             const availableQuestions = await loadStandardQuestions();
-            
+
             // Проверяем, что у нас есть вопросы
             if (!availableQuestions || availableQuestions.length === 0) {
                 throw new Error('Не удалось загрузить вопросы для викторины');
             }
-            
+
             console.log('Подготовка викторины, доступно вопросов:', availableQuestions.length);
-            
+
             // Регулируем количество вопросов в викторине
             if (availableQuestions.length < state.quiz.totalQuestions) {
                 console.log('Доступно вопросов: ' + availableQuestions.length + ', запрошено: ' + state.quiz.totalQuestions);
@@ -1658,32 +1661,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 state.quiz.totalQuestions = availableQuestions.length;
                 console.log('Новое количество вопросов в викторине:', state.quiz.totalQuestions);
             }
-            
+
             // Перемешиваем массив вопросов
             const shuffledQuestions = shuffleArray([...availableQuestions]);
-            
+
             // Берем нужное количество вопросов
             state.quiz.questions = shuffledQuestions.slice(0, state.quiz.totalQuestions);
-            
+
             console.log('Подготовлено вопросов для викторины:', state.quiz.questions.length);
-            
+
             // Обновляем счетчики
             document.getElementById('total-questions').textContent = state.quiz.totalQuestions;
             document.getElementById('total-answers').textContent = state.quiz.totalQuestions;
         } catch (error) {
             console.error('Ошибка при подготовке викторины:', error);
-            
+
             // В случае критической ошибки используем fallback вопросы
             if (fallbackQuestions && fallbackQuestions.length > 0) {
                 console.warn('Используем минимальный набор резервных вопросов');
-                
+
                 // Регулируем количество вопросов в викторине
                 state.quiz.totalQuestions = Math.min(state.quiz.totalQuestions, fallbackQuestions.length);
-                
+
                 // Перемешиваем и выбираем вопросы
                 const shuffledQuestions = shuffleArray([...fallbackQuestions]);
                 state.quiz.questions = shuffledQuestions.slice(0, state.quiz.totalQuestions);
-                
+
                 // Обновляем счетчики
                 document.getElementById('total-questions').textContent = state.quiz.totalQuestions;
                 document.getElementById('total-answers').textContent = state.quiz.totalQuestions;
@@ -1760,11 +1763,14 @@ document.addEventListener('DOMContentLoaded', function() {
         answerElements.forEach(answer => {
             answer.addEventListener('click', handleAnswerSelection);
         });
-        
+
         // Добавляем обработчик для кнопки "На главную"
         const homeBtn = document.getElementById('quiz-home-btn');
         homeBtn.onclick = function() {
-            navigateTo('home');
+            // Показываем подтверждение
+            if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
+                navigateTo('home');
+            }
         };
     }
 
@@ -1897,6 +1903,8 @@ document.addEventListener('DOMContentLoaded', function() {
 1. Описание случаев использования времени
 2. Определение времени в конкретном предложении
 3. Выбор правильной формулы построения для времени
+4. Определение времени по словам-маркерам
+5. Дано предложение на английском - определить время
 
 Формат ответа должен быть в JSON, например:
 [

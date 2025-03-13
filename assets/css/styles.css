@@ -915,6 +915,7 @@ input:checked + .quiz-toggle-slider:before {
 .quiz-buttons {
     display: flex;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .quiz-feedback.correct {
@@ -1061,6 +1062,17 @@ input:checked + .quiz-toggle-slider:before {
         margin-right: 0;
         margin-bottom: 15px;
         text-align: center;
+    }
+    
+    .quiz-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .quiz-buttons button {
+        width: 100%;
     }
     
     .quiz-actions {
