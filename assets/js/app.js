@@ -1512,18 +1512,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 questionElement.textContent = '';
             }
             
-            // Сбрасываем состояние кнопки "Следующий вопрос" и удаляем все обработчики
+            // Сбрасываем состояние кнопки "Следующий вопрос" - просто блокируем ее
             const nextBtn = document.getElementById('next-question-btn');
             if (nextBtn) {
-                // Клонируем и заменяем кнопку для гарантированного удаления всех обработчиков
-                const newBtn = nextBtn.cloneNode(true);
-                nextBtn.parentNode.replaceChild(newBtn, nextBtn);
-                newBtn.disabled = true;
-                
-                // Добавляем обработчик для новой кнопки, если функция handleNextQuestion существует
-                if (typeof handleNextQuestion === 'function') {
-                    newBtn.addEventListener('click', handleNextQuestion);
-                }
+                nextBtn.disabled = true;
             }
         }
 
@@ -1775,17 +1767,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Добавляем обработчик к кнопке "Следующий вопрос"
-        nextBtn.addEventListener('click', handleNextQuestion);
+        // Используем делегирование событий для кнопки "Следующий вопрос"
+        // Добавляем обработчик к родительскому элементу (контейнеру кнопок)
+        const quizNavigationContainer = document.querySelector('.quiz-navigation');
+        quizNavigationContainer.addEventListener('click', function(event) {
+            // Проверяем, был ли клик по кнопке "Следующий вопрос" или её потомкам
+            const nextBtn = document.getElementById('next-question-btn');
+            if (event.target === nextBtn || nextBtn.contains(event.target)) {
+                // Проверяем, активна ли кнопка
+                if (!nextBtn.disabled) {
+                    // Вызываем функцию перехода к следующему вопросу
+                    goToNextQuestion();
+                }
+            }
+        });
         
         // Добавим дополнительную клавиатурную навигацию для доступности
         document.addEventListener('keydown', function(event) {
             // Если нажата клавиша Enter или Space, и кнопка "Следующий вопрос" активна
+            const nextBtn = document.getElementById('next-question-btn');
             if ((event.key === 'Enter' || event.key === ' ') && 
-                !nextBtn.disabled &&
+                nextBtn && !nextBtn.disabled &&
                 document.querySelector('.quiz-answer.selected')) {
-                // Симулируем клик по кнопке "Следующий вопрос"
-                nextBtn.click();
+                // Вызываем функцию перехода к следующему вопросу
+                goToNextQuestion();
             }
         });
 
@@ -2000,7 +2005,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Устанавливаем HTML вариантов ответов
         answersElement.innerHTML = answersHTML;
 
-        // Сбрасываем состояние кнопки "Следующий вопрос"
+        // Сбрасываем состояние кнопки "Следующий вопрос" - просто блокируем её
         const nextBtn = document.getElementById('next-question-btn');
         nextBtn.disabled = true;
 
@@ -2083,16 +2088,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Прокручиваем к области обратной связи, чтобы была видна надпись
         feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // Включаем кнопку "Следующий вопрос"
+        // Просто активируем кнопку "Следующий вопрос"
         nextBtn.disabled = false;
-        
-        // Проверяем, есть ли на кнопке обработчик клика, и если нет - добавляем его
-        if (typeof handleNextQuestion === 'function') {
-            // Сначала удаляем все существующие обработчики, чтобы избежать дублирования
-            nextBtn.removeEventListener('click', handleNextQuestion);
-            // Затем добавляем обработчик
-            nextBtn.addEventListener('click', handleNextQuestion);
-        }
 
         // Блокируем все варианты ответов
         const answerElements = document.querySelectorAll('.quiz-answer');
@@ -2150,8 +2147,8 @@ document.addEventListener('DOMContentLoaded', function() {
         resultMessageElement.textContent = resultMessage;
     }
 
-    // Обработчик для кнопки "Следующий вопрос"
-    function handleNextQuestion() {
+    // Функция, которая обрабатывает нажатие на кнопку "Следующий вопрос"
+    function goToNextQuestion() {
         // Блокируем кнопку, чтобы предотвратить многократные клики
         const nextBtn = document.getElementById('next-question-btn');
         nextBtn.disabled = true;
