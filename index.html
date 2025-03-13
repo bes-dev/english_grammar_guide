@@ -48,6 +48,7 @@
             <div class="card">
                 <div class="nav-tabs">
                     <div class="nav-tab active" data-tab="wizard">📊 Тренажер</div>
+                    <div class="nav-tab" data-tab="quiz">🎯 Викторина</div>
                     <div class="nav-tab" data-tab="tenses">⏱️ Таблица времен</div>
                     <div class="nav-tab" data-tab="passive">📝 Пассивный залог</div>
                     <div class="nav-tab" data-tab="conditionals">❓ Условные предл.</div>
@@ -480,6 +481,106 @@
             </div>
 
             <button class="btn btn-secondary" data-nav="home" style="margin-top: 20px;">Назад</button>
+        </div>
+        
+        <!-- Quiz page -->
+        <div id="quiz-page" class="page">
+            <div class="card">
+                <div class="card-title">Викторина по временам английского языка</div>
+                
+                <div id="quiz-start-screen" class="quiz-section active">
+                    <p>Проверьте свои знания времен английского языка! В этой викторине вам нужно будет определить время по его описанию.</p>
+                    <p>Каждый вопрос содержит описание времени и четыре варианта ответа. Выберите правильный вариант.</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option-group">
+                            <label class="quiz-option-label">Количество вопросов:</label>
+                            <select id="quiz-questions-count" class="quiz-option-select">
+                                <option value="5">5 вопросов</option>
+                                <option value="10" selected>10 вопросов</option>
+                                <option value="15">15 вопросов</option>
+                                <option value="20">20 вопросов</option>
+                            </select>
+                        </div>
+                        
+                        <div class="quiz-option-group">
+                            <label class="quiz-option-label">Источник вопросов:</label>
+                            <div class="quiz-toggle-container">
+                                <span class="quiz-toggle-label">Стандартные</span>
+                                <label class="quiz-toggle">
+                                    <input type="checkbox" id="use-ai-toggle">
+                                    <span class="quiz-toggle-slider"></span>
+                                </label>
+                                <span class="quiz-toggle-label">AI-генерация</span>
+                            </div>
+                        </div>
+                        
+                        <div id="api-key-container" class="quiz-option-group" style="display: none;">
+                            <label class="quiz-option-label">OpenAI API Key:</label>
+                            <input type="password" id="openai-api-key" class="quiz-option-input" placeholder="Введите ваш API ключ">
+                            <div class="api-key-info">
+                                <small>Ключ не будет сохранен на сервере и используется только для генерации вопросов.</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="start-quiz-btn" class="btn btn-primary btn-block" style="margin-top: 20px;">Начать викторину</button>
+                    <div id="loading-indicator" class="loading-spinner" style="display: none;">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Генерация вопросов с помощью AI...</div>
+                    </div>
+                </div>
+                
+                <div id="quiz-question-screen" class="quiz-section">
+                    <div class="quiz-progress">
+                        <div class="quiz-progress-text">Вопрос <span id="current-question">1</span> из <span id="total-questions">10</span></div>
+                        <div class="quiz-progress-bar">
+                            <div id="quiz-progress-fill" class="quiz-progress-fill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="quiz-question-container">
+                        <div class="quiz-question-text" id="quiz-question-text">
+                            <!-- Вопрос будет здесь -->
+                        </div>
+                        
+                        <div class="quiz-answers" id="quiz-answers">
+                            <!-- Варианты ответов будут здесь -->
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-navigation">
+                        <div id="quiz-feedback" class="quiz-feedback"></div>
+                        <button id="next-question-btn" class="btn btn-primary" disabled>Следующий вопрос</button>
+                    </div>
+                </div>
+                
+                <div id="quiz-result-screen" class="quiz-section">
+                    <div class="quiz-result-header">
+                        <div class="quiz-result-icon">🏆</div>
+                        <div class="quiz-result-title">Результаты викторины</div>
+                    </div>
+                    
+                    <div class="quiz-score">
+                        <div class="quiz-score-text">Ваш результат:</div>
+                        <div class="quiz-score-value"><span id="correct-answers">0</span> из <span id="total-answers">10</span></div>
+                        <div class="quiz-score-percent" id="score-percent">0%</div>
+                    </div>
+                    
+                    <div class="quiz-score-chart">
+                        <div id="score-bar" class="quiz-score-bar" style="width: 0%"></div>
+                    </div>
+                    
+                    <div class="quiz-result-message" id="quiz-result-message">
+                        <!-- Сообщение будет здесь -->
+                    </div>
+                    
+                    <div class="quiz-actions">
+                        <button id="restart-quiz-btn" class="btn btn-primary">Пройти еще раз</button>
+                        <button class="btn btn-secondary" data-nav="home">На главную</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="footer">

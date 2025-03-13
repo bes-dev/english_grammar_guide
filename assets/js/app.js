@@ -4,7 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
         currentPage: 'home-page',
         selectedTimePeriod: null,
         selectedActionType: null,
-        selectedClarification: null
+        selectedClarification: null,
+        // Состояние для викторины
+        quiz: {
+            questions: [],
+            currentQuestion: 0,
+            answers: [],
+            correctAnswers: 0,
+            totalQuestions: 10,
+            isLoading: false,
+            useAI: false
+        }
     };
 
     // Navigation functions
@@ -20,11 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.remove('selected');
             });
             document.querySelector('#step1-page .next-btn').disabled = true;
-            
+
             // Устанавливаем общую подсказку для первого шага
-            document.querySelector('#step1-page .card:last-child p').textContent = 
+            document.querySelector('#step1-page .card:last-child p').textContent =
                 "Прошедшее время описывает действие, которое уже завершилось. Настоящее время используется для действий, происходящих сейчас или регулярно. Будущее время описывает то, что произойдет.";
-            
+
             // Сбрасываем состояние, если пользователь начинает заново
             state.selectedTimePeriod = null;
             state.selectedActionType = null;
@@ -35,16 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.remove('selected');
             });
             document.querySelector('#step2-page .next-btn').disabled = true;
-            
+
             // Если пользователь вернулся назад, сбрасываем выбор типа действия
             if (state.currentPage === 'step3-page') {
                 state.selectedActionType = null;
                 state.selectedClarification = null;
             }
-            
+
             // Устанавливаем общую подсказку для второго шага, если нет выбранного периода времени
             if (!state.selectedTimePeriod) {
-                document.querySelector('#step2-page .card:last-child p').textContent = 
+                document.querySelector('#step2-page .card:last-child p').textContent =
                     "Simple - простое действие или факт. Continuous - процесс в развитии. Perfect - результат действия. Perfect Continuous - длительный процесс с результатом.";
             } else {
                 // Если период времени выбран, но тип действия не выбран, устанавливаем подсказку для выбранного периода
@@ -86,17 +96,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('[data-nav]').forEach(button => {
         button.addEventListener('click', function() {
             // Если это кнопка "Показать результат", проверяем, что выбрано уточнение
-            if (this.classList.contains('next-btn') && this.closest('#step3-page') && 
+            if (this.classList.contains('next-btn') && this.closest('#step3-page') &&
                 this.getAttribute('data-nav') === 'result' && !state.selectedClarification) {
                 // Если уточнение не выбрано, блокируем переход
                 return;
             }
-            
+
             // Если это кнопка "Назад" на шаге 3, сбрасываем выбранное уточнение
             if (this.classList.contains('back-btn') && this.closest('#step3-page')) {
                 state.selectedClarification = null;
             }
-            
+
             navigateTo(this.getAttribute('data-nav') + '-page');
         });
     });
@@ -111,6 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
         tab.addEventListener('click', function() {
             if (this.getAttribute('data-tab') === 'wizard') {
                 return; // Already on the wizard
+            } else if (this.getAttribute('data-tab') === 'quiz') {
+                navigateTo('quiz-page');
             } else if (this.getAttribute('data-tab') === 'tenses') {
                 navigateTo('tenses-page');
             } else if (this.getAttribute('data-tab') === 'passive') {
@@ -164,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Функция для обновления подсказки
     function updateHint(step, value, secondValue = null) {
         let hintText = "";
-        
+
         if (step === "time") {
             hintText = hintData.timePeriod[value];
         } else if (step === "action") {
@@ -175,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Для третьего шага подсказки можно добавить позже
             hintText = "Отвечая на уточняющий вопрос, обратите внимание на конкретные обстоятельства действия. Это поможет точно определить нужное время.";
         }
-        
+
         // Обновляем текст подсказки на соответствующей странице с анимацией
         let hintElement;
         if (step === "time") {
@@ -185,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (step === "clarification") {
             hintElement = document.querySelector('#step3-page .card:last-child p');
         }
-        
+
         if (hintElement) {
             // Добавляем анимацию с помощью классов
             const hintBox = hintElement.closest('.hint-box');
@@ -193,10 +205,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Добавляем временный класс для анимации
                 hintBox.style.transition = 'all 0.3s ease';
                 hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
-                
+
                 // Обновляем текст подсказки
                 hintElement.textContent = hintText;
-                
+
                 // Возвращаем исходный фон через некоторое время
                 setTimeout(() => {
                     hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
@@ -215,16 +227,16 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('#step1-page .option-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            
+
             // Mark this button as selected
             this.classList.add('selected');
-            
+
             // Update state
             state.selectedTimePeriod = this.getAttribute('data-value');
-            
+
             // Update hint
             updateHint("time", state.selectedTimePeriod);
-            
+
             // Enable next button
             document.querySelector('#step1-page .next-btn').disabled = false;
         });
@@ -237,16 +249,16 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('#step2-page .option-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            
+
             // Mark this button as selected
             this.classList.add('selected');
-            
+
             // Update state
             state.selectedActionType = this.getAttribute('data-value');
-            
+
             // Update hint
             updateHint("action", state.selectedActionType);
-            
+
             // Enable next button
             document.querySelector('#step2-page .next-btn').disabled = false;
         });
@@ -271,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
             placeholderMessage = 'Не важно, повторяется ли действие или оно представляет собой общеизвестный факт – мы определили, что для вас оптимальным выбором является Present Simple (Настоящее простое время).';
             tenseType = 'present-simple';
             clarificationHint = 'Present Simple используется как для регулярных действий, так и для общеизвестных фактов. Например: «Я каждый день хожу на работу», «Солнце встает на востоке».';
-        } 
+        }
         // Present Continuous
         else if (state.selectedTimePeriod === 'present' && state.selectedActionType === 'continuous') {
             showPlaceholderMessage = true;
@@ -292,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
             placeholderMessage = 'Не важно, насколько длительно действие продолжается до настоящего момента – подходящим временем для вас станет Present Perfect Continuous (Настоящее совершенное длительное время).';
             tenseType = 'present-perfect-continuous';
             clarificationHint = 'Present Perfect Continuous используется для описания действия, которое началось в прошлом и продолжается до сих пор. Например: «Я изучаю английский уже 5 лет», «Она ждет автобус уже 20 минут».';
-        } 
+        }
         // Past Simple
         else if (state.selectedTimePeriod === 'past' && state.selectedActionType === 'simple') {
             showPlaceholderMessage = true;
@@ -358,11 +370,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Создаем HTML контент в зависимости от того, показываем заглушку или уточняющий вопрос
         let html = '';
-        
+
         if (showPlaceholderMessage) {
             // Для заглушки обновляем заголовок
             document.querySelector('#step3-page .question-title').textContent = 'Необходимое время уже определено';
-            
+
             // Создаем HTML с заглушкой
             html = `
                 <div class="placeholder-message" style="background-color: rgba(76, 201, 240, 0.08); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 3px solid var(--accent);">
@@ -370,14 +382,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <input type="hidden" id="clarification-value" value="yes">
             `;
-            
+
             // Автоматически устанавливаем значение уточнения
             state.selectedClarification = 'yes';
-            
+
             // Разблокируем кнопку "Показать результат"
             const nextButton = document.querySelector('#step3-page .next-btn');
             nextButton.disabled = false;
-            
+
             // Убедимся, что работает на мобильных устройствах, добавив явный обработчик событий
             nextButton.onclick = function() {
                 navigateTo('result-page');
@@ -385,10 +397,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Для обычного уточняющего вопроса обновляем заголовок
             document.querySelector('#step3-page .question-title').textContent = 'Уточняющий вопрос';
-            
+
             // Создаем стандартный HTML с вопросом и опциями
             html = '<div class="question-title">' + question + '</div>';
-            
+
             options.forEach(option => {
                 html += `
                     <button class="option-btn" data-value="${option.value}">
@@ -397,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
         }
-        
+
         // Обновляем контейнер
         clarificationContainer.innerHTML = html;
 
@@ -412,35 +424,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.querySelectorAll('#clarification-question .option-btn').forEach(btn => {
                         btn.classList.remove('selected');
                     });
-                    
+
                     // Mark this button as selected
                     this.classList.add('selected');
-                    
+
                     // Update state
                     state.selectedClarification = this.getAttribute('data-value');
-                    
+
                     // Разблокируем кнопку "Показать результат"
                     document.querySelector('#step3-page .next-btn').disabled = false;
-                    
+
                     // Обновляем подсказку на основе выбранного уточнения
                     let resultHint = "";
                     const tense = determineTense();
-                    
+
                     if (tense && tensesData[tense]) {
                         const tenseData = tensesData[tense];
-                        
+
                         // Формируем дополнительную информацию о времени
                         resultHint = `Вы выбрали время ${tenseData.name} (${tenseData.translation}). Используйте его для: ${tenseData.usage[0].toLowerCase()}. Пример: "${tenseData.examples[0].original}" (${tenseData.examples[0].translation})`;
-                        
+
                         // Обновляем подсказку
                         document.querySelector('#step3-page .card:last-child p').textContent = resultHint;
-                        
+
                         // Подсвечиваем блок подсказки
                         const hintBox = document.querySelector('#step3-page .card:last-child .hint-box');
                         if (hintBox) {
                             hintBox.style.transition = 'all 0.3s ease';
                             hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
-                            
+
                             // Возвращаем исходный фон через некоторое время
                             setTimeout(() => {
                                 hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
@@ -452,22 +464,22 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Если показываем заглушку, то также обновляем подсказку на основе уже выбранного времени
             const tense = tenseType; // Уже определено выше
-            
+
             if (tense && tensesData[tense]) {
                 const tenseData = tensesData[tense];
-                
+
                 // Формируем дополнительную информацию о времени
                 const resultHint = `${tenseData.name} (${tenseData.translation}) используется для: ${tenseData.usage[0].toLowerCase()}. Пример: "${tenseData.examples[0].original}" (${tenseData.examples[0].translation})`;
-                
+
                 // Обновляем подсказку
                 document.querySelector('#step3-page .card:last-child p').textContent = resultHint;
-                
+
                 // Подсвечиваем блок подсказки
                 const hintBox = document.querySelector('#step3-page .card:last-child .hint-box');
                 if (hintBox) {
                     hintBox.style.transition = 'all 0.3s ease';
                     hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
-                    
+
                     // Возвращаем исходный фон через некоторое время
                     setTimeout(() => {
                         hintBox.style.backgroundColor = 'rgba(76, 201, 240, 0.08)';
@@ -480,12 +492,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Determine the tense based on selections
     function determineTense() {
         const { selectedTimePeriod, selectedActionType, selectedClarification } = state;
-        
+
         // Basic validation
         if (!selectedTimePeriod || !selectedActionType) {
             return null;
         }
-        
+
         // Present tenses
         if (selectedTimePeriod === 'present') {
             if (selectedActionType === 'simple') {
@@ -504,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return 'present-perfect-continuous';
             }
         }
-        
+
         // Past tenses
         else if (selectedTimePeriod === 'past') {
             if (selectedActionType === 'simple') {
@@ -529,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        
+
         // Future tenses
         else if (selectedTimePeriod === 'future') {
             if (selectedActionType === 'simple') {
@@ -563,7 +575,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        
+
         return null;
     }
 
@@ -1026,7 +1038,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resultHTML += `
             <div class="section-title">Слова-маркеры</div>
         `;
-        
+
         // Добавим объяснения для маркеров, если это необходимо
         if (tense === 'present-perfect') {
             resultHTML += `
@@ -1067,13 +1079,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p style="font-size: 14px; margin-bottom: 10px;">Эти слова часто используются с Going to Future для запланированных действий:</p>
                 `;
             }
-            
+
             resultHTML += `<div class="markers-box">`;
             tenseData.markers.forEach(marker => {
                 resultHTML += `<div class="marker-tag">${marker}</div>`;
             });
             resultHTML += `</div>`;
-            
+
         } else {
             // Для остальных времен просто показываем маркеры без дополнительных объяснений
             resultHTML += `<div class="markers-box">`;
@@ -1090,11 +1102,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Add comparison with similar tense if applicable
         let comparisonTense = null;
-        
+
         if (tense === 'present-perfect') {
             // Сначала сравниваем с Past Simple
             comparisonTense = 'past-simple';
-            
+
             // Позже мы добавим дополнительное сравнение с Present Perfect Continuous
         } else if (tense === 'past-simple') {
             comparisonTense = 'present-perfect';
@@ -1112,7 +1124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const comparisonData = tensesData[comparisonTense];
             // Создаем объяснения для сравнения времен
             let comparisonExplanation = '';
-            
+
             if (tense === 'present-perfect' && comparisonTense === 'past-simple') {
                 comparisonExplanation = 'Present Perfect описывает действие, которое связано с настоящим временем и акцентирует внимание на результате действия, а не на времени его совершения. Past Simple описывает действие, которое произошло в конкретное время в прошлом.';
             } else if (tense === 'past-simple' && comparisonTense === 'present-perfect') {
@@ -1128,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (tense === 'present-perfect' && comparisonTense === 'present-perfect-continuous') {
                 comparisonExplanation = 'Present Perfect акцентирует внимание на результате действия. Present Perfect Continuous акцентирует внимание на процессе и продолжительности действия.';
             }
-            
+
             let comparisonHTML = `
                 <div class="section-title">Сравнение с другими временами</div>
                 <p>${tenseData.name} vs. ${comparisonData.name}</p>
@@ -1149,30 +1161,30 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
 
             document.getElementById('comparison-card').innerHTML = comparisonHTML;
-            
+
             // Добавляем дополнительное сравнение для Present Perfect vs Present Perfect Continuous
             if (tense === 'present-perfect') {
                 const additionalComparisonTense = 'present-perfect-continuous';
                 if (tensesData[additionalComparisonTense]) {
                     const additionalComparisonData = tensesData[additionalComparisonTense];
                     const additionalExplanation = 'Present Perfect акцентирует внимание на результате действия. Present Perfect Continuous акцентирует внимание на процессе и продолжительности действия.';
-                    
+
                     let additionalComparisonHTML = `
                         <div class="section-title" style="margin-top: 30px;">Дополнительное сравнение</div>
                         <p>${tenseData.name} vs. ${additionalComparisonData.name}</p>
                         <p style="margin-bottom: 15px; font-size: 14px; color: var(--dark);">${additionalExplanation}</p>
-                        
+
                         <div class="example-box">
                             <div class="example-original">I have read this book. (${tenseData.name})</div>
                             <div class="example-translation">Я прочитал эту книгу. (Акцент на результате - книга прочитана)</div>
                         </div>
-                        
+
                         <div class="example-box">
                             <div class="example-original">I have been reading this book for two hours. (${additionalComparisonData.name})</div>
                             <div class="example-translation">Я читаю эту книгу уже два часа. (Акцент на процессе - чтение всё ещё продолжается)</div>
                         </div>
                     `;
-                    
+
                     // Добавляем дополнительное сравнение к существующему
                     document.getElementById('comparison-card').innerHTML += additionalComparisonHTML;
                 }
@@ -1202,7 +1214,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="example-translation">${tenseData.examples[0].translation}</div>
                 </div>
                 <div style="margin-top: 10px; margin-bottom: 20px;">
-                    <strong>Когда использовать:</strong> 
+                    <strong>Когда использовать:</strong>
                     <p style="font-size: 14px; color: var(--dark); margin-top: 5px;">${tenseData.usage.join('. ')}.</p>
                     <div style="margin-top: 5px;">
                         <strong>Слова-маркеры:</strong> <span style="font-size: 14px; color: var(--accent);">${tenseData.markers.slice(0, 5).join(', ')}</span>
@@ -1230,7 +1242,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="example-translation">${tenseData.examples[0].translation}</div>
                 </div>
                 <div style="margin-top: 10px; margin-bottom: 20px;">
-                    <strong>Когда использовать:</strong> 
+                    <strong>Когда использовать:</strong>
                     <p style="font-size: 14px; color: var(--dark); margin-top: 5px;">${tenseData.usage.join('. ')}.</p>
                     <div style="margin-top: 5px;">
                         <strong>Слова-маркеры:</strong> <span style="font-size: 14px; color: var(--accent);">${tenseData.markers.slice(0, 5).join(', ')}</span>
@@ -1258,7 +1270,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="example-translation">${tenseData.examples[0].translation}</div>
                 </div>
                 <div style="margin-top: 10px; margin-bottom: 20px;">
-                    <strong>Когда использовать:</strong> 
+                    <strong>Когда использовать:</strong>
                     <p style="font-size: 14px; color: var(--dark); margin-top: 5px;">${tenseData.usage.join('. ')}.</p>
                     <div style="margin-top: 5px;">
                         <strong>Слова-маркеры:</strong> <span style="font-size: 14px; color: var(--accent);">${tenseData.markers.slice(0, 5).join(', ')}</span>
@@ -1274,7 +1286,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Remove active class from all tabs and groups
                 document.querySelectorAll('#tenses-page .nav-tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tense-group').forEach(g => g.classList.remove('active'));
-                
+
                 // Add active class to clicked tab and corresponding group
                 this.classList.add('active');
                 document.getElementById(this.getAttribute('data-tab')).classList.add('active');
@@ -1301,14 +1313,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('verb-search').addEventListener('input', function() {
             const searchValue = this.value.toLowerCase();
             let tableHTML = '';
-            
-            const filteredVerbs = irregularVerbs.filter(verb => 
-                verb.v1.toLowerCase().includes(searchValue) || 
-                verb.v2.toLowerCase().includes(searchValue) || 
-                verb.v3.toLowerCase().includes(searchValue) || 
+
+            const filteredVerbs = irregularVerbs.filter(verb =>
+                verb.v1.toLowerCase().includes(searchValue) ||
+                verb.v2.toLowerCase().includes(searchValue) ||
+                verb.v3.toLowerCase().includes(searchValue) ||
                 verb.translation.toLowerCase().includes(searchValue)
             );
-            
+
             filteredVerbs.forEach(verb => {
                 tableHTML += `
                     <tr>
@@ -1319,8 +1331,669 @@ document.addEventListener('DOMContentLoaded', function() {
                     </tr>
                 `;
             });
-            
+
             document.querySelector('#verb-table tbody').innerHTML = tableHTML;
         });
     }
+
+    // Переменные для хранения вопросов викторины
+    let quizQuestions = [];
+    let quizQuestionsBackup = [];
+    
+    // Резервные вопросы, которые будут использованы только если 
+    // загрузка из JSON полностью не удастся (для обеспечения работоспособности)
+    const fallbackQuestions = [
+        {
+            "question": "Это время используется для регулярных, повторяющихся действий и общеизвестных фактов.",
+            "correctAnswer": "present-simple",
+            "options": [
+                { "id": "present-simple", "text": "Present Simple" },
+                { "id": "present-continuous", "text": "Present Continuous" },
+                { "id": "past-simple", "text": "Past Simple" },
+                { "id": "future-simple", "text": "Future Simple" }
+            ]
+        },
+        {
+            "question": "Это время используется для действий, происходящих прямо в момент речи.",
+            "correctAnswer": "present-continuous",
+            "options": [
+                { "id": "present-simple", "text": "Present Simple" },
+                { "id": "present-continuous", "text": "Present Continuous" },
+                { "id": "present-perfect", "text": "Present Perfect" },
+                { "id": "past-continuous", "text": "Past Continuous" }
+            ]
+        },
+        {
+            "question": "Это время используется для действий, которые начались в прошлом и имеют результат в настоящем.",
+            "correctAnswer": "present-perfect",
+            "options": [
+                { "id": "present-simple", "text": "Present Simple" },
+                { "id": "present-perfect", "text": "Present Perfect" },
+                { "id": "past-perfect", "text": "Past Perfect" },
+                { "id": "past-simple", "text": "Past Simple" }
+            ]
+        },
+        {
+            "question": "Это время используется для завершенных действий в прошлом, не связанных с настоящим.",
+            "correctAnswer": "past-simple",
+            "options": [
+                { "id": "past-simple", "text": "Past Simple" },
+                { "id": "past-continuous", "text": "Past Continuous" },
+                { "id": "past-perfect", "text": "Past Perfect" },
+                { "id": "present-perfect", "text": "Present Perfect" }
+            ]
+        },
+        {
+            "question": "Это время используется для предсказаний, спонтанных решений и обещаний в будущем.",
+            "correctAnswer": "future-simple",
+            "options": [
+                { "id": "present-simple", "text": "Present Simple" },
+                { "id": "future-simple", "text": "Future Simple" },
+                { "id": "future-continuous", "text": "Future Continuous" },
+                { "id": "going-to-future", "text": "Going to Future" }
+            ]
+        }
+    ];
+    
+    // Загрузка вопросов из JSON при инициализации приложения
+    (async function loadQuizQuestionsFromJSON() {
+        try {
+            // Основной путь к файлу вопросов (подходит для GitHub Pages)
+            const jsonFilePath = 'assets/data/quiz-questions.json';
+            console.log('Попытка загрузки вопросов из JSON файла:', jsonFilePath);
+            
+            const response = await fetch(jsonFilePath);
+            
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`);
+            }
+            
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                console.warn('Предупреждение: ответ не является JSON, получен тип:', contentType);
+            }
+            
+            const data = await response.json();
+            
+            if (!Array.isArray(data) || data.length === 0) {
+                throw new Error('Загруженные данные не представляют собой массив или массив пуст');
+            }
+            
+            // Устанавливаем данные для викторины
+            quizQuestions = data;
+            // Создаем копию для возможного дублирования
+            quizQuestionsBackup = [...data];
+            
+            console.log('Вопросы успешно загружены из JSON файла:', quizQuestions.length);
+            
+            // Проверка формата первого вопроса (для отладки)
+            if (quizQuestions.length > 0) {
+                console.log('Пример формата вопроса:', 
+                    JSON.stringify(quizQuestions[0]).substring(0, 100) + '...');
+            }
+        } catch (error) {
+            console.error('Ошибка при загрузке вопросов из JSON:', error.message);
+            
+            // В случае ошибки используем резервные вопросы
+            console.warn('Используем резервные вопросы для обеспечения работоспособности');
+            quizQuestions = [...fallbackQuestions];
+            quizQuestionsBackup = [...fallbackQuestions];
+        }
+    })();
+
+    // Функции для работы с викториной
+    function showSection(section) {
+        section.classList.add('active');
+    }
+
+    function hideSection(section) {
+        section.classList.remove('active');
+    }
+
+    // Инициализация викторины
+    function initQuiz() {
+        // Получаем элементы для викторины
+        const startScreen = document.getElementById('quiz-start-screen');
+        const questionScreen = document.getElementById('quiz-question-screen');
+        const resultScreen = document.getElementById('quiz-result-screen');
+        const startBtn = document.getElementById('start-quiz-btn');
+        const nextBtn = document.getElementById('next-question-btn');
+        const restartBtn = document.getElementById('restart-quiz-btn');
+        const useAIToggle = document.getElementById('use-ai-toggle');
+        const apiKeyContainer = document.getElementById('api-key-container');
+        const questionsCountSelect = document.getElementById('quiz-questions-count');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        // Показываем начальный экран и скрываем остальные
+        showSection(startScreen);
+        hideSection(questionScreen);
+        hideSection(resultScreen);
+
+        // Обработчик переключателя AI-генерации
+        useAIToggle.addEventListener('change', function() {
+            state.quiz.useAI = this.checked;
+            if (this.checked) {
+                apiKeyContainer.style.display = 'block';
+            } else {
+                apiKeyContainer.style.display = 'none';
+            }
+        });
+
+        // Начало викторины
+        startBtn.addEventListener('click', async function() {
+            // Получаем выбранное количество вопросов
+            state.quiz.totalQuestions = parseInt(questionsCountSelect.value);
+
+            // Если используем AI-генерацию, проверяем наличие API ключа
+            if (state.quiz.useAI) {
+                const apiKey = document.getElementById('openai-api-key').value.trim();
+                if (!apiKey) {
+                    alert('Пожалуйста, введите ваш OpenAI API ключ для генерации вопросов.');
+                    return;
+                }
+
+                // Показываем индикатор загрузки
+                loadingIndicator.style.display = 'flex';
+                startBtn.disabled = true;
+
+                try {
+                    // Генерируем вопросы с помощью OpenAI API
+                    state.quiz.isLoading = true;
+                    await generateQuestionsWithAI(apiKey, state.quiz.totalQuestions);
+                    state.quiz.isLoading = false;
+
+                    // Скрываем индикатор загрузки
+                    loadingIndicator.style.display = 'none';
+                    startBtn.disabled = false;
+
+                    // Показываем экран вопроса
+                    hideSection(startScreen);
+                    showSection(questionScreen);
+                    hideSection(resultScreen);
+
+                    // Отображаем первый вопрос
+                    showQuestion(0);
+                } catch (error) {
+                    // В случае ошибки показываем сообщение
+                    alert('Произошла ошибка при генерации вопросов: ' + error.message);
+                    loadingIndicator.style.display = 'none';
+                    startBtn.disabled = false;
+                    state.quiz.isLoading = false;
+                }
+            } else {
+                try {
+                    // Показываем индикатор загрузки
+                    loadingIndicator.style.display = 'flex';
+                    startBtn.disabled = true;
+                    
+                    // Используем стандартные вопросы из JSON-файла
+                    await prepareQuiz();
+                    
+                    // Убедимся, что у нас есть хотя бы один вопрос
+                    if (!state.quiz.questions || state.quiz.questions.length === 0) {
+                        throw new Error('Нет доступных вопросов для викторины');
+                    }
+                    
+                    // Скрываем индикатор загрузки
+                    loadingIndicator.style.display = 'none';
+                    startBtn.disabled = false;
+                    
+                    // Показываем экран вопроса
+                    hideSection(startScreen);
+                    showSection(questionScreen);
+                    hideSection(resultScreen);
+                    
+                    // Отображаем первый вопрос
+                    showQuestion(0);
+                } catch (error) {
+                    // В случае ошибки показываем сообщение
+                    console.error('Ошибка при загрузке стандартных вопросов:', error);
+                    alert('Произошла ошибка при загрузке вопросов: ' + error.message);
+                    loadingIndicator.style.display = 'none';
+                    startBtn.disabled = false;
+                }
+            }
+        });
+
+        // Следующий вопрос
+        nextBtn.addEventListener('click', function() {
+            // Если это последний вопрос, показываем результаты
+            if (state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
+                showQuizResults();
+            } else {
+                // Иначе показываем следующий вопрос
+                showQuestion(state.quiz.currentQuestion + 1);
+            }
+        });
+
+        // Перезапуск викторины
+        restartBtn.addEventListener('click', function() {
+            // Показываем начальный экран
+            showSection(startScreen);
+            hideSection(questionScreen);
+            hideSection(resultScreen);
+        });
+    }
+
+    // Подготовка викторины: выбор случайных вопросов
+    // Функция для получения загруженных вопросов
+    async function loadStandardQuestions() {
+        console.log('Проверка загруженных вопросов викторины...');
+        
+        // Если вопросы уже были загружены ранее из JSON
+        if (quizQuestions && quizQuestions.length > 0) {
+            console.log('Используем ранее загруженные вопросы:', quizQuestions.length);
+            return quizQuestions;
+        }
+        
+        // Если основной массив вопросов пуст, но у нас есть резервная копия
+        if (quizQuestionsBackup && quizQuestionsBackup.length > 0) {
+            console.log('Используем резервную копию вопросов');
+            quizQuestions = [...quizQuestionsBackup];
+            return quizQuestions;
+        }
+        
+        // Если по какой-то причине вопросы ещё не были загружены, пробуем еще раз загрузить из JSON
+        try {
+            console.log('Попытка загрузить вопросы снова...');
+            const jsonFilePath = 'assets/data/quiz-questions.json';
+            const response = await fetch(jsonFilePath);
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (Array.isArray(data) && data.length > 0) {
+                    quizQuestions = data;
+                    quizQuestionsBackup = [...data];
+                    console.log('Вопросы успешно загружены при повторной попытке:', quizQuestions.length);
+                    return quizQuestions;
+                }
+            }
+            
+            // Если загрузка не удалась, используем fallback вопросы
+            console.warn('Повторная загрузка не удалась, используем резервные вопросы');
+            quizQuestions = [...fallbackQuestions];
+            return quizQuestions;
+        } catch (error) {
+            console.error('Ошибка при повторной загрузке вопросов:', error);
+            
+            // В случае ошибки используем fallback вопросы
+            quizQuestions = [...fallbackQuestions];
+            return quizQuestions;
+        }
+    }
+    
+    async function prepareQuiz() {
+        // Сбрасываем состояние
+        state.quiz.questions = [];
+        state.quiz.currentQuestion = 0;
+        state.quiz.answers = [];
+        state.quiz.correctAnswers = 0;
+
+        try {
+            // Загружаем вопросы из JSON
+            console.log('Подготовка викторины с вопросами из JSON');
+            
+            // Получаем вопросы с помощью функции loadStandardQuestions
+            const availableQuestions = await loadStandardQuestions();
+            
+            // Проверяем, что у нас есть вопросы
+            if (!availableQuestions || availableQuestions.length === 0) {
+                throw new Error('Не удалось загрузить вопросы для викторины');
+            }
+            
+            console.log('Подготовка викторины, доступно вопросов:', availableQuestions.length);
+            
+            // Регулируем количество вопросов в викторине
+            if (availableQuestions.length < state.quiz.totalQuestions) {
+                console.log('Доступно вопросов: ' + availableQuestions.length + ', запрошено: ' + state.quiz.totalQuestions);
+                // Если вопросов меньше, чем запрошено, уменьшаем количество
+                state.quiz.totalQuestions = availableQuestions.length;
+                console.log('Новое количество вопросов в викторине:', state.quiz.totalQuestions);
+            }
+            
+            // Перемешиваем массив вопросов
+            const shuffledQuestions = shuffleArray([...availableQuestions]);
+            
+            // Берем нужное количество вопросов
+            state.quiz.questions = shuffledQuestions.slice(0, state.quiz.totalQuestions);
+            
+            console.log('Подготовлено вопросов для викторины:', state.quiz.questions.length);
+            
+            // Обновляем счетчики
+            document.getElementById('total-questions').textContent = state.quiz.totalQuestions;
+            document.getElementById('total-answers').textContent = state.quiz.totalQuestions;
+        } catch (error) {
+            console.error('Ошибка при подготовке викторины:', error);
+            
+            // В случае критической ошибки используем fallback вопросы
+            if (fallbackQuestions && fallbackQuestions.length > 0) {
+                console.warn('Используем минимальный набор резервных вопросов');
+                
+                // Регулируем количество вопросов в викторине
+                state.quiz.totalQuestions = Math.min(state.quiz.totalQuestions, fallbackQuestions.length);
+                
+                // Перемешиваем и выбираем вопросы
+                const shuffledQuestions = shuffleArray([...fallbackQuestions]);
+                state.quiz.questions = shuffledQuestions.slice(0, state.quiz.totalQuestions);
+                
+                // Обновляем счетчики
+                document.getElementById('total-questions').textContent = state.quiz.totalQuestions;
+                document.getElementById('total-answers').textContent = state.quiz.totalQuestions;
+            } else {
+                // Если даже резервные вопросы недоступны, показываем ошибку
+                alert('Произошла ошибка при подготовке викторины: ' + error.message);
+                throw error;
+            }
+        }
+    }
+
+    // Перемешивание массива (алгоритм Фишера-Йейтса)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Отображение вопроса
+    function showQuestion(questionIndex) {
+        // Обновляем текущий вопрос
+        state.quiz.currentQuestion = questionIndex;
+
+        // Проверяем наличие вопросов
+        if (!state.quiz.questions || !state.quiz.questions[questionIndex]) {
+            console.error('Ошибка: вопрос не найден', questionIndex);
+            return;
+        }
+
+        const question = state.quiz.questions[questionIndex];
+        const questionElement = document.getElementById('quiz-question-text');
+        const answersElement = document.getElementById('quiz-answers');
+        const currentQuestionElement = document.getElementById('current-question');
+        const progressFill = document.getElementById('quiz-progress-fill');
+
+        // Обновляем номер вопроса и прогресс
+        currentQuestionElement.textContent = questionIndex + 1;
+        progressFill.style.width = `${((questionIndex + 1) / state.quiz.totalQuestions) * 100}%`;
+
+        // Устанавливаем текст вопроса
+        questionElement.textContent = question.question;
+
+        // Перемешиваем варианты ответов
+        const shuffledOptions = shuffleArray([...question.options]);
+
+        // Создаем HTML для вариантов ответов
+        let answersHTML = '';
+        shuffledOptions.forEach((option, index) => {
+            const letter = String.fromCharCode(65 + index); // A, B, C, D
+            answersHTML += `
+                <div class="quiz-answer" data-option-id="${option.id}">
+                    <div class="quiz-answer-letter">${letter}</div>
+                    <div class="quiz-answer-text">${option.text}</div>
+                </div>
+            `;
+        });
+
+        // Устанавливаем HTML вариантов ответов
+        answersElement.innerHTML = answersHTML;
+
+        // Сбрасываем состояние кнопки "Следующий вопрос"
+        const nextBtn = document.getElementById('next-question-btn');
+        nextBtn.disabled = true;
+
+        // Сбрасываем обратную связь
+        const feedback = document.getElementById('quiz-feedback');
+        feedback.textContent = '';
+        feedback.className = 'quiz-feedback';
+
+        // Добавляем обработчики для вариантов ответов
+        const answerElements = document.querySelectorAll('.quiz-answer');
+        answerElements.forEach(answer => {
+            answer.addEventListener('click', handleAnswerSelection);
+        });
+    }
+
+    // Обработка выбора ответа
+    function handleAnswerSelection(event) {
+        // Если уже выбран ответ, ничего не делаем
+        if (document.querySelector('.quiz-answer.selected')) {
+            return;
+        }
+
+        const selectedAnswer = event.currentTarget;
+        const selectedOptionId = selectedAnswer.getAttribute('data-option-id');
+        const question = state.quiz.questions[state.quiz.currentQuestion];
+        const feedback = document.getElementById('quiz-feedback');
+        const nextBtn = document.getElementById('next-question-btn');
+
+        // Отмечаем выбранный ответ
+        selectedAnswer.classList.add('selected');
+
+        // Проверяем правильность ответа
+        const isCorrect = selectedOptionId === question.correctAnswer;
+
+        // Сохраняем ответ
+        state.quiz.answers.push({
+            questionIndex: state.quiz.currentQuestion,
+            selectedAnswer: selectedOptionId,
+            isCorrect: isCorrect
+        });
+
+        // Обновляем счетчик правильных ответов
+        if (isCorrect) {
+            state.quiz.correctAnswers++;
+            selectedAnswer.classList.add('correct');
+            feedback.textContent = 'Правильно!';
+            feedback.className = 'quiz-feedback correct';
+        } else {
+            selectedAnswer.classList.add('incorrect');
+
+            // Показываем правильный ответ
+            const correctAnswerElement = document.querySelector(`.quiz-answer[data-option-id="${question.correctAnswer}"]`);
+            correctAnswerElement.classList.add('correct');
+
+            feedback.textContent = 'Неправильно!';
+            feedback.className = 'quiz-feedback incorrect';
+        }
+
+        // Включаем кнопку "Следующий вопрос"
+        nextBtn.disabled = false;
+
+        // Блокируем все варианты ответов
+        const answerElements = document.querySelectorAll('.quiz-answer');
+        answerElements.forEach(answer => {
+            answer.removeEventListener('click', handleAnswerSelection);
+            answer.style.cursor = 'default';
+        });
+    }
+
+    // Отображение результатов викторины
+    function showQuizResults() {
+        // Элементы результатов
+        const questionScreen = document.getElementById('quiz-question-screen');
+        const resultScreen = document.getElementById('quiz-result-screen');
+        const correctAnswersElement = document.getElementById('correct-answers');
+        const scorePercentElement = document.getElementById('score-percent');
+        const scoreBar = document.getElementById('score-bar');
+        const resultMessageElement = document.getElementById('quiz-result-message');
+
+        // Скрываем экран вопросов и показываем экран результатов
+        hideSection(questionScreen);
+        showSection(resultScreen);
+
+        // Обновляем элементы результатов
+        correctAnswersElement.textContent = state.quiz.correctAnswers;
+
+        // Вычисляем процент правильных ответов
+        const scorePercent = Math.round((state.quiz.correctAnswers / state.quiz.totalQuestions) * 100);
+        scorePercentElement.textContent = `${scorePercent}%`;
+
+        // Анимируем полосу прогресса с небольшой задержкой для эффекта
+        setTimeout(() => {
+            scoreBar.style.width = `${scorePercent}%`;
+        }, 100);
+
+        // Формируем сообщение по результатам
+        let resultMessage = '';
+        if (scorePercent >= 90) {
+            resultMessage = 'Отлично! Вы отлично знаете времена английского языка!';
+        } else if (scorePercent >= 70) {
+            resultMessage = 'Хорошо! У вас хорошее понимание времен английского языка.';
+        } else if (scorePercent >= 50) {
+            resultMessage = 'Неплохо! Но есть над чем поработать.';
+        } else {
+            resultMessage = 'Стоит повторить материал по временам английского языка.';
+        }
+
+        resultMessageElement.textContent = resultMessage;
+    }
+
+    // Вспомогательные функции для управления секциями викторины
+    function showSection(section) {
+        section.classList.add('active');
+    }
+
+    function hideSection(section) {
+        section.classList.remove('active');
+    }
+
+    // Функция для генерации вопросов с помощью OpenAI API
+    async function generateQuestionsWithAI(apiKey, numQuestions) {
+        const tenseOptions = [
+            { id: "present-simple", text: "Present Simple" },
+            { id: "present-continuous", text: "Present Continuous" },
+            { id: "present-perfect", text: "Present Perfect" },
+            { id: "present-perfect-continuous", text: "Present Perfect Continuous" },
+            { id: "past-simple", text: "Past Simple" },
+            { id: "past-continuous", text: "Past Continuous" },
+            { id: "past-perfect", text: "Past Perfect" },
+            { id: "past-perfect-continuous", text: "Past Perfect Continuous" },
+            { id: "future-simple", text: "Future Simple" },
+            { id: "future-continuous", text: "Future Continuous" },
+            { id: "future-perfect", text: "Future Perfect" },
+            { id: "future-perfect-continuous", text: "Future Perfect Continuous" },
+            { id: "going-to-future", text: "Going to Future" }
+        ];
+
+        // Строим промпт для OpenAI
+        const prompt = `Создай ${numQuestions} вопросов для викторины по временам английского языка.
+Для каждого вопроса укажи правильный ответ и 3 неправильных варианта.
+Вопросы должны быть на русском языке и могут быть следующих типов:
+1. Описание случаев использования времени
+2. Определение времени в конкретном предложении
+3. Выбор правильной формулы построения для времени
+
+Формат ответа должен быть в JSON, например:
+[
+  {
+    "question": "Это время используется для регулярных, повторяющихся действий и общеизвестных фактов.",
+    "correctAnswer": "present-simple",
+    "options": [
+      { "id": "present-simple", "text": "Present Simple" },
+      { "id": "present-continuous", "text": "Present Continuous" },
+      { "id": "past-simple", "text": "Past Simple" },
+      { "id": "future-simple", "text": "Future Simple" }
+    ]
+  }
+]
+
+Доступные времена (id и text должны точно соответствовать этому списку):
+${JSON.stringify(tenseOptions, null, 2)}
+
+Важно:
+- Используй только указанные выше id и text для вариантов ответов
+- У каждого вопроса должно быть ровно 4 варианта ответа (1 правильный и 3 неправильных)
+- Все варианты в options должны быть уникальны (не повторяться)
+- Вопросы должны быть разнообразными и охватывать разные времена
+- Формат JSON должен быть строго соблюден
+
+Верни только JSON без дополнительного текста.`;
+
+        try {
+            // Делаем запрос к OpenAI API
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-4o-mini",
+                    messages: [
+                        {
+                            role: "user",
+                            content: prompt
+                        }
+                    ],
+                    temperature: 0.7
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`API ошибка: ${errorData.error ? errorData.error.message : 'Неизвестная ошибка'}`);
+            }
+
+            const data = await response.json();
+            const content = data.choices[0].message.content;
+
+            // Извлекаем JSON из ответа (ищем все между квадратными скобками)
+            let jsonString = content;
+            if (content.includes('[') && content.includes(']')) {
+                const startIdx = content.indexOf('[');
+                const endIdx = content.lastIndexOf(']') + 1;
+                jsonString = content.substring(startIdx, endIdx);
+            }
+
+            // Парсим JSON
+            const questions = JSON.parse(jsonString);
+
+            // Проверяем и валидируем каждый вопрос
+            const validQuestions = questions.filter(q => {
+                // Проверяем наличие всех необходимых полей
+                if (!q.question || !q.correctAnswer || !q.options || q.options.length !== 4) {
+                    return false;
+                }
+
+                // Проверяем, что правильный ответ существует в вариантах
+                const hasCorrectAnswer = q.options.some(opt => opt.id === q.correctAnswer);
+                if (!hasCorrectAnswer) {
+                    return false;
+                }
+
+                // Проверяем уникальность вариантов
+                const optionIds = q.options.map(opt => opt.id);
+                const uniqueOptionIds = [...new Set(optionIds)];
+                if (uniqueOptionIds.length !== optionIds.length) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            if (validQuestions.length === 0) {
+                throw new Error('Не удалось сгенерировать корректные вопросы. Пожалуйста, попробуйте еще раз.');
+            }
+
+            // Ограничиваем количество вопросов
+            state.quiz.questions = validQuestions.slice(0, numQuestions);
+
+            return state.quiz.questions;
+        } catch (error) {
+            console.error('Ошибка при генерации вопросов:', error);
+            throw error;
+        }
+    }
+
+    // Обновляем оригинальную функцию navigateTo для инициализации викторины
+    const originalNavigateTo = navigateTo;
+    navigateTo = function(pageId) {
+        originalNavigateTo(pageId);
+
+        // Если переходим на страницу викторины, инициализируем ее
+        if (pageId === 'quiz-page') {
+            initQuiz();
+        }
+    };
 });
