@@ -1519,6 +1519,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newBtn = nextBtn.cloneNode(true);
                 nextBtn.parentNode.replaceChild(newBtn, nextBtn);
                 newBtn.disabled = true;
+                
+                // Добавляем обработчик для новой кнопки, если функция handleNextQuestion существует
+                if (typeof handleNextQuestion === 'function') {
+                    newBtn.addEventListener('click', handleNextQuestion);
+                }
             }
         }
 
@@ -1770,22 +1775,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Следующий вопрос
-        nextBtn.addEventListener('click', function() {
-            // Удаляем все слушатели событий, чтобы избежать дублирования
-            nextBtn.disabled = true;
-            
-            // Если это последний вопрос, показываем результаты
-            if (state.quiz.currentQuestion >= state.quiz.totalQuestions - 1 || 
-                state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
-                showQuizResults();
-            } else {
-                // Иначе показываем следующий вопрос
-                // Важно: удаляем все существующие обработчики события клика с кнопки
-                nextBtn.removeEventListener('click', arguments.callee);
-                showQuestion(state.quiz.currentQuestion + 1);
-            }
-        });
+        // Добавляем обработчик к кнопке "Следующий вопрос"
+        nextBtn.addEventListener('click', handleNextQuestion);
         
         // Добавим дополнительную клавиатурную навигацию для доступности
         document.addEventListener('keydown', function(event) {
@@ -2094,6 +2085,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Включаем кнопку "Следующий вопрос"
         nextBtn.disabled = false;
+        
+        // Проверяем, есть ли на кнопке обработчик клика, и если нет - добавляем его
+        if (typeof handleNextQuestion === 'function') {
+            // Сначала удаляем все существующие обработчики, чтобы избежать дублирования
+            nextBtn.removeEventListener('click', handleNextQuestion);
+            // Затем добавляем обработчик
+            nextBtn.addEventListener('click', handleNextQuestion);
+        }
 
         // Блокируем все варианты ответов
         const answerElements = document.querySelectorAll('.quiz-answer');
@@ -2149,6 +2148,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         resultMessageElement.textContent = resultMessage;
+    }
+
+    // Обработчик для кнопки "Следующий вопрос"
+    function handleNextQuestion() {
+        // Блокируем кнопку, чтобы предотвратить многократные клики
+        const nextBtn = document.getElementById('next-question-btn');
+        nextBtn.disabled = true;
+        
+        // Если это последний вопрос, показываем результаты
+        if (state.quiz.currentQuestion >= state.quiz.totalQuestions - 1 || 
+            state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
+            showQuizResults();
+        } else {
+            // Иначе показываем следующий вопрос
+            showQuestion(state.quiz.currentQuestion + 1);
+        }
     }
 
     // Вспомогательные функции для управления секциями викторины
