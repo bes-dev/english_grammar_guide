@@ -703,7 +703,7 @@ header {
 .quiz-toggle-container {
     display: flex;
     align-items: center;
-    flex-grow: 1;
+    width: 100%;
 }
 
 .quiz-toggle-container.enhanced {
@@ -712,6 +712,7 @@ header {
     border-radius: 10px;
     border: 1px solid rgba(76, 201, 240, 0.1);
     transition: all 0.2s ease;
+    justify-content: center;
 }
 
 .quiz-toggle-container.enhanced:hover {
@@ -825,6 +826,7 @@ input:checked + .quiz-toggle-slider:before {
     border: 1px solid rgba(76, 201, 240, 0.1);
     font-size: 15px;
     transition: all 0.2s ease;
+    width: 100%;
 }
 
 .quiz-option-input.enhanced:hover {
@@ -916,13 +918,15 @@ input:checked + .quiz-toggle-slider:before {
 
 .quiz-option-group:not(#categories-config) {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .config-header {
     display: flex;
     align-items: flex-start;
     margin-bottom: 15px;
+    width: 100%;
 }
 
 .config-icon {
@@ -947,17 +951,18 @@ input:checked + .quiz-toggle-slider:before {
 
 .quiz-option-label {
     font-weight: 600;
-    margin-right: 10px;
-    min-width: 180px;
     color: var(--primary);
     font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+    width: 100%;
 }
 
 .quiz-option-select {
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
-    flex-grow: 1;
+    width: 100%;
 }
 
 /* Стили для панели выбора категорий и подкатегорий */
@@ -1344,18 +1349,7 @@ input:checked + .quiz-toggle-slider:before {
         display: block;
     }
     
-    .quiz-option-group {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .quiz-option-label {
-        margin-bottom: 8px;
-    }
-    
-    .quiz-option-select {
-        width: 100%;
-    }
+    /* Мобильные стили уже применены глобально */
     
     .quiz-navigation {
         flex-direction: column;
