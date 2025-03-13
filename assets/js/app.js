@@ -1468,6 +1468,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Инициализация викторины
     function initQuiz() {
+        // Очищаем состояние перед инициализацией
+        resetQuizState();
+
         // Получаем элементы для викторины
         const startScreen = document.getElementById('quiz-start-screen');
         const questionScreen = document.getElementById('quiz-question-screen');
@@ -1479,6 +1482,42 @@ document.addEventListener('DOMContentLoaded', function() {
         const apiKeyContainer = document.getElementById('api-key-container');
         const questionsCountSelect = document.getElementById('quiz-questions-count');
         const loadingIndicator = document.getElementById('loading-indicator');
+        
+        // Функция для сброса состояния викторины
+        function resetQuizState() {
+            // Сбрасываем состояние
+            state.quiz.questions = [];
+            state.quiz.currentQuestion = 0;
+            state.quiz.answers = [];
+            state.quiz.correctAnswers = 0;
+            
+            // Очищаем UI элементы
+            const feedback = document.getElementById('quiz-feedback');
+            if (feedback) {
+                feedback.textContent = '';
+                feedback.className = 'quiz-feedback';
+            }
+            
+            // Сбрасываем все выбранные ответы и их обработчики
+            const answerElements = document.querySelectorAll('.quiz-answer');
+            answerElements.forEach(answer => {
+                answer.classList.remove('selected', 'correct', 'incorrect');
+                answer.style.cursor = 'pointer';
+                answer.removeEventListener('click', handleAnswerSelection);
+            });
+            
+            // Очищаем текст вопроса
+            const questionElement = document.getElementById('quiz-question-text');
+            if (questionElement) {
+                questionElement.textContent = '';
+            }
+            
+            // Сбрасываем состояние кнопки "Следующий вопрос"
+            const nextBtn = document.getElementById('next-question-btn');
+            if (nextBtn) {
+                nextBtn.disabled = true;
+            }
+        }
 
         // Показываем начальный экран и скрываем остальные
         showSection(startScreen);
@@ -1730,6 +1769,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Следующий вопрос
         nextBtn.addEventListener('click', function() {
+            // Удаляем все слушатели событий, чтобы избежать дублирования
+            nextBtn.disabled = true;
+
             // Если это последний вопрос, показываем результаты
             if (state.quiz.currentQuestion >= state.quiz.totalQuestions - 1 || 
                 state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
@@ -1737,6 +1779,17 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 // Иначе показываем следующий вопрос
                 showQuestion(state.quiz.currentQuestion + 1);
+            }
+        });
+        
+        // Добавим дополнительную клавиатурную навигацию для доступности
+        document.addEventListener('keydown', function(event) {
+            // Если нажата клавиша Enter или Space, и кнопка "Следующий вопрос" активна
+            if ((event.key === 'Enter' || event.key === ' ') && 
+                !nextBtn.disabled &&
+                document.querySelector('.quiz-answer.selected')) {
+                // Симулируем клик по кнопке "Следующий вопрос"
+                nextBtn.click();
             }
         });
 
@@ -1959,18 +2012,31 @@ document.addEventListener('DOMContentLoaded', function() {
         feedback.textContent = '';
         feedback.className = 'quiz-feedback';
 
-        // Добавляем обработчики для вариантов ответов
-        const answerElements = document.querySelectorAll('.quiz-answer');
-        answerElements.forEach(answer => {
-            answer.addEventListener('click', handleAnswerSelection);
+        // Удаляем предыдущие обработчики для вариантов ответов, если они есть
+        const oldAnswerElements = document.querySelectorAll('.quiz-answer');
+        oldAnswerElements.forEach(answer => {
+            answer.removeEventListener('click', handleAnswerSelection);
         });
 
-        // Обратите внимание: обработчик для кнопки "На главную" добавляется 
-        // на родительский элемент один раз в функции initQuiz(), используя делегирование событий
+        // Добавляем новые обработчики для вариантов ответов
+        setTimeout(() => {
+            const answerElements = document.querySelectorAll('.quiz-answer');
+            answerElements.forEach(answer => {
+                // Убедимся, что обработчик удален перед добавлением
+                answer.removeEventListener('click', handleAnswerSelection);
+                // Добавляем новый обработчик
+                answer.addEventListener('click', handleAnswerSelection);
+                // Сбрасываем стили курсора
+                answer.style.cursor = 'pointer';
+            });
+        }, 0);
     }
 
     // Обработка выбора ответа
     function handleAnswerSelection(event) {
+        // Предотвращаем всплытие события
+        event.stopPropagation();
+        
         // Если уже выбран ответ, ничего не делаем
         if (document.querySelector('.quiz-answer.selected')) {
             return;
@@ -1981,9 +2047,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const question = state.quiz.questions[state.quiz.currentQuestion];
         const feedback = document.getElementById('quiz-feedback');
         const nextBtn = document.getElementById('next-question-btn');
-
-        // Отмечаем выбранный ответ
-        selectedAnswer.classList.add('selected');
 
         // Проверяем правильность ответа
         const isCorrect = selectedOptionId === question.correctAnswer;
@@ -1998,15 +2061,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Обновляем счетчик правильных ответов
         if (isCorrect) {
             state.quiz.correctAnswers++;
-            selectedAnswer.classList.add('correct');
+            selectedAnswer.classList.add('selected', 'correct');
             feedback.innerHTML = '<span style="color: #4cc9f0;">✓</span> Правильно!';
             feedback.className = 'quiz-feedback correct';
         } else {
-            selectedAnswer.classList.add('incorrect');
+            selectedAnswer.classList.add('selected', 'incorrect');
 
-            // Показываем правильный ответ
-            const correctAnswerElement = document.querySelector(`.quiz-answer[data-option-id="${question.correctAnswer}"]`);
-            correctAnswerElement.classList.add('correct');
+            // Показываем правильный ответ - находим его более надежным способом
+            const allAnswers = document.querySelectorAll('.quiz-answer');
+            let correctAnswerElement = null;
+            
+            allAnswers.forEach(answer => {
+                const optionId = answer.getAttribute('data-option-id');
+                if (optionId === question.correctAnswer) {
+                    correctAnswerElement = answer;
+                    correctAnswerElement.classList.add('correct');
+                }
+            });
 
             feedback.innerHTML = '<span style="color: #f72585;">✗</span> Неправильно!';
             feedback.className = 'quiz-feedback incorrect';
