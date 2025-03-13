@@ -1760,14 +1760,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Добавляем обработчик для кнопки "На главную"
         const homeBtn = document.getElementById('quiz-home-btn');
         // Удаляем предыдущие обработчики, если они есть
-        homeBtn.onclick = null;
+        homeBtn.removeEventListener('click', homeButtonHandler);
         // Устанавливаем новый обработчик
-        homeBtn.onclick = function() {
+        homeBtn.addEventListener('click', homeButtonHandler);
+        
+        // Функция-обработчик для кнопки "На главную"
+        function homeButtonHandler() {
             // Показываем подтверждение
             if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
                 navigateTo('home-page');
             }
-        };
+        }
     }
 
     // Обработка выбора ответа
@@ -2007,11 +2010,16 @@ ${JSON.stringify(tenseOptions, null, 2)}
     // Обновляем оригинальную функцию navigateTo для инициализации викторины
     const originalNavigateTo = navigateTo;
     navigateTo = function(pageId) {
-        originalNavigateTo(pageId);
+        // Проверяем, что целевая страница существует
+        if (document.getElementById(pageId)) {
+            originalNavigateTo(pageId);
 
-        // Если переходим на страницу викторины, инициализируем ее
-        if (pageId === 'quiz-page') {
-            initQuiz();
+            // Если переходим на страницу викторины, инициализируем ее
+            if (pageId === 'quiz-page') {
+                initQuiz();
+            }
+        } else {
+            console.error('Страница с ID ' + pageId + ' не найдена');
         }
     };
 });
