@@ -901,30 +901,40 @@ input:checked + .quiz-toggle-slider:before {
 
 .quiz-navigation {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     margin-top: 25px;
+    width: 100%;
 }
 
 .quiz-feedback {
-    flex-grow: 1;
-    font-size: 14px;
-    margin-right: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .quiz-buttons {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex-shrink: 0;
+    width: 100%;
 }
 
 .quiz-feedback.correct {
     color: var(--success);
+    background-color: rgba(74, 222, 128, 0.1);
 }
 
 .quiz-feedback.incorrect {
     color: var(--danger);
+    background-color: rgba(239, 68, 68, 0.1);
 }
 
 .quiz-result-header {

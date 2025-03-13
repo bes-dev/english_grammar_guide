@@ -550,10 +550,15 @@
                     </div>
                     
                     <div class="quiz-navigation">
+                        <!-- Блок обратной связи располагается над кнопками -->
                         <div id="quiz-feedback" class="quiz-feedback"></div>
+                        
+                        <!-- Кнопки располагаются ниже блока обратной связи -->
                         <div class="quiz-buttons">
-                            <button id="next-question-btn" class="btn btn-primary" style="padding: 16px; font-size: 18px;" disabled>Следующий вопрос</button>
-                            <button id="quiz-home-btn" class="btn btn-secondary" style="padding: 8px; font-size: 14px;">На главную</button>
+                            <button id="next-question-btn" class="btn btn-primary" style="padding: 16px; font-size: 18px; width: 100%; margin-bottom: 10px;" disabled>Следующий вопрос</button>
+                            <button id="quiz-home-btn" class="btn btn-secondary" style="padding: 12px; font-size: 16px; width: 100%;">На главную</button>
+                            <!-- Скрытый элемент для предотвращения конфликтов событий -->
+                            <div id="home-button-shield" style="display:none;"></div>
                         </div>
                     </div>
                 </div>

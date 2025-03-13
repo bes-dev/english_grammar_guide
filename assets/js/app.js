@@ -106,8 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.classList.contains('back-btn') && this.closest('#step3-page')) {
                 state.selectedClarification = null;
             }
-
-            navigateTo(this.getAttribute('data-nav') + '-page');
+            
+            const pageId = this.getAttribute('data-nav') + '-page';
+            navigateTo(pageId);
         });
     });
 
@@ -1765,10 +1766,24 @@ document.addEventListener('DOMContentLoaded', function() {
         homeBtn.addEventListener('click', homeButtonHandler);
         
         // Функция-обработчик для кнопки "На главную"
-        function homeButtonHandler() {
+        function homeButtonHandler(event) {
+            // Предотвращаем стандартное поведение и всплытие события
+            event.preventDefault();
+            event.stopPropagation();
+            
             // Показываем подтверждение
             if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
-                navigateTo('home-page');
+                // Сначала сбрасываем все обработчики этой кнопки
+                homeBtn.removeEventListener('click', homeButtonHandler);
+                
+                // Переходим на главную
+                document.getElementById('quiz-page').classList.remove('active');
+                document.getElementById('home-page').classList.add('active');
+                state.currentPage = 'home-page';
+                
+                // Активируем все нужные элементы на главной
+                loadTensesData();
+                loadIrregularVerbs();
             }
         }
     }
@@ -1803,7 +1818,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isCorrect) {
             state.quiz.correctAnswers++;
             selectedAnswer.classList.add('correct');
-            feedback.textContent = 'Правильно!';
+            feedback.innerHTML = '<span style="color: #4cc9f0;">✓</span> Правильно!';
             feedback.className = 'quiz-feedback correct';
         } else {
             selectedAnswer.classList.add('incorrect');
@@ -1812,9 +1827,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const correctAnswerElement = document.querySelector(`.quiz-answer[data-option-id="${question.correctAnswer}"]`);
             correctAnswerElement.classList.add('correct');
 
-            feedback.textContent = 'Неправильно!';
+            feedback.innerHTML = '<span style="color: #f72585;">✗</span> Неправильно!';
             feedback.className = 'quiz-feedback incorrect';
         }
+        
+        // Прокручиваем к области обратной связи, чтобы была видна надпись
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         // Включаем кнопку "Следующий вопрос"
         nextBtn.disabled = false;
