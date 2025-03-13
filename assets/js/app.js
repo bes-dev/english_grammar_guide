@@ -1563,7 +1563,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Следующий вопрос
         nextBtn.addEventListener('click', function() {
             // Если это последний вопрос, показываем результаты
-            if (state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
+            if (state.quiz.currentQuestion >= state.quiz.totalQuestions - 1 || 
+                state.quiz.currentQuestion >= state.quiz.questions.length - 1) {
                 showQuizResults();
             } else {
                 // Иначе показываем следующий вопрос
@@ -1720,7 +1721,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Обновляем номер вопроса и прогресс
         currentQuestionElement.textContent = questionIndex + 1;
-        progressFill.style.width = `${((questionIndex + 1) / state.quiz.totalQuestions) * 100}%`;
+        // Исправление: вычисляем прогресс правильно, без инкремента 2 на больших наборах
+        const progressPercentage = ((questionIndex + 1) / state.quiz.totalQuestions) * 100;
+        progressFill.style.width = `${progressPercentage}%`;
 
         // Устанавливаем текст вопроса
         questionElement.textContent = question.question;
@@ -1760,22 +1763,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Добавляем обработчик для кнопки "На главную"
         const homeBtn = document.getElementById('quiz-home-btn');
-        // Удаляем предыдущие обработчики, если они есть
-        homeBtn.removeEventListener('click', homeButtonHandler);
-        // Устанавливаем новый обработчик
-        homeBtn.addEventListener('click', homeButtonHandler);
         
-        // Функция-обработчик для кнопки "На главную"
-        function homeButtonHandler(event) {
+        // Очищаем все обработчики событий с кнопки, создавая клон
+        const newHomeBtn = homeBtn.cloneNode(true);
+        homeBtn.parentNode.replaceChild(newHomeBtn, homeBtn);
+        
+        // Устанавливаем новый обработчик на клонированную кнопку
+        newHomeBtn.addEventListener('click', function(event) {
             // Предотвращаем стандартное поведение и всплытие события
             event.preventDefault();
             event.stopPropagation();
             
-            // Показываем подтверждение
+            // Показываем подтверждение только один раз
             if (confirm('Вы уверены, что хотите прервать викторину и вернуться на главную страницу?')) {
-                // Сначала сбрасываем все обработчики этой кнопки
-                homeBtn.removeEventListener('click', homeButtonHandler);
-                
                 // Переходим на главную
                 document.getElementById('quiz-page').classList.remove('active');
                 document.getElementById('home-page').classList.add('active');
@@ -1785,7 +1785,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadTensesData();
                 loadIrregularVerbs();
             }
-        }
+        });
     }
 
     // Обработка выбора ответа
@@ -1861,6 +1861,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Обновляем элементы результатов
         correctAnswersElement.textContent = state.quiz.correctAnswers;
+
+        // Проверяем, что общее количество вопросов корректно для расчета процента
+        if (state.quiz.totalQuestions <= 0) {
+            console.error('Ошибка: общее количество вопросов некорректно:', state.quiz.totalQuestions);
+            // Устанавливаем безопасное значение
+            state.quiz.totalQuestions = Math.max(state.quiz.questions.length, 1);
+        }
 
         // Вычисляем процент правильных ответов
         const scorePercent = Math.round((state.quiz.correctAnswers / state.quiz.totalQuestions) * 100);
