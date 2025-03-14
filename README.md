@@ -1,59 +1,72 @@
-# English Grammar Guide - Определение времен английского языка
+# ВремяГид - Interactive English Grammar Guide
 
-Интерактивное веб-приложение для определения необходимого времени английского языка. Приложение помогает пользователям выбрать правильное время для предложения на основе контекста и характера действия.
+ВремяГид (VremyaGuide) is an interactive web application designed to help Russian-speaking users master English grammar, with a primary focus on verb tenses, conditionals, and voices. The application provides an algorithm-based approach to selecting the correct English tense and construction based on users' needs.
 
-## Особенности
+## Features
 
-- Интерактивный алгоритм пошагового определения времени
-- Подробное описание всех 12 времен английского языка
-- Формулы построения предложений (утвердительных, отрицательных, вопросительных)
-- Примеры использования с переводом на русский язык
-- Таблица неправильных глаголов с поиском
-- Слова-маркеры для каждого времени
-- Режим "Викторина" для проверки знаний английской грамматики
-- Адаптивный дизайн для мобильных устройств и ПК
+- **Interactive Tense Selection Algorithm**: Step by step guidance to determine the correct English tense
+- **Comprehensive Grammar Coverage**: 
+  - 16 English tenses
+  - Active and passive voice constructions
+  - 5 types of conditional sentences
+- **Reference Materials**: Detailed explanations, formulas and examples for each grammar construction
+- **User-friendly Interface**: Intuitive navigation with clear explanations in Russian
+- **Mobile-responsive Design**: Works on all device sizes
 
-## Как пользоваться
+## How It Works
 
-1. Запустите приложение, открыв файл `index.html` в любом современном браузере
-2. На главном экране нажмите на кнопку "Начать определение времени"
-3. Последовательно ответьте на вопросы алгоритма:
-   - Когда происходит действие? (прошлое, настоящее, будущее)
-   - Какой характер у действия? (простой факт, процесс, результат, длительный процесс с результатом)
-   - Ответьте на уточняющий вопрос
-4. Получите результат с подробным описанием определенного времени
+1. **Main Algorithm**: Users answer simple questions about what they want to say, and the application guides them to the correct grammatical construction.
+   - Focus: Determine if the focus is on the actor, the object, or a condition
+   - Time: Select the time period (past, present, future)
+   - Character: Specify the nature of the action (regular, in progress, completed, etc.)
 
-## Разделы приложения
+2. **Reference Sections**: Users can also directly access information about:
+   - Tenses: All 16 English tenses with explanations, formulas, and examples
+   - Voices: Active and passive voice constructions
+   - Conditionals: All 5 types of conditional sentences with examples
 
-- **Тренажер** - пошаговое определение времени
-- **Таблица времен** - информация о всех временах английского языка
-- **Пассивный залог** - руководство по использованию пассивного залога
-- **Условные предложения** - объяснение различных типов условных предложений
-- **Неправильные глаголы** - справочник неправильных глаголов с поиском
-- **Викторина** - тесты для проверки знаний английской грамматики
+3. **Detailed Results**: For each grammar construction, the app provides:
+   - Affirmative, negative, and question formulas
+   - Multiple examples with translations
+   - Usage notes and time markers
+   - Comparison with similar tenses
 
-## Технологии
+## Technical Implementation
 
-Приложение разработано с использованием:
-- HTML5
-- CSS3 (с использованием флексбоксов и гридов)
-- JavaScript (без сторонних библиотек)
+The application is built using a modern JavaScript architecture with an MVC pattern:
 
-## Структура проекта
+- **Models**: Data handling and algorithm logic (`/assets/js/models/`)
+- **Views**: UI rendering and user interaction (`/assets/js/views/`)
+- **Controllers**: Business logic and event handling (`/assets/js/controllers/`)
+- **Router**: Single page application navigation
+- **Event Bus**: Communication between components
+- **Store**: Application state management
+- **Utilities**: Helper functions and templates
 
-```
-english_grammar_guide/
-├── assets/
-│   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       └── app.js
-├── index.html
-└── README.md
-```
+Configuration for the algorithm is stored in JSON files:
+- `config/algorithms/vremya-guide/steps.json`: Algorithm steps and options
+- `config/algorithms/vremya-guide/rules.json`: Logic for determining the next step
+- `config/algorithms/vremya-guide/results.json`: Detailed information for each grammar construction
 
-## Как запустить локально
+## Installation
 
-1. Клонируйте или скачайте репозиторий
-2. Откройте файл `index.html` в любом современном браузере
-3. Никаких дополнительных настроек не требуется
+1. Clone the repository
+2. Open the `index.html` file in your web browser
+3. No build process or server setup is required - the application works as a standalone HTML/CSS/JS project
+
+## Development
+
+To add new features or modify existing ones:
+
+1. Algorithm modifications should be made in the configuration files in `/config/algorithms/`
+2. UI changes can be made in the corresponding view files in `/assets/js/views/`
+3. Business logic changes should be made in the controller files in `/assets/js/controllers/`
+4. CSS styling is separated into components in `/assets/css/`
+
+## License
+
+See the [LICENSE](LICENSE) file for details.
+
+## Credits
+
+ВремяГид was created to make English grammar selection intuitive and accessible, focusing on helping users choose the right grammar constructions without advanced grammatical knowledge.

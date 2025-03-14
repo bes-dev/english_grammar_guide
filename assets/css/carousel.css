@@ -1,0 +1,502 @@
+/* !B8;8 4;O <5=N-:0@CA5;8 8 A2O70==KE A =59 :><?>=5=B>2 */
+
+/* A=>2=K5 AB8;8 4;O :0@CA5;8 */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 60px; /* ;O <5=N 2=87C */
+}
+
+/* 5=N-:0@CA5;L */
+.carousel-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+    z-index: 1000;
+}
+
+.carousel-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 60px;
+}
+
+.carousel-tab:hover {
+    background-color: rgba(67, 97, 238, 0.1);
+}
+
+.carousel-tab.active {
+    background-color: rgba(67, 97, 238, 0.2);
+}
+
+.carousel-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    transition: width 0.3s ease;
+}
+
+.carousel-tab.active::after {
+    width: 100%;
+}
+
+.carousel-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.carousel-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.carousel-tab.active .carousel-label {
+    color: var(--primary);
+}
+
+/* !B8;8 4;O 2@5<5==>9 ;8=88 */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    right: 5%;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    transform: translateY(-50%);
+}
+
+.time-point {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 16px;
+    border: 2px solid var(--primary);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.time-point:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.3);
+    background-color: var(--primary);
+    color: white;
+}
+
+.time-point.active {
+    background-color: var(--primary);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.3);
+}
+
+.time-label {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: var(--gray);
+    white-space: nowrap;
+}
+
+/* !B8;8 4;O :0B53>@89 2@5<5= */
+.tense-categories {
+    margin-top: 20px;
+}
+
+.tense-category {
+    margin-bottom: 30px;
+}
+
+.category-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+}
+
+.category-title .icon {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.tense-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.tense-item {
+    background-color: white;
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+.tense-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tense-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.12);
+    background-color: rgba(67, 97, 238, 0.02);
+}
+
+.tense-item:hover::before {
+    opacity: 1;
+}
+
+.tense-item::after {
+    content: '→';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%) translateX(20px);
+    font-size: 18px;
+    color: var(--primary);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.tense-item:hover::after {
+    transform: translateY(-50%) translateX(0);
+    opacity: 1;
+}
+
+.tense-name {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--primary-dark);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tense-item:hover .tense-name {
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.tense-name .icon {
+    margin-right: 10px;
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.tense-item:hover .tense-name .icon {
+    transform: scale(1.2);
+}
+
+.tense-description {
+    font-size: 14px;
+    color: var(--gray);
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding-right: 20px; /* Место для стрелки */
+}
+
+.tense-item:hover .tense-description {
+    color: var(--dark);
+    transform: translateX(5px);
+}
+
+/* !B8;8 4;O ?@8<5@>2 */
+.quick-examples {
+    background-color: rgba(76, 201, 240, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.example-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.example-icon {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(76, 201, 240, 0.3);
+}
+
+.example-title {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 16px;
+}
+
+.example-list {
+    list-style: none;
+}
+
+.example-list li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.example-list li::before {
+    content: '"';
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 18px;
+}
+
+.english {
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.translation {
+    color: var(--gray);
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 2px;
+}
+
+/* !B8;8 4;O 2:;04>: 70;>3>2 */
+.voice-tabs {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    position: relative;
+    background-color: var(--light);
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.voice-tab {
+    padding: 12px 25px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--gray);
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    border: none;
+    flex: 1;
+    justify-content: center;
+}
+
+.voice-tab:first-child {
+    border-radius: 50px 0 0 50px;
+}
+
+.voice-tab:last-child {
+    border-radius: 0 50px 50px 0;
+}
+
+.voice-tab.active {
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    color: white;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+.voice-tab:hover:not(.active) {
+    background-color: rgba(67, 97, 238, 0.08);
+    color: var(--primary);
+}
+
+.voice-tab-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+/* Стили для вкладок условных предложений */
+.conditional-tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 30px 0;
+    padding: 5px 15px 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) #f0f0f0;
+    gap: 15px;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+.conditional-tabs::-webkit-scrollbar {
+    height: 6px;
+}
+
+.conditional-tabs::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 20px;
+}
+
+.conditional-tabs::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 20px;
+}
+
+.conditional-tab {
+    padding: 12px 16px;
+    background-color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--gray);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    flex-shrink: 0;
+    margin-right: 0;
+}
+
+.conditional-tab:hover {
+    background-color: rgba(67, 97, 238, 0.08);
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.15);
+}
+
+.conditional-tab.active {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.25);
+    transform: translateY(-3px);
+    border: none;
+}
+
+.conditional-tab-icon {
+    margin-right: 10px;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.conditional-tab:hover .conditional-tab-icon,
+.conditional-tab.active .conditional-tab-icon {
+    transform: scale(1.2);
+}
+
+/* =>?:0 2>72@0B0 =0 4><0H=89 M:@0= */
+.home-button {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    cursor: pointer;
+    z-index: 900;
+    transition: all 0.3s ease;
+}
+
+.home-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+}
+
+/* 40?B82=>ABL */
+@media (max-width: 480px) {
+    .tense-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .carousel-label {
+        font-size: 10px;
+    }
+    
+    .carousel-tab {
+        padding: 6px 8px;
+        min-width: 50px;
+    }
+    
+    .voice-tab {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    .voices-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .conditional-tab {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}

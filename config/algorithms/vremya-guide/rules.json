@@ -1,0 +1,211 @@
+[
+  {
+    "stepId": "step1",
+    "choice": "actor",
+    "nextStep": "step2"
+  },
+  {
+    "stepId": "step1",
+    "choice": "object",
+    "nextStep": "step2"
+  },
+  {
+    "stepId": "step1",
+    "choice": "condition",
+    "nextStep": "step2"
+  },
+  {
+    "stepId": "step2",
+    "choice": "past",
+    "prevChoice": "actor",
+    "nextStep": "step3_actor_past"
+  },
+  {
+    "stepId": "step2",
+    "choice": "present",
+    "prevChoice": "actor",
+    "nextStep": "step3_actor_present"
+  },
+  {
+    "stepId": "step2",
+    "choice": "future",
+    "prevChoice": "actor",
+    "nextStep": "step3_actor_future"
+  },
+  {
+    "stepId": "step2",
+    "choice": "past",
+    "prevChoice": "object",
+    "nextStep": "step3_object_past"
+  },
+  {
+    "stepId": "step2",
+    "choice": "present",
+    "prevChoice": "object",
+    "nextStep": "step3_object_present"
+  },
+  {
+    "stepId": "step2",
+    "choice": "future",
+    "prevChoice": "object",
+    "nextStep": "step3_object_future"
+  },
+  {
+    "stepId": "step2",
+    "choice": "past",
+    "prevChoice": "condition",
+    "nextStep": "step3_condition"
+  },
+  {
+    "stepId": "step2",
+    "choice": "present",
+    "prevChoice": "condition",
+    "nextStep": "step3_condition"
+  },
+  {
+    "stepId": "step2",
+    "choice": "future",
+    "prevChoice": "condition",
+    "nextStep": "step3_condition"
+  },
+  {
+    "stepId": "step3_actor_future",
+    "choice": "prediction",
+    "resultId": "future_simple"
+  },
+  {
+    "stepId": "step3_actor_future",
+    "choice": "intention",
+    "resultId": "be_going_to"
+  },
+  {
+    "stepId": "step3_actor_future",
+    "choice": "arrangement",
+    "resultId": "present_continuous_future"
+  },
+  {
+    "stepId": "step3_actor_future",
+    "choice": "schedule",
+    "resultId": "present_simple_future"
+  },
+  {
+    "stepId": "step3_actor_future",
+    "choice": "inProgress",
+    "resultId": "future_continuous"
+  },
+  {
+    "stepId": "step3_actor_future",
+    "choice": "completed",
+    "resultId": "future_perfect"
+  },
+  {
+    "stepId": "step3_actor_future",
+    "choice": "duration",
+    "resultId": "future_perfect_continuous"
+  },
+  {
+    "stepId": "step3_actor_present",
+    "choice": "regular",
+    "resultId": "present_simple"
+  },
+  {
+    "stepId": "step3_actor_present",
+    "choice": "inProgress",
+    "resultId": "present_continuous"
+  },
+  {
+    "stepId": "step3_actor_present",
+    "choice": "completed",
+    "resultId": "present_perfect"
+  },
+  {
+    "stepId": "step3_actor_present",
+    "choice": "duration",
+    "resultId": "present_perfect_continuous"
+  },
+  {
+    "stepId": "step3_actor_past",
+    "choice": "simple",
+    "resultId": "past_simple"
+  },
+  {
+    "stepId": "step3_actor_past",
+    "choice": "inProgress",
+    "resultId": "past_continuous"
+  },
+  {
+    "stepId": "step3_actor_past",
+    "choice": "before",
+    "resultId": "past_perfect"
+  },
+  {
+    "stepId": "step3_actor_past",
+    "choice": "duration",
+    "resultId": "past_perfect_continuous"
+  },
+  {
+    "stepId": "step3_object_future",
+    "choice": "simple",
+    "resultId": "future_simple_passive"
+  },
+  {
+    "stepId": "step3_object_future",
+    "choice": "completed",
+    "resultId": "future_perfect_passive"
+  },
+  {
+    "stepId": "step3_object_present",
+    "choice": "regular",
+    "resultId": "present_simple_passive"
+  },
+  {
+    "stepId": "step3_object_present",
+    "choice": "inProgress",
+    "resultId": "present_continuous_passive"
+  },
+  {
+    "stepId": "step3_object_present",
+    "choice": "completed",
+    "resultId": "present_perfect_passive"
+  },
+  {
+    "stepId": "step3_object_past",
+    "choice": "simple",
+    "resultId": "past_simple_passive"
+  },
+  {
+    "stepId": "step3_object_past",
+    "choice": "inProgress",
+    "resultId": "past_continuous_passive"
+  },
+  {
+    "stepId": "step3_object_past",
+    "choice": "before",
+    "resultId": "past_perfect_passive"
+  },
+  {
+    "stepId": "step3_condition",
+    "choice": "zero",
+    "resultId": "zero_conditional"
+  },
+  {
+    "stepId": "step3_condition",
+    "choice": "first",
+    "resultId": "first_conditional"
+  },
+  {
+    "stepId": "step3_condition",
+    "choice": "second",
+    "resultId": "second_conditional"
+  },
+  {
+    "stepId": "step3_condition",
+    "choice": "third",
+    "resultId": "third_conditional"
+  },
+  {
+    "stepId": "step3_condition",
+    "choice": "mixed",
+    "resultId": "mixed_conditional"
+  }
+]

@@ -1,0 +1,2281 @@
+{
+    "present_continuous_future": {
+        "id": "present_continuous_future",
+        "icon": "📅",
+        "title": "Present Continuous for Future",
+        "subtitle": "Настоящее длительное время для будущего",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + am/is/are + глагол с окончанием -ing"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + am/is/are + not + глагол с окончанием -ing"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Am/Is/Are + Subject + глагол с окончанием -ing + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I am meeting my friends this weekend.",
+                "translation": "Я встречаюсь с друзьями в эти выходные."
+            },
+            {
+                "original": "She is not coming to the party tomorrow.",
+                "translation": "Она не придет на вечеринку завтра."
+            },
+            {
+                "original": "Are you flying to Paris next month?",
+                "translation": "Ты летишь в Париж в следующем месяце?"
+            }
+        ],
+        "usage": [
+            "Для запланированных действий и договоренностей в ближайшем будущем",
+            "Когда обсуждаются уже организованные планы и договоренности",
+            "Для действий, к которым уже сделаны приготовления",
+            "Когда время и место будущего действия известны или определены"
+        ],
+        "markers": [
+            "this weekend",
+            "tomorrow",
+            "next week",
+            "on Monday",
+            "tonight",
+            "soon",
+            "in June",
+            "next year"
+        ],
+        "additionalInfo": {
+            "important": "Present Continuous для будущего используется только для действий, которые можно запланировать, организовать или договориться о них. Нельзя использовать с неконтролируемыми событиями.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "I am visiting my grandmother next week."
+                },
+                {
+                    "correct": false,
+                    "text": "It is raining tomorrow.",
+                    "correction": "It will rain tomorrow."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Continuous vs Future Simple (will)",
+                "first": "I am meeting John tomorrow. (уже запланировано)",
+                "second": "I will meet John tomorrow. (спонтанное решение или предсказание)"
+            },
+            {
+                "title": "Present Continuous vs be going to",
+                "first": "I am taking a taxi to the airport. (конкретная договоренность)",
+                "second": "I am going to take a taxi to the airport. (намерение, план)"
+            },
+            {
+                "title": "Present Continuous vs Present Simple для будущего",
+                "first": "I am leaving at 5 PM. (запланированное действие)",
+                "second": "The train leaves at 5 PM. (по расписанию)"
+            }
+        ]
+    },
+    "future_simple": {
+        "id": "future_simple",
+        "icon": "🔮",
+        "title": "Future Simple",
+        "subtitle": "Будущее простое время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + will + глагол в базовой форме"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + will not (won't) + глагол в базовой форме"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Will + Subject + глагол в базовой форме + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I will call you tomorrow.",
+                "translation": "Я позвоню тебе завтра."
+            },
+            {
+                "original": "She won't come to the party.",
+                "translation": "Она не придет на вечеринку."
+            },
+            {
+                "original": "Will they visit us next summer?",
+                "translation": "Они посетят нас следующим летом?"
+            }
+        ],
+        "usage": [
+            "Для предсказаний о будущем",
+            "Для спонтанных решений, принимаемых в момент речи",
+            "Для обещаний, угроз, предупреждений",
+            "Для предположений о будущем"
+        ],
+        "markers": [
+            "tomorrow",
+            "next week",
+            "next month",
+            "next year",
+            "in 2030",
+            "soon",
+            "I think",
+            "probably",
+            "I'm sure"
+        ],
+        "additionalInfo": {
+            "important": "Future Simple часто используется для выражения спонтанных решений, принимаемых в момент речи, в отличие от запланированных действий (Present Continuous) или намерений (be going to).",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "It's hot in here. I will open the window."
+                },
+                {
+                    "correct": false,
+                    "text": "I will go to the party because I already bought a dress.",
+                    "correction": "I am going to go to the party because I already bought a dress."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Future Simple vs be going to",
+                "first": "I will buy a new car. (спонтанное решение или предсказание)",
+                "second": "I am going to buy a new car. (намерение, план, решение было принято ранее)"
+            },
+            {
+                "title": "Future Simple vs Present Continuous для будущего",
+                "first": "I will meet John tomorrow. (спонтанное решение или предсказание)",
+                "second": "I am meeting John tomorrow. (запланированная договоренность)"
+            },
+            {
+                "title": "Future Simple для предсказаний",
+                "first": "I think it will rain later. (предсказание)",
+                "second": "I think it is going to rain later. (предсказание на основе видимых признаков)"
+            }
+        ]
+    },
+    "present_simple": {
+        "id": "present_simple",
+        "icon": "📊",
+        "title": "Present Simple",
+        "subtitle": "Настоящее простое время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + глагол в базовой форме (+ -s/-es в 3-м лице ед. числа)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + do/does + not + глагол в базовой форме"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Do/Does + Subject + глагол в базовой форме + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I read books every evening.",
+                "translation": "Я читаю книги каждый вечер."
+            },
+            {
+                "original": "She doesn't work on Sundays.",
+                "translation": "Она не работает по воскресеньям."
+            },
+            {
+                "original": "Do they live in London?",
+                "translation": "Они живут в Лондоне?"
+            }
+        ],
+        "usage": [
+            "Для регулярных, повторяющихся действий",
+            "Для общих истин и фактов",
+            "Для описания привычек, хобби и распорядка дня",
+            "Для неизменных ситуаций"
+        ],
+        "markers": [
+            "always",
+            "usually",
+            "often",
+            "sometimes",
+            "rarely",
+            "never",
+            "every day",
+            "once a week",
+            "in the morning",
+            "on Mondays"
+        ],
+        "additionalInfo": {
+            "important": "Present Simple используется для описания регулярных, повторяющихся действий и неизменных ситуаций. В 3-м лице единственного числа к глаголу добавляется окончание -s/-es.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "The Earth revolves around the Sun."
+                },
+                {
+                    "correct": false,
+                    "text": "I reading a book now.",
+                    "correction": "I am reading a book now."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Simple vs Present Continuous",
+                "first": "I play tennis every Sunday. (регулярное действие)",
+                "second": "I am playing tennis now. (действие в процессе)"
+            },
+            {
+                "title": "Present Simple для фактов vs Present Perfect для опыта",
+                "first": "Water boils at 100 degrees Celsius. (общая истина)",
+                "second": "I have been to Paris three times. (личный опыт)"
+            },
+            {
+                "title": "Present Simple для регулярных действий vs Future Simple для прогнозов",
+                "first": "He works every day. (регулярное действие)",
+                "second": "He will work tomorrow. (планы на будущее)"
+            }
+        ]
+    },
+    "present_continuous": {
+        "id": "present_continuous",
+        "icon": "⏳",
+        "title": "Present Continuous",
+        "subtitle": "Настоящее длительное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + am/is/are + глагол с окончанием -ing"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + am/is/are + not + глагол с окончанием -ing"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Am/Is/Are + Subject + глагол с окончанием -ing + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I am reading an interesting book now.",
+                "translation": "Я сейчас читаю интересную книгу."
+            },
+            {
+                "original": "She is not working today.",
+                "translation": "Она не работает сегодня."
+            },
+            {
+                "original": "Are they studying for the exam?",
+                "translation": "Они готовятся к экзамену?"
+            }
+        ],
+        "usage": [
+            "Для действий, происходящих в момент речи",
+            "Для временных ситуаций в настоящем времени",
+            "Для запланированных действий в ближайшем будущем",
+            "Для действий, которые развиваются или меняются со временем"
+        ],
+        "markers": [
+            "now",
+            "at the moment",
+            "currently",
+            "at present",
+            "right now",
+            "this week",
+            "these days",
+            "today",
+            "look!"
+        ],
+        "additionalInfo": {
+            "important": "Present Continuous используется для действий, происходящих в момент речи или в настоящий период времени. Не используется с глаголами состояния (know, believe, understand и т.д.).",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "I am working on a new project this month."
+                },
+                {
+                    "correct": false,
+                    "text": "I am knowing the answer.",
+                    "correction": "I know the answer."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Continuous vs Present Simple",
+                "first": "I am reading a book now. (в данный момент)",
+                "second": "I read books every evening. (регулярное действие)"
+            },
+            {
+                "title": "Present Continuous vs Present Perfect Continuous",
+                "first": "I am learning French. (сейчас, в настоящий период)",
+                "second": "I have been learning French for three years. (с указанием периода, начавшегося в прошлом)"
+            },
+            {
+                "title": "Present Continuous для временных ситуаций",
+                "first": "I am living with my parents until I find an apartment. (временная ситуация)",
+                "second": "I live in London. (постоянная ситуация - Present Simple)"
+            }
+        ]
+    },
+    "present_perfect": {
+        "id": "present_perfect",
+        "icon": "✅",
+        "title": "Present Perfect",
+        "subtitle": "Настоящее совершенное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + have/has + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + have/has + not + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Have/Has + Subject + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I have already read 100 pages.",
+                "translation": "Я уже прочитал 100 страниц."
+            },
+            {
+                "original": "She has not finished her homework yet.",
+                "translation": "Она еще не закончила свое домашнее задание."
+            },
+            {
+                "original": "Have you ever visited Paris?",
+                "translation": "Ты когда-нибудь был в Париже?"
+            }
+        ],
+        "usage": [
+            "Для действий, завершившихся в неопределенный момент в прошлом с результатом в настоящем",
+            "Для описания жизненного опыта",
+            "Для недавно завершившихся действий",
+            "Для действий, которые начались в прошлом и все еще актуальны"
+        ],
+        "markers": [
+            "already",
+            "just",
+            "yet",
+            "ever",
+            "never",
+            "so far",
+            "recently",
+            "since",
+            "for",
+            "today",
+            "this week"
+        ],
+        "additionalInfo": {
+            "important": "Present Perfect связывает прошлое с настоящим. Основное внимание уделяется результату действия, а не тому, когда именно оно произошло.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "I have lost my keys. (результат важен сейчас)"
+                },
+                {
+                    "correct": false,
+                    "text": "I have seen a movie yesterday.",
+                    "correction": "I saw a movie yesterday. / I have seen a movie (без указания конкретного времени)"
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Perfect vs Past Simple",
+                "first": "I have visited Paris. (факт без указания времени)",
+                "second": "I visited Paris last year. (с указанием конкретного времени)"
+            },
+            {
+                "title": "Present Perfect vs Present Perfect Continuous",
+                "first": "I have written three emails. (акцент на результате)",
+                "second": "I have been writing emails all morning. (акцент на процессе)"
+            },
+            {
+                "title": "Present Perfect для опыта vs Present Simple для фактов",
+                "first": "I have been to Japan twice. (опыт)",
+                "second": "Japan is in Asia. (общий факт)"
+            }
+        ]
+    },
+    "present_perfect_continuous": {
+        "id": "present_perfect_continuous",
+        "icon": "⏱️",
+        "title": "Present Perfect Continuous",
+        "subtitle": "Настоящее совершенное длительное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + have/has + been + глагол с окончанием -ing"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + have/has + not + been + глагол с окончанием -ing"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Have/Has + Subject + been + глагол с окончанием -ing + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I have been reading this book for a week.",
+                "translation": "Я читаю эту книгу уже неделю."
+            },
+            {
+                "original": "She has not been working here for long.",
+                "translation": "Она работает здесь недолго."
+            },
+            {
+                "original": "How long have you been waiting for me?",
+                "translation": "Как долго ты меня ждешь?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые начались в прошлом и продолжаются до сих пор",
+            "Для подчеркивания продолжительности действия",
+            "Для объяснения причин настоящей ситуации",
+            "Когда важен сам процесс, а не только результат"
+        ],
+        "markers": [
+            "for",
+            "since",
+            "all day",
+            "all week",
+            "recently",
+            "lately",
+            "how long",
+            "over the past days",
+            "the last few hours"
+        ],
+        "additionalInfo": {
+            "important": "Present Perfect Continuous подчеркивает продолжительность действия, которое началось в прошлом и продолжается до момента речи (или только что закончилось). Всегда требуется указание продолжительности (for) или начального момента (since).",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "I have been studying English for five years."
+                },
+                {
+                    "correct": false,
+                    "text": "I have been knowing him for a long time.",
+                    "correction": "I have known him for a long time."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Perfect Continuous vs Present Perfect",
+                "first": "I have been reading this book for a week. (акцент на процессе)",
+                "second": "I have read 100 pages of this book. (акцент на результате)"
+            },
+            {
+                "title": "Present Perfect Continuous vs Present Continuous",
+                "first": "I have been working on this project for two months. (с указанием длительности)",
+                "second": "I am working on this project now. (текущий процесс без указания длительности)"
+            },
+            {
+                "title": "Временные маркеры",
+                "first": "Используется с 'for' (в течение) и 'since' (с какого-то момента)",
+                "second": "Нельзя использовать с определенными моментами времени в прошлом (yesterday, last week)"
+            }
+        ]
+    },
+    "past_simple": {
+        "id": "past_simple",
+        "icon": "📅",
+        "title": "Past Simple",
+        "subtitle": "Прошедшее простое время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + глагол в прошедшем времени (V2)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + did + not + глагол в базовой форме"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Did + Subject + глагол в базовой форме + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I visited Paris last year.",
+                "translation": "Я посетил Париж в прошлом году."
+            },
+            {
+                "original": "She didn't finish her homework yesterday.",
+                "translation": "Она не закончила свою домашнюю работу вчера."
+            },
+            {
+                "original": "Did they call you last night?",
+                "translation": "Они звонили тебе вчера вечером?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые произошли и завершились в прошлом",
+            "Для последовательности действий в прошлом",
+            "Для привычек и регулярных действий в прошлом",
+            "Для фактов и состояний в прошлом"
+        ],
+        "markers": [
+            "yesterday",
+            "last week",
+            "last year",
+            "ago",
+            "in 1990",
+            "when",
+            "then",
+            "the other day",
+            "once upon a time"
+        ],
+        "additionalInfo": {
+            "important": "Past Simple используется для действий, полностью завершившихся в прошлом. Обычно требует указания конкретного момента времени в прошлом.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "I bought a new car last month."
+                },
+                {
+                    "correct": false,
+                    "text": "I just bought a new car.",
+                    "correction": "I have just bought a new car."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Past Simple vs Present Perfect",
+                "first": "I visited Paris last year. (конкретное время в прошлом)",
+                "second": "I have visited Paris. (время не указано, связь с настоящим)"
+            },
+            {
+                "title": "Past Simple vs Past Continuous",
+                "first": "I read a book yesterday. (завершенное действие)",
+                "second": "I was reading a book when you called. (действие в процессе)"
+            },
+            {
+                "title": "Past Simple vs Past Perfect",
+                "first": "I called her after the meeting. (последовательность действий)",
+                "second": "I had called her before the meeting. (действие до другого действия)"
+            }
+        ]
+    },
+    "past_continuous": {
+        "id": "past_continuous",
+        "icon": "⏳",
+        "title": "Past Continuous",
+        "subtitle": "Прошедшее длительное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + was/were + глагол с окончанием -ing"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + was/were + not + глагол с окончанием -ing"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Was/Were + Subject + глагол с окончанием -ing + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I was reading when the phone rang.",
+                "translation": "Я читал, когда зазвонил телефон."
+            },
+            {
+                "original": "They weren't working at 9 PM last night.",
+                "translation": "Они не работали в 9 вечера вчера."
+            },
+            {
+                "original": "Was she sleeping when you came home?",
+                "translation": "Она спала, когда ты пришел домой?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые происходили в определенный момент в прошлом",
+            "Для действий, которые были прерваны другим действием",
+            "Для двух параллельных действий в прошлом",
+            "Для описания обстановки в рассказе"
+        ],
+        "markers": [
+            "at 5 PM yesterday",
+            "when",
+            "while",
+            "as",
+            "all day yesterday",
+            "at that moment",
+            "during"
+        ],
+        "additionalInfo": {
+            "important": "Past Continuous подчеркивает процесс действия в прошлом, а не его результат. Часто используется с конструкциями 'when' и 'while', чтобы показать, что одно действие прервало другое или два действия происходили одновременно.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "I was watching TV when he called."
+                },
+                {
+                    "correct": false,
+                    "text": "I was knowing the answer.",
+                    "correction": "I knew the answer."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Past Continuous vs Past Simple",
+                "first": "I was reading a book when she arrived. (процесс, прерванный другим действием)",
+                "second": "I read a book after she arrived. (последовательные действия)"
+            },
+            {
+                "title": "Past Continuous для параллельных действий",
+                "first": "While I was cooking, she was setting the table. (два параллельных действия)",
+                "second": "I cooked and she set the table. (последовательные действия - Past Simple)"
+            },
+            {
+                "title": "Past Continuous для описания обстановки",
+                "first": "The sun was shining, birds were singing... (фон для истории)",
+                "second": "Suddenly, the door opened. (основное событие - Past Simple)"
+            }
+        ]
+    },
+    "past_perfect": {
+        "id": "past_perfect",
+        "icon": "✅",
+        "title": "Past Perfect",
+        "subtitle": "Прошедшее совершенное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + had + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + had + not + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Had + Subject + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I had already read the book before I watched the movie.",
+                "translation": "Я уже прочитал книгу до того, как посмотрел фильм."
+            },
+            {
+                "original": "She hadn't finished her work when I called.",
+                "translation": "Она не закончила свою работу, когда я позвонил."
+            },
+            {
+                "original": "Had you ever visited London before you moved there?",
+                "translation": "Ты когда-нибудь бывал в Лондоне до того, как переехал туда?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые произошли до другого момента или действия в прошлом",
+            "Для выражения сожаления о том, что не произошло в прошлом",
+            "В косвенной речи для передачи действий в Present Perfect",
+            "Для невыполненных действий до определенного момента в прошлом"
+        ],
+        "markers": [
+            "before",
+            "after",
+            "by the time",
+            "until",
+            "when",
+            "already",
+            "just",
+            "never",
+            "by",
+            "earlier"
+        ],
+        "additionalInfo": {
+            "important": "Past Perfect описывает действие, которое произошло до другого момента или действия в прошлом. Это время используется для установления последовательности событий, когда важно подчеркнуть, что одно действие предшествовало другому.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "By the time she arrived, he had left."
+                },
+                {
+                    "correct": false,
+                    "text": "When I reached the station, the train left.",
+                    "correction": "When I reached the station, the train had left."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Past Perfect vs Past Simple",
+                "first": "I had lost my keys before I got home. (действие до другого действия)",
+                "second": "I lost my keys when I got home. (одновременные или последовательные действия)"
+            },
+            {
+                "title": "Past Perfect vs Present Perfect",
+                "first": "She had never seen snow before she moved to Canada. (до момента в прошлом)",
+                "second": "She has never seen snow. (общий опыт до настоящего момента)"
+            },
+            {
+                "title": "Past Perfect в условных предложениях",
+                "first": "If I had studied harder, I would have passed the exam. (3-й тип условных предложений)",
+                "second": "If I studied harder, I would pass the exam. (2-й тип условных предложений)"
+            }
+        ]
+    },
+    "past_perfect_continuous": {
+        "id": "past_perfect_continuous",
+        "icon": "⏱️",
+        "title": "Past Perfect Continuous",
+        "subtitle": "Прошедшее совершенное длительное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + had + been + глагол с окончанием -ing"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + had + not + been + глагол с окончанием -ing"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Had + Subject + been + глагол с окончанием -ing + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I had been reading for two hours before I fell asleep.",
+                "translation": "Я читал в течение двух часов, прежде чем заснул."
+            },
+            {
+                "original": "She hadn't been working there for long before she got promoted.",
+                "translation": "Она работала там недолго, прежде чем получила повышение."
+            },
+            {
+                "original": "Had they been waiting for long when the bus arrived?",
+                "translation": "Они долго ждали, когда приехал автобус?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые длились некоторое время до определенного момента в прошлом",
+            "Для подчёркивания продолжительности действия до момента в прошлом",
+            "Для объяснения причин ситуации в прошлом",
+            "Когда важен процесс, а не только результат действия в прошлом"
+        ],
+        "markers": [
+            "for",
+            "since",
+            "before",
+            "when",
+            "by the time",
+            "how long",
+            "all day",
+            "until",
+            "as"
+        ],
+        "additionalInfo": {
+            "important": "Past Perfect Continuous подчеркивает продолжительность действия, которое происходило до определенного момента в прошлом. Обычно используется с указанием продолжительности (for) или начального момента (since).",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "Her eyes were red because she had been crying all night."
+                },
+                {
+                    "correct": false,
+                    "text": "I had been knowing him for years before he moved.",
+                    "correction": "I had known him for years before he moved."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Past Perfect Continuous vs Past Perfect",
+                "first": "I had been working on the project for months. (акцент на процессе)",
+                "second": "I had completed three projects by then. (акцент на результате)"
+            },
+            {
+                "title": "Past Perfect Continuous vs Past Continuous",
+                "first": "I had been waiting for 2 hours when she arrived. (действие до момента)",
+                "second": "I was waiting when she arrived. (действие в момент)"
+            },
+            {
+                "title": "Past Perfect Continuous vs Present Perfect Continuous",
+                "first": "I had been studying for 3 hours when he called. (до момента в прошлом)",
+                "second": "I have been studying for 3 hours. (до настоящего момента)"
+            }
+        ]
+    },
+    "be_going_to": {
+        "id": "be_going_to",
+        "icon": "🎯",
+        "title": "Be Going To",
+        "subtitle": "Конструкция для выражения намерений в будущем",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + am/is/are + going to + глагол в базовой форме"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + am/is/are + not + going to + глагол в базовой форме"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Am/Is/Are + Subject + going to + глагол в базовой форме + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I am going to study tonight.",
+                "translation": "Я собираюсь заниматься сегодня вечером."
+            },
+            {
+                "original": "She is not going to apply for that job.",
+                "translation": "Она не собирается подавать заявление на ту работу."
+            },
+            {
+                "original": "Are they going to move to a new house?",
+                "translation": "Они собираются переехать в новый дом?"
+            }
+        ],
+        "usage": [
+            "Для выражения намерений и планов",
+            "Когда решение было принято до момента речи",
+            "Для предсказаний на основе имеющихся фактов или признаков",
+            "Когда говорящий уверен в будущем событии"
+        ],
+        "markers": [
+            "tonight",
+            "tomorrow",
+            "next week",
+            "soon",
+            "this weekend",
+            "plan",
+            "intend",
+            "decide"
+        ],
+        "additionalInfo": {
+            "important": "Be going to выражает намерение или план, решение о котором было принято до момента речи. Также используется для предсказаний, основанных на очевидных признаках.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "Look at those clouds! It is going to rain."
+                },
+                {
+                    "correct": false,
+                    "text": "I'm going to help you with that right now.",
+                    "correction": "I'll help you with that right now."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Be going to vs Future Simple",
+                "first": "I am going to buy a new car. (намерение, план)",
+                "second": "I will buy a new car. (спонтанное решение или предсказание)"
+            },
+            {
+                "title": "Be going to vs Present Continuous для будущего",
+                "first": "I am going to visit Paris next year. (намерение, план)",
+                "second": "I am visiting Paris next month. (конкретная договоренность)"
+            },
+            {
+                "title": "Be going to для предсказаний",
+                "first": "Look at those clouds. It's going to rain. (предсказание на основе видимых признаков)",
+                "second": "I think it will rain tomorrow. (предсказание без видимых признаков)"
+            }
+        ]
+    },
+    "present_simple_future": {
+        "id": "present_simple_future",
+        "icon": "🕒",
+        "title": "Present Simple for Future",
+        "subtitle": "Настоящее простое время для будущего",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + глагол в Present Simple + временное обстоятельство будущего"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + do/does + not + глагол в базовой форме + временное обстоятельство будущего"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Do/Does + Subject + глагол в базовой форме + временное обстоятельство будущего + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The train leaves at 5 PM tomorrow.",
+                "translation": "Поезд отправляется завтра в 5 вечера."
+            },
+            {
+                "original": "The meeting does not start until 10 AM.",
+                "translation": "Собрание не начинается до 10 утра."
+            },
+            {
+                "original": "Does the plane arrive at 9 PM?",
+                "translation": "Самолет прибывает в 9 вечера?"
+            }
+        ],
+        "usage": [
+            "Для расписаний и фиксированных графиков",
+            "Для официальных планов, которые не могут быть изменены",
+            "Для событий, которые регулярно происходят по расписанию",
+            "В расписаниях транспорта, программах и т.д."
+        ],
+        "markers": [
+            "tomorrow",
+            "next Monday",
+            "at 5 PM",
+            "on Tuesday",
+            "schedule",
+            "timetable",
+            "according to the program"
+        ],
+        "additionalInfo": {
+            "important": "Present Simple для будущего используется только с фиксированными расписаниями и официальными планами, которые не зависят от личного решения говорящего.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "The museum opens at 9 AM tomorrow."
+                },
+                {
+                    "correct": false,
+                    "text": "I visit my friends tomorrow.",
+                    "correction": "I am visiting my friends tomorrow. / I will visit my friends tomorrow."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Simple vs Present Continuous для будущего",
+                "first": "The train leaves at 5 PM. (по расписанию)",
+                "second": "I am leaving at 5 PM. (запланированное действие)"
+            },
+            {
+                "title": "Present Simple vs Future Simple",
+                "first": "The semester starts next Monday. (по расписанию)",
+                "second": "I will start my new project next Monday. (решение или план)"
+            },
+            {
+                "title": "Важное различие",
+                "first": "Чаще всего используется с транспортом, учреждениями и событиями по расписанию",
+                "second": "Редко используется с действиями людей, если они не являются частью официального расписания"
+            }
+        ]
+    },
+    "future_continuous": {
+        "id": "future_continuous",
+        "icon": "⏳",
+        "title": "Future Continuous",
+        "subtitle": "Будущее длительное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + will be + глагол с окончанием -ing"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + will not (won't) be + глагол с окончанием -ing"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Will + Subject + be + глагол с окончанием -ing + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "This time tomorrow I will be flying to London.",
+                "translation": "Завтра в это время я буду лететь в Лондон."
+            },
+            {
+                "original": "She won't be working all day tomorrow.",
+                "translation": "Она не будет работать весь день завтра."
+            },
+            {
+                "original": "Will you be using the car tonight?",
+                "translation": "Ты будешь пользоваться машиной сегодня вечером?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые будут происходить в определенный момент в будущем",
+            "Для подчеркивания процесса, а не результата действия",
+            "Для действий, которые будут продолжаться в течение некоторого периода в будущем",
+            "Для вежливого вопроса о чьих-то планах"
+        ],
+        "markers": [
+            "this time tomorrow",
+            "at 5 PM tomorrow",
+            "all day tomorrow",
+            "while",
+            "when",
+            "during",
+            "at this moment next week"
+        ],
+        "additionalInfo": {
+            "important": "Future Continuous подчеркивает сам процесс действия в будущем, а не его результат. Часто используется с указанием конкретного момента времени.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "At 8 PM tomorrow, I will be having dinner with my family."
+                },
+                {
+                    "correct": false,
+                    "text": "I will be finishing this project by Friday.",
+                    "correction": "I will finish this project by Friday. / I will have finished this project by Friday."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Future Continuous vs Future Simple",
+                "first": "I will be working at 9 AM tomorrow. (процесс в определенный момент)",
+                "second": "I will work tomorrow. (простое действие в будущем)"
+            },
+            {
+                "title": "Future Continuous vs Present Continuous для будущего",
+                "first": "I will be working on the project tomorrow. (акцент на процессе)",
+                "second": "I am working on the project tomorrow. (запланированное действие)"
+            },
+            {
+                "title": "Вежливые вопросы",
+                "first": "Will you be using the printer soon? (вежливый вопрос о планах)",
+                "second": "Will you use the printer? (прямой вопрос)"
+            }
+        ]
+    },
+    "future_perfect": {
+        "id": "future_perfect",
+        "icon": "✅",
+        "title": "Future Perfect",
+        "subtitle": "Будущее совершенное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + will have + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + will not (won't) have + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Will + Subject + have + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "I will have finished the project by Friday.",
+                "translation": "Я закончу проект к пятнице."
+            },
+            {
+                "original": "She won't have graduated by June.",
+                "translation": "Она не закончит учёбу к июню."
+            },
+            {
+                "original": "Will they have built the new office by the end of next year?",
+                "translation": "Они построят новый офис к концу следующего года?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые завершатся к определенному моменту в будущем",
+            "Когда важно подчеркнуть завершенность действия к определенному сроку",
+            "Для подчеркивания результата, а не процесса",
+            "Для действий, которые будут завершены перед другим действием в будущем"
+        ],
+        "markers": [
+            "by",
+            "by then",
+            "by the time",
+            "by next week",
+            "before",
+            "until",
+            "by the end of",
+            "by 2030"
+        ],
+        "additionalInfo": {
+            "important": "Future Perfect используется только для действий, которые будут завершены к определенному моменту в будущем. Требует указания конкретного момента времени с предлогом 'by'.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "By the time she arrives, I will have prepared dinner."
+                },
+                {
+                    "correct": false,
+                    "text": "I will have finished my work tomorrow.",
+                    "correction": "I will have finished my work by tomorrow. / I will finish my work tomorrow."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Future Perfect vs Future Simple",
+                "first": "I will have completed the task by Friday. (завершенность к определенному моменту)",
+                "second": "I will complete the task on Friday. (простое действие в будущем)"
+            },
+            {
+                "title": "Future Perfect vs Future Continuous",
+                "first": "I will have written the report by 5 PM. (завершенность к определенному моменту)",
+                "second": "I will be writing the report at 5 PM. (процесс в определенный момент)"
+            },
+            {
+                "title": "Future Perfect с разными предлогами времени",
+                "first": "I will have lived here for 10 years by 2025. (продолжительность + момент завершения)",
+                "second": "I will have written three books by the time I retire. (завершенность перед другим действием)"
+            }
+        ]
+    },
+    "future_perfect_continuous": {
+        "id": "future_perfect_continuous",
+        "icon": "⏱️",
+        "title": "Future Perfect Continuous",
+        "subtitle": "Будущее совершенное длительное время",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + will have been + глагол с окончанием -ing"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + will not (won't) have been + глагол с окончанием -ing"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Will + Subject + have been + глагол с окончанием -ing + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "By December, I will have been working on this project for 6 months.",
+                "translation": "К декабрю я буду работать над этим проектом уже 6 месяцев."
+            },
+            {
+                "original": "Next week, they won't have been living here for 10 years yet.",
+                "translation": "На следующей неделе они еще не будут жить здесь 10 лет."
+            },
+            {
+                "original": "Will you have been studying English for 5 years by the end of next semester?",
+                "translation": "Ты будешь изучать английский язык уже 5 лет к концу следующего семестра?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые начались в прошлом, продолжаются в настоящем и будут продолжаться до определенного момента в будущем",
+            "Когда важно подчеркнуть продолжительность или непрерывность действия до определенного момента в будущем",
+            "Для акцента на процессе, а не результате",
+            "Часто используется с указанием продолжительности действия"
+        ],
+        "markers": [
+            "by then",
+            "by the time",
+            "for",
+            "since",
+            "by next year",
+            "for 10 years",
+            "since 2015"
+        ],
+        "additionalInfo": {
+            "important": "Future Perfect Continuous подчеркивает продолжительность и непрерывность действия до определенного момента в будущем. Всегда используется с указанием длительности (for) или начального момента (since).",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "By next month, I will have been teaching for 20 years."
+                },
+                {
+                    "correct": false,
+                    "text": "I will have been finishing my thesis by June.",
+                    "correction": "I will have finished my thesis by June."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Future Perfect Continuous vs Future Perfect",
+                "first": "By 2025, I will have been working here for 10 years. (акцент на продолжительности)",
+                "second": "By 2025, I will have worked on 10 different projects. (акцент на результате)"
+            },
+            {
+                "title": "Future Perfect Continuous vs Future Continuous",
+                "first": "By the time you call, I will have been waiting for 2 hours. (продолжительность до момента)",
+                "second": "When you call, I will be waiting for you. (процесс в конкретный момент)"
+            },
+            {
+                "title": "Ограничения использования",
+                "first": "Используется с глаголами, которые могут использоваться в длительной форме",
+                "second": "Не используется с глаголами состояния (know, believe, love, etc.)"
+            }
+        ]
+    },
+    "past_simple_passive": {
+        "id": "past_simple_passive",
+        "icon": "📅",
+        "title": "Past Simple Passive",
+        "subtitle": "Прошедшее простое время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + was/were + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + was/were + not + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Was/Were + Subject + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The letter was sent yesterday.",
+                "translation": "Письмо было отправлено вчера."
+            },
+            {
+                "original": "The building was not constructed in 1985.",
+                "translation": "Здание не было построено в 1985 году."
+            },
+            {
+                "original": "Was the project completed on time?",
+                "translation": "Был ли проект завершен вовремя?"
+            }
+        ],
+        "usage": [
+            "Когда объект действия важнее, чем исполнитель",
+            "Когда исполнитель действия неизвестен или неважен",
+            "Для описания завершенных действий в прошлом в пассивном залоге",
+            "В формальных отчетах, научных статьях, новостях"
+        ],
+        "markers": [
+            "yesterday",
+            "last week",
+            "in 1995",
+            "ago",
+            "on Monday",
+            "by",
+            "when",
+            "during"
+        ],
+        "additionalInfo": {
+            "important": "Past Simple Passive используется, когда важнее подчеркнуть то, что произошло с объектом, а не то, кто совершил действие. Если исполнитель известен и важен, его можно указать с помощью предлога 'by'.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "The Mona Lisa was painted by Leonardo da Vinci."
+                },
+                {
+                    "correct": false,
+                    "text": "The house was building last year.",
+                    "correction": "The house was built last year."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Past Simple Passive vs Past Simple Active",
+                "first": "The exam was completed by all students. (пассивный залог, фокус на объекте)",
+                "second": "All students completed the exam. (активный залог, фокус на исполнителе)"
+            },
+            {
+                "title": "Past Simple Passive с указанием и без указания исполнителя",
+                "first": "The book was written in 1954 by Ernest Hemingway. (исполнитель указан)",
+                "second": "The book was written in 1954. (исполнитель не указан)"
+            },
+            {
+                "title": "Past Simple Passive vs Present Simple Passive",
+                "first": "The bridge was constructed in 2010. (завершенное действие в прошлом)",
+                "second": "Bridges are constructed using steel and concrete. (общая истина)"
+            }
+        ]
+    },
+    "past_continuous_passive": {
+        "id": "past_continuous_passive",
+        "icon": "⏳",
+        "title": "Past Continuous Passive",
+        "subtitle": "Прошедшее длительное время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + was/were + being + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + was/were + not + being + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Was/Were + Subject + being + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The house was being painted when I arrived.",
+                "translation": "Дом красили, когда я приехал."
+            },
+            {
+                "original": "The issue wasn't being discussed at the meeting.",
+                "translation": "Вопрос не обсуждался на собрании."
+            },
+            {
+                "original": "Was the patient being examined when the doctor noticed the problem?",
+                "translation": "Пациента осматривали, когда врач заметил проблему?"
+            }
+        ],
+        "usage": [
+            "Когда действие с объектом происходило в определенный момент в прошлом",
+            "Когда действие с объектом было в процессе в прошлом",
+            "Когда объект был подвержен действию в течение некоторого времени в прошлом",
+            "В повествовании, для описания обстановки"
+        ],
+        "markers": [
+            "when",
+            "while",
+            "as",
+            "at that moment",
+            "during",
+            "at 5 PM yesterday",
+            "all day yesterday"
+        ],
+        "additionalInfo": {
+            "important": "Past Continuous Passive используется для описания процесса, который происходил с объектом в определенный момент или период времени в прошлом. Этот пассивный залог подчеркивает, что действие было в процессе.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "The room was being cleaned when the guests arrived."
+                },
+                {
+                    "correct": false,
+                    "text": "The room was being cleaned yesterday.",
+                    "correction": "The room was cleaned yesterday. / The room was being cleaned when I arrived yesterday."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Past Continuous Passive vs Past Simple Passive",
+                "first": "The building was being renovated when the accident happened. (процесс в момент)",
+                "second": "The building was renovated last year. (завершенное действие)"
+            },
+            {
+                "title": "Past Continuous Passive vs Past Continuous Active",
+                "first": "The car was being repaired. (фокус на объекте)",
+                "second": "The mechanic was repairing the car. (фокус на исполнителе)"
+            },
+            {
+                "title": "Использование в нарративе",
+                "first": "The suspect was being interviewed when the evidence arrived. (два параллельных события)",
+                "second": "The suspect was interviewed after the evidence arrived. (последовательность событий)"
+            }
+        ]
+    },
+    "past_perfect_passive": {
+        "id": "past_perfect_passive",
+        "icon": "✅",
+        "title": "Past Perfect Passive",
+        "subtitle": "Прошедшее совершенное время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + had + been + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + had + not + been + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Had + Subject + been + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The report had been completed before the meeting started.",
+                "translation": "Отчет был завершен до начала собрания."
+            },
+            {
+                "original": "The house had not been sold before we made our offer.",
+                "translation": "Дом не был продан до того, как мы сделали наше предложение."
+            },
+            {
+                "original": "Had all the preparations been finished by the time they arrived?",
+                "translation": "Все приготовления были закончены к тому времени, как они прибыли?"
+            }
+        ],
+        "usage": [
+            "Для действий с объектом, которые произошли до другого момента в прошлом",
+            "Чтобы показать, что объект был подвержен действию до какой-то точки в прошлом",
+            "В сложных предложениях для указания последовательности действий с объектом",
+            "В косвенной речи для передачи Present Perfect Passive"
+        ],
+        "markers": [
+            "before",
+            "by the time",
+            "already",
+            "after",
+            "by",
+            "when",
+            "until",
+            "earlier than"
+        ],
+        "additionalInfo": {
+            "important": "Past Perfect Passive используется, когда важно показать, что действие с объектом было завершено до другого момента или действия в прошлом. Если исполнитель известен, его можно указать с предлогом 'by'.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "By the time the CEO arrived, all documents had been prepared by the secretary."
+                },
+                {
+                    "correct": false,
+                    "text": "The building had been building before 2010.",
+                    "correction": "The building had been built before 2010."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Past Perfect Passive vs Past Simple Passive",
+                "first": "The film had been shown before I arrived. (до другого события в прошлом)",
+                "second": "The film was shown last week. (просто в прошлом)"
+            },
+            {
+                "title": "Past Perfect Passive vs Past Perfect Active",
+                "first": "The work had been completed by the team. (фокус на объекте)",
+                "second": "The team had completed the work. (фокус на исполнителе)"
+            },
+            {
+                "title": "Past Perfect Passive в reported speech",
+                "first": "She said the letter had been sent. (в косвенной речи)",
+                "second": "She said, \"The letter has been sent.\" (прямая речь - Present Perfect Passive)"
+            }
+        ]
+    },
+    "present_simple_passive": {
+        "id": "present_simple_passive",
+        "icon": "📊",
+        "title": "Present Simple Passive",
+        "subtitle": "Настоящее простое время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + am/is/are + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + am/is/are + not + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Am/Is/Are + Subject + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "English is spoken in many countries.",
+                "translation": "Английский язык используется во многих странах."
+            },
+            {
+                "original": "The museum is not closed on Mondays.",
+                "translation": "Музей не закрыт по понедельникам."
+            },
+            {
+                "original": "Are these cars manufactured in Germany?",
+                "translation": "Эти автомобили производятся в Германии?"
+            }
+        ],
+        "usage": [
+            "Для регулярных, повторяющихся действий в пассивном залоге",
+            "Для общих фактов и истин, когда исполнитель не важен",
+            "В официальных документах, инструкциях и объявлениях",
+            "Когда акцент делается на объекте или процессе, а не на исполнителе"
+        ],
+        "markers": [
+            "always",
+            "usually",
+            "often",
+            "sometimes",
+            "rarely",
+            "never",
+            "every day",
+            "on Mondays",
+            "twice a week"
+        ],
+        "additionalInfo": {
+            "important": "Present Simple Passive используется для выражения регулярных действий или общих истин в пассивном залоге. Особенно часто используется в научных текстах, новостях и формальных документах.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "Water is heated to 100 degrees Celsius to make tea."
+                },
+                {
+                    "correct": false,
+                    "text": "This book is reading by many students.",
+                    "correction": "This book is read by many students."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Simple Passive vs Present Simple Active",
+                "first": "The letters are delivered every morning. (фокус на объекте)",
+                "second": "The postman delivers the letters every morning. (фокус на исполнителе)"
+            },
+            {
+                "title": "Present Simple Passive vs Present Continuous Passive",
+                "first": "The floors are cleaned twice a week. (регулярное действие)",
+                "second": "The floors are being cleaned right now. (действие в процессе)"
+            },
+            {
+                "title": "Использование в научных текстах",
+                "first": "Experiments are conducted under strict conditions. (неважно кто)",
+                "second": "Scientists conduct experiments under strict conditions. (указание исполнителя)"
+            }
+        ]
+    },
+    "present_continuous_passive": {
+        "id": "present_continuous_passive",
+        "icon": "⏳",
+        "title": "Present Continuous Passive",
+        "subtitle": "Настоящее длительное время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + am/is/are + being + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + am/is/are + not + being + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Am/Is/Are + Subject + being + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The house is being painted right now.",
+                "translation": "Дом сейчас красится."
+            },
+            {
+                "original": "The documents are not being processed at the moment.",
+                "translation": "Документы в данный момент не обрабатываются."
+            },
+            {
+                "original": "Is the meeting being recorded?",
+                "translation": "Собрание записывается?"
+            }
+        ],
+        "usage": [
+            "Для действий с объектом, происходящих в момент речи",
+            "Для временных действий с объектом в настоящем",
+            "Чтобы подчеркнуть, что процесс с объектом находится в развитии",
+            "Когда важно показать, что действие незавершено"
+        ],
+        "markers": [
+            "now",
+            "at the moment",
+            "right now",
+            "currently",
+            "at present",
+            "today",
+            "this week",
+            "look!"
+        ],
+        "additionalInfo": {
+            "important": "Present Continuous Passive используется для описания действий, происходящих с объектом в данный момент или в текущий период времени. Подчеркивает процесс, а не результат.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "Careful! The floor is being washed."
+                },
+                {
+                    "correct": false,
+                    "text": "English is being spoken in this room every day.",
+                    "correction": "English is spoken in this room every day."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Continuous Passive vs Present Simple Passive",
+                "first": "The room is being cleaned now. (временный процесс)",
+                "second": "The room is cleaned every day. (регулярное действие)"
+            },
+            {
+                "title": "Present Continuous Passive vs Present Continuous Active",
+                "first": "The car is being repaired. (фокус на объекте)",
+                "second": "The mechanic is repairing the car. (фокус на исполнителе)"
+            },
+            {
+                "title": "Present Continuous Passive в объявлениях",
+                "first": "We apologize for the inconvenience. The system is being updated. (временное состояние)",
+                "second": "The system is updated every month. (регулярное действие - Present Simple Passive)"
+            }
+        ]
+    },
+    "present_perfect_passive": {
+        "id": "present_perfect_passive",
+        "icon": "✅",
+        "title": "Present Perfect Passive",
+        "subtitle": "Настоящее совершенное время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + have/has + been + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + have/has + not + been + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Have/Has + Subject + been + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The report has been completed.",
+                "translation": "Отчет был завершен."
+            },
+            {
+                "original": "The museum has not been renovated since 1980.",
+                "translation": "Музей не ремонтировался с 1980 года."
+            },
+            {
+                "original": "Has your passport been renewed yet?",
+                "translation": "Твой паспорт уже был обновлен?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые уже выполнены с объектом к настоящему моменту",
+            "Когда важен результат действия с объектом, а не исполнитель",
+            "Для действий с объектом, имеющих связь с настоящим моментом",
+            "В новостях, объявлениях и отчетах о текущих событиях"
+        ],
+        "markers": [
+            "already",
+            "just",
+            "yet",
+            "ever",
+            "never",
+            "so far",
+            "recently",
+            "today",
+            "since",
+            "for"
+        ],
+        "additionalInfo": {
+            "important": "Present Perfect Passive используется, когда важнее подчеркнуть результат действия с объектом, чем то, кто выполнил это действие. Связывает прошлое действие с настоящим моментом.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "The email has been sent to all participants."
+                },
+                {
+                    "correct": false,
+                    "text": "The email has been sent yesterday.",
+                    "correction": "The email was sent yesterday. / The email has been sent (без указания времени)."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Present Perfect Passive vs Present Simple Passive",
+                "first": "The system has been updated. (завершенное действие с результатом)",
+                "second": "The system is updated regularly. (регулярное действие)"
+            },
+            {
+                "title": "Present Perfect Passive vs Past Simple Passive",
+                "first": "The documents have been signed. (связь с настоящим)",
+                "second": "The documents were signed yesterday. (действие в прошлом)"
+            },
+            {
+                "title": "Present Perfect Passive vs Present Perfect Active",
+                "first": "The book has been published. (фокус на объекте)",
+                "second": "The publisher has published the book. (фокус на исполнителе)"
+            }
+        ]
+    },
+    "future_simple_passive": {
+        "id": "future_simple_passive",
+        "icon": "📦",
+        "title": "Future Simple Passive",
+        "subtitle": "Будущее простое время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + will + be + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + will + not + be + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Will + Subject + be + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The letter will be sent tomorrow.",
+                "translation": "Письмо будет отправлено завтра."
+            },
+            {
+                "original": "The new bridge will not be completed until next year.",
+                "translation": "Новый мост не будет завершен до следующего года."
+            },
+            {
+                "original": "Will the problem be solved soon?",
+                "translation": "Проблема будет решена скоро?"
+            }
+        ],
+        "usage": [
+            "Для действий, которые произойдут с объектом в будущем",
+            "Когда исполнитель неизвестен или не важен",
+            "В официальных объявлениях и прогнозах",
+            "В новостях и документах о будущих событиях"
+        ],
+        "markers": [
+            "tomorrow",
+            "next week",
+            "next year",
+            "soon",
+            "in the future",
+            "later",
+            "in a few days",
+            "eventually"
+        ],
+        "additionalInfo": {
+            "important": "Future Simple Passive используется, когда мы хотим сосредоточиться на объекте действия в будущем, а не на том, кто совершит это действие. Часто используется в официальных объявлениях и прогнозах.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "The ceremony will be held in the main hall."
+                },
+                {
+                    "correct": false,
+                    "text": "This package will send tomorrow.",
+                    "correction": "This package will be sent tomorrow."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Future Simple Passive vs Future Simple Active",
+                "first": "The exhibition will be opened by the mayor. (фокус на объекте)",
+                "second": "The mayor will open the exhibition. (фокус на исполнителе)"
+            },
+            {
+                "title": "Future Simple Passive vs Present Simple Passive в расписаниях",
+                "first": "The museum will be closed for renovation next month. (будущее событие)",
+                "second": "The museum is closed every Monday. (регулярное событие)"
+            },
+            {
+                "title": "Future Simple Passive в официальных объявлениях",
+                "first": "Passengers will be informed about any delays. (официальное заявление)",
+                "second": "We will inform passengers about any delays. (активное заявление)"
+            }
+        ]
+    },
+    "future_perfect_passive": {
+        "id": "future_perfect_passive",
+        "icon": "✅",
+        "title": "Future Perfect Passive",
+        "subtitle": "Будущее совершенное время в пассивном залоге",
+        "formulas": [
+            {
+                "title": "Утвердительное предложение",
+                "formula": "Subject + will + have + been + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Отрицательное предложение",
+                "formula": "Subject + will + not + have + been + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "Вопросительное предложение",
+                "formula": "Will + Subject + have + been + причастие прошедшего времени (V3) + ?"
+            }
+        ],
+        "examples": [
+            {
+                "original": "The report will have been completed by Monday.",
+                "translation": "Отчет будет завершен к понедельнику."
+            },
+            {
+                "original": "The new bridge will not have been constructed by the end of this year.",
+                "translation": "Новый мост не будет построен к концу этого года."
+            },
+            {
+                "original": "Will all the arrangements have been made by the time they arrive?",
+                "translation": "Будут ли все приготовления сделаны к тому времени, как они прибудут?"
+            }
+        ],
+        "usage": [
+            "Для действий с объектом, которые будут завершены к определенному моменту в будущем",
+            "Когда важно подчеркнуть, что действие с объектом будет завершено к сроку",
+            "В официальных планах и графиках работ",
+            "Когда акцент делается на результате, а не на исполнителе"
+        ],
+        "markers": [
+            "by",
+            "by then",
+            "by the time",
+            "by next week",
+            "before",
+            "until",
+            "by the end of",
+            "by the time"
+        ],
+        "additionalInfo": {
+            "important": "Future Perfect Passive используется для действий, которые будут выполнены с объектом к определенному моменту в будущем. Всегда требует указания конкретного момента времени с предлогом 'by'.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "By this time next year, the new hospital will have been built."
+                },
+                {
+                    "correct": false,
+                    "text": "The book will have been published next year.",
+                    "correction": "The book will have been published by next year. / The book will be published next year."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Future Perfect Passive vs Future Simple Passive",
+                "first": "The project will have been completed by December. (к определенному моменту)",
+                "second": "The project will be completed in December. (в течение декабря)"
+            },
+            {
+                "title": "Future Perfect Passive vs Present Perfect Passive",
+                "first": "By next week, all documents will have been processed. (будущее завершение)",
+                "second": "All documents have been processed. (настоящее завершение)"
+            },
+            {
+                "title": "С разными временными маркерами",
+                "first": "Everything will have been prepared by the time guests arrive. (до другого события)",
+                "second": "Everything will have been prepared by 5 PM. (к конкретному времени)"
+            }
+        ]
+    },
+    "zero_conditional": {
+        "id": "zero_conditional",
+        "icon": "🌐",
+        "title": "Zero Conditional",
+        "subtitle": "Условное предложение нулевого типа",
+        "formulas": [
+            {
+                "title": "Основная формула",
+                "formula": "If + Present Simple, Present Simple"
+            },
+            {
+                "title": "Альтернативная формула",
+                "formula": "When + Present Simple, Present Simple"
+            },
+            {
+                "title": "С изменением порядка",
+                "formula": "Present Simple + if/when + Present Simple"
+            }
+        ],
+        "examples": [
+            {
+                "original": "If you heat water to 100°C, it boils.",
+                "translation": "Если нагреть воду до 100°C, она закипает."
+            },
+            {
+                "original": "Ice melts if you heat it.",
+                "translation": "Лёд тает, если его нагреть."
+            },
+            {
+                "original": "When I feel tired, I drink coffee.",
+                "translation": "Когда я чувствую усталость, я пью кофе."
+            }
+        ],
+        "usage": [
+            "Для описания общих истин и законов природы",
+            "Для действий, которые всегда происходят при определенных условиях",
+            "Для описания привычек и регулярных действий",
+            "В научных фактах и общеизвестных истинах"
+        ],
+        "markers": [
+            "always",
+            "usually",
+            "never",
+            "when",
+            "every time",
+            "generally",
+            "as a rule",
+            "in general",
+            "typically"
+        ],
+        "additionalInfo": {
+            "important": "Zero Conditional (условное предложение нулевого типа) используется для описания ситуаций, которые всегда верны. Если условие выполняется, результат всегда следует за ним. В обеих частях предложения используется Present Simple.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "If plants don't get water, they die."
+                },
+                {
+                    "correct": false,
+                    "text": "If you will heat water to 100°C, it boils.",
+                    "correction": "If you heat water to 100°C, it boils."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Zero Conditional vs First Conditional",
+                "first": "If you don't water plants, they die. (общая истина - всегда)",
+                "second": "If you don't water these plants, they will die. (конкретная возможность в будущем)"
+            },
+            {
+                "title": "Zero Conditional с 'when' и 'if'",
+                "first": "When I'm hungry, I eat. (регулярное действие - всегда, когда возникает условие)",
+                "second": "If I'm hungry, I eat. (тоже регулярное действие, но условие менее гарантированное)"
+            },
+            {
+                "title": "Zero Conditional vs Present Simple",
+                "first": "If you press this button, the machine starts. (причина и следствие)",
+                "second": "You press this button. The machine starts. (простое описание последовательности)"
+            }
+        ]
+    },
+    "first_conditional": {
+        "id": "first_conditional",
+        "icon": "1️⃣",
+        "title": "First Conditional",
+        "subtitle": "Условное предложение первого типа",
+        "formulas": [
+            {
+                "title": "Основная формула",
+                "formula": "If + Present Simple, will + инфинитив"
+            },
+            {
+                "title": "С модальными глаголами",
+                "formula": "If + Present Simple, can/may/might/must + инфинитив"
+            },
+            {
+                "title": "С изменением порядка",
+                "formula": "Will + инфинитив + if + Present Simple"
+            }
+        ],
+        "examples": [
+            {
+                "original": "If it rains, I will stay at home.",
+                "translation": "Если пойдет дождь, я останусь дома."
+            },
+            {
+                "original": "I will go to the beach if the weather is nice.",
+                "translation": "Я пойду на пляж, если погода будет хорошей."
+            },
+            {
+                "original": "If you study hard, you can pass the exam.",
+                "translation": "Если ты будешь усердно учиться, ты сможешь сдать экзамен."
+            }
+        ],
+        "usage": [
+            "Для реальных и возможных ситуаций в будущем",
+            "Для условий, которые вполне могут осуществиться",
+            "Для обещаний, угроз, предупреждений и обусловленных действий",
+            "В повседневной речи о планах, зависящих от определенных условий"
+        ],
+        "markers": [
+            "tomorrow",
+            "next week",
+            "soon",
+            "in the future",
+            "unless",
+            "as soon as",
+            "in case",
+            "provided that"
+        ],
+        "additionalInfo": {
+            "important": "First Conditional (условное предложение первого типа) используется для реальных и вполне возможных ситуаций в будущем. В условной части (if-clause) используется Present Simple, а в главной части - будущее время (обычно will + инфинитив).",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "If I finish work early, I'll call you."
+                },
+                {
+                    "correct": false,
+                    "text": "If I will finish work early, I'll call you.",
+                    "correction": "If I finish work early, I'll call you."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "First Conditional vs Zero Conditional",
+                "first": "If it rains tomorrow, I will take an umbrella. (конкретная ситуация в будущем)",
+                "second": "If it rains, I take an umbrella. (регулярное действие, происходящее всегда)"
+            },
+            {
+                "title": "First Conditional vs Second Conditional",
+                "first": "If I have enough money, I will buy a new car. (реальная возможность)",
+                "second": "If I had enough money, I would buy a new car. (маловероятная или воображаемая ситуация)"
+            },
+            {
+                "title": "First Conditional с различными модальными глаголами",
+                "first": "If you come late, you may miss the beginning. (возможность)",
+                "second": "If you come late, you must wait outside. (необходимость)"
+            }
+        ]
+    },
+    "second_conditional": {
+        "id": "second_conditional",
+        "icon": "2️⃣",
+        "title": "Second Conditional",
+        "subtitle": "Условное предложение второго типа",
+        "formulas": [
+            {
+                "title": "Основная формула",
+                "formula": "If + Past Simple, would + инфинитив"
+            },
+            {
+                "title": "С другими модальными глаголами",
+                "formula": "If + Past Simple, could/might + инфинитив"
+            },
+            {
+                "title": "С изменением порядка",
+                "formula": "Would + инфинитив + if + Past Simple"
+            }
+        ],
+        "examples": [
+            {
+                "original": "If I had more time, I would read more books.",
+                "translation": "Если бы у меня было больше времени, я бы читал больше книг."
+            },
+            {
+                "original": "She would travel around the world if she were rich.",
+                "translation": "Она бы путешествовала по миру, если бы была богата."
+            },
+            {
+                "original": "What would you do if you won the lottery?",
+                "translation": "Что бы ты сделал, если бы выиграл в лотерею?"
+            }
+        ],
+        "usage": [
+            "Для маловероятных или воображаемых ситуаций в настоящем или будущем",
+            "Для гипотетических ситуаций, противоречащих действительности",
+            "Для советов и предложений в вежливой форме",
+            "В фантазиях и рассуждениях о том, чего нет в реальности"
+        ],
+        "markers": [
+            "would",
+            "could",
+            "might",
+            "in your place",
+            "if I were you",
+            "imagine",
+            "suppose",
+            "what if"
+        ],
+        "additionalInfo": {
+            "important": "Second Conditional (условное предложение второго типа) используется для маловероятных или воображаемых ситуаций в настоящем или будущем. В условной части используется Past Simple, а в главной части - would/could/might + инфинитив. С глаголом 'to be' в условной части часто используется 'were' для всех лиц в формальной речи.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "If I were you, I would accept the offer."
+                },
+                {
+                    "correct": false,
+                    "text": "If I would have a car, I would drive to work.",
+                    "correction": "If I had a car, I would drive to work."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Second Conditional vs First Conditional",
+                "first": "If I had enough money, I would buy a house. (маловероятная ситуация)",
+                "second": "If I have enough money, I will buy a house. (реальная возможность)"
+            },
+            {
+                "title": "Second Conditional vs Third Conditional",
+                "first": "If I knew the answer, I would tell you. (в настоящем/будущем)",
+                "second": "If I had known the answer, I would have told you. (в прошлом)"
+            },
+            {
+                "title": "Second Conditional для вежливых предложений",
+                "first": "Would you mind if I opened the window? (вежливый вопрос)",
+                "second": "Do you mind if I open the window? (прямой вопрос - First Conditional)"
+            }
+        ]
+    },
+    "third_conditional": {
+        "id": "third_conditional",
+        "icon": "3️⃣",
+        "title": "Third Conditional",
+        "subtitle": "Условное предложение третьего типа",
+        "formulas": [
+            {
+                "title": "Основная формула",
+                "formula": "If + Past Perfect, would + have + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "С другими модальными глаголами",
+                "formula": "If + Past Perfect, could/might + have + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "С изменением порядка",
+                "formula": "Would + have + причастие прошедшего времени (V3) + if + Past Perfect"
+            }
+        ],
+        "examples": [
+            {
+                "original": "If I had known about the party, I would have come.",
+                "translation": "Если бы я знал о вечеринке, я бы пришел."
+            },
+            {
+                "original": "She would have passed the exam if she had studied harder.",
+                "translation": "Она бы сдала экзамен, если бы училась усерднее."
+            },
+            {
+                "original": "If the weather hadn't been so bad, we could have gone to the beach.",
+                "translation": "Если бы погода не была такой плохой, мы могли бы пойти на пляж."
+            }
+        ],
+        "usage": [
+            "Для нереальных ситуаций в прошлом",
+            "Для выражения сожаления о том, что не произошло",
+            "Для размышлений о том, как могли бы сложиться события иначе",
+            "Для критики действий в прошлом"
+        ],
+        "markers": [
+            "would have",
+            "could have",
+            "might have",
+            "should have",
+            "otherwise",
+            "in that case",
+            "if only",
+            "but for"
+        ],
+        "additionalInfo": {
+            "important": "Third Conditional (условное предложение третьего типа) используется для нереальных ситуаций в прошлом и их воображаемых последствий. Это предложения о том, что могло бы произойти, но не произошло. В условной части используется Past Perfect, а в главной части - would/could/might + have + причастие прошедшего времени.",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "If I had seen you, I would have said hello."
+                },
+                {
+                    "correct": false,
+                    "text": "If I would have seen you, I would have said hello.",
+                    "correction": "If I had seen you, I would have said hello."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Third Conditional vs Second Conditional",
+                "first": "If I had studied harder, I would have passed the exam. (нереальная ситуация в прошлом)",
+                "second": "If I studied harder, I would pass the exam. (нереальная ситуация в настоящем/будущем)"
+            },
+            {
+                "title": "Third Conditional vs First Conditional",
+                "first": "If I had taken the earlier train, I would have arrived on time. (в прошлом, уже не изменить)",
+                "second": "If I take the earlier train, I will arrive on time. (возможность в будущем)"
+            },
+            {
+                "title": "Third Conditional для выражения критики и сожаления",
+                "first": "If you had told me earlier, I could have helped you. (упрек за прошлое)",
+                "second": "You should have told me earlier. (прямое выражение критики без условия)"
+            }
+        ]
+    },
+    "mixed_conditional": {
+        "id": "mixed_conditional",
+        "icon": "🔄",
+        "title": "Mixed Conditional",
+        "subtitle": "Условное предложение смешанного типа",
+        "formulas": [
+            {
+                "title": "Прошлое → Настоящее",
+                "formula": "If + Past Perfect, would/could/might + инфинитив"
+            },
+            {
+                "title": "Настоящее → Прошлое",
+                "formula": "If + Past Simple, would/could/might + have + причастие прошедшего времени (V3)"
+            },
+            {
+                "title": "С изменением порядка",
+                "formula": "Would + инфинитив/have + причастие прошедшего времени (V3) + if + соответствующее время"
+            }
+        ],
+        "examples": [
+            {
+                "original": "If I had studied medicine, I would be a doctor now.",
+                "translation": "Если бы я изучал медицину (в прошлом), я был бы сейчас врачом."
+            },
+            {
+                "original": "If I weren't so busy, I would have helped you yesterday.",
+                "translation": "Если бы я не был так занят (сейчас), я бы помог тебе вчера."
+            },
+            {
+                "original": "She would have a better job now if she had finished university.",
+                "translation": "У нее была бы сейчас работа получше, если бы она закончила университет."
+            }
+        ],
+        "usage": [
+            "Для ситуаций, где условие относится к одному времени, а результат к другому",
+            "Когда прошлое событие влияет на настоящую ситуацию",
+            "Когда настоящая ситуация влияет на оценку прошлых возможностей",
+            "Для сложных гипотетических рассуждений"
+        ],
+        "markers": [
+            "now",
+            "today",
+            "at present",
+            "yesterday",
+            "last week",
+            "at the moment",
+            "in the past",
+            "currently"
+        ],
+        "additionalInfo": {
+            "important": "Mixed Conditional (условное предложение смешанного типа) объединяет разные типы условных предложений. Наиболее распространены два варианта: условие в прошлом → результат в настоящем (тип 3 → тип 2) и условие в настоящем → результат в прошлом (тип 2 → тип 3).",
+            "examples": [
+                {
+                    "correct": true,
+                    "text": "If I had saved money when I was younger, I would be richer now."
+                },
+                {
+                    "correct": false,
+                    "text": "If I had saved money when I was younger, I would have been richer now.",
+                    "correction": "If I had saved money when I was younger, I would be richer now."
+                }
+            ]
+        },
+        "comparison": [
+            {
+                "title": "Смешанное (Past → Present) vs Third Conditional",
+                "first": "If I had gone to university, I would have a better job now. (прошлое влияет на настоящее)",
+                "second": "If I had gone to university, I would have had a better job then. (всё в прошлом)"
+            },
+            {
+                "title": "Смешанное (Present → Past) vs Second Conditional",
+                "first": "If I weren't afraid of flying, I would have visited Japan last year. (настоящее влияет на прошлое)",
+                "second": "If I weren't afraid of flying, I would visit Japan next year. (всё в настоящем/будущем)"
+            },
+            {
+                "title": "Прагматическое использование",
+                "first": "If he hadn't forgotten our anniversary last week, I wouldn't be angry with him now.",
+                "second": "If I weren't so tired now, I would have gone to the party last night."
+            }
+        ]
+    }
+}
