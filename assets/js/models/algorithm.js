@@ -11,6 +11,12 @@ class AlgorithmModel {
         this.userChoices = {};
         this.initialized = false;
         this.basePath = document.querySelector('base')?.getAttribute('href') || '/';
+        
+        // Определение контекста (GitHub Pages или кастомный домен)
+        this.isGitHubPages = window.location.hostname.includes('github.io');
+        if (this.isGitHubPages && this.basePath === '/') {
+            this.basePath = '/english_grammar_guide/';
+        }
     }
 
     /**

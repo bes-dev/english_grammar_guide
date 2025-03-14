@@ -11,6 +11,12 @@ class Router {
         
         // Получение базового пути из тега base
         this.basePath = document.querySelector('base')?.getAttribute('href') || '/';
+        
+        // Определение контекста (GitHub Pages или кастомный домен)
+        this.isGitHubPages = window.location.hostname.includes('github.io');
+        if (this.isGitHubPages && this.basePath === '/') {
+            this.basePath = '/english_grammar_guide/';
+        }
 
         // Обработка изменения хэша вместо popstate для хэш-навигации
         window.addEventListener('hashchange', this.handleHashChange.bind(this));
