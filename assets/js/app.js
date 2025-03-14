@@ -7,6 +7,13 @@ import CarouselController from './controllers/carousel-controller.js';
 import TenseDetailController from './controllers/tense-detail-controller.js';
 import EventBus from './utils/event-bus.js';
 import Store from './store.js';
+import PathUtils from './utils/path-utils.js';
+
+// Вывод отладочной информации
+console.log('ВремяГид: Инициализация приложения');
+console.log('Базовый путь:', PathUtils.getBasePath());
+console.log('Текущий URL:', window.location.href);
+console.log('Относительный путь:', PathUtils.getRelativePath(window.location.pathname));
 
 /**
  * App - основной класс приложения
@@ -100,15 +107,38 @@ class App {
      * Запуск приложения
      */
     start() {
-        // Запуск маршрутизатора
-        this.router.start();
+        try {
+            // Запуск маршрутизатора
+            this.router.start();
+            
+            // Скрытие индикатора загрузки
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.classList.add('hidden');
+            }
+            
+            console.log('ВремяГид: Приложение успешно запущено');
+        } catch (error) {
+            console.error('Ошибка при запуске приложения:', error);
+            if (window.showError) {
+                window.showError('Ошибка при запуске приложения: ' + error.message);
+            }
+        }
     }
 }
 
 // Инициализация приложения при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-    const app = new App();
-    app.start();
+    try {
+        console.log('ВремяГид: DOM загружен, инициализация приложения');
+        const app = new App();
+        app.start();
+    } catch (error) {
+        console.error('Ошибка при инициализации приложения:', error);
+        if (window.showError) {
+            window.showError('Ошибка при инициализации приложения: ' + error.message);
+        }
+    }
 });
 
 export default App;
