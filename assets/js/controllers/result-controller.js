@@ -39,6 +39,9 @@ class ResultController {
         
         await this.view.render({ result });
         this.view.show();
+        
+        // Прокрутка страницы в начало
+        window.scrollTo(0, 0);
     }
 
     /**
