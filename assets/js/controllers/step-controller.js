@@ -87,6 +87,11 @@ class StepController {
         const steps = this.model.steps;
         const currentIndex = steps.findIndex(step => step.id === currentStep.id);
         
+        // Проверяем, является ли текущий шаг шагом 2 (Время) и был ли предыдущий выбор "condition"
+        const isStep2 = currentStep.id === 'step2';
+        const prevStepChoice = this.model.userChoices['step1'];
+        const isConditionalPlaceholder = isStep2 && prevStepChoice === 'condition';
+        
         const viewData = {
             title: currentStep.title,
             options: currentStep.options,
@@ -95,14 +100,15 @@ class StepController {
             isFirstStep: currentIndex === 0,
             progress: this.calculateProgress(currentIndex),
             hint: currentStep.hint,
-            stepLabel: currentStep.label
+            stepLabel: currentStep.label,
+            isConditionalPlaceholder: isConditionalPlaceholder
         };
         
         await this.view.render(viewData);
         
-        // Если есть сохраненный выбор для этого шага, отмечаем его
+        // Если есть сохраненный выбор для этого шага и это не заглушка, отмечаем его
         const selectedValue = this.model.userChoices[currentStep.id];
-        if (selectedValue) {
+        if (selectedValue && !isConditionalPlaceholder) {
             const options = this.view.element.querySelectorAll('.option-btn');
             options.forEach(option => {
                 if (option.dataset.value === selectedValue) {
@@ -114,6 +120,14 @@ class StepController {
                     }
                 }
             });
+        }
+        
+        // Если это заглушка для условных предложений, автоматически устанавливаем выбор "present"
+        if (isConditionalPlaceholder && !selectedValue) {
+            // Выбираем "present" как значение по умолчанию для условных предложений
+            // Этот выбор не важен, так как все равно произойдет переход к step3_condition
+            this.model.setChoice(currentStep.id, 'present');
+            this.store.setUserChoice(currentStep.id, 'present');
         }
     }
 
