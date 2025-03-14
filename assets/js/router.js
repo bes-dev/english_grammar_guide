@@ -1,5 +1,4 @@
 import EventBus from './utils/event-bus.js';
-import PathUtils from './utils/path-utils.js';
 
 /**
  * Router - маршрутизатор для навигации между экранами
@@ -10,8 +9,8 @@ class Router {
         this.currentRoute = null;
         this.eventBus = EventBus.getInstance();
         
-        // Получение базового пути из утилиты
-        this.basePath = PathUtils.getBasePath();
+        // Получение базового пути из тега base
+        this.basePath = document.querySelector('base')?.getAttribute('href') || '/';
 
         // Обработка изменения URL
         window.addEventListener('popstate', this.handlePopState.bind(this));
@@ -41,9 +40,10 @@ class Router {
      * @param {object} params - Параметры для маршрута
      */
     navigate(path, params = {}) {
-        // Получаем абсолютный путь с учетом базового пути приложения
-        const absolutePath = PathUtils.getAbsolutePath(path);
-        const url = new URL(window.location.origin + absolutePath);
+        // Изменение URL и обновление страницы
+        // Убираем начальный слеш у пути, чтобы избежать дублирования
+        const pathWithoutLeadingSlash = path.replace(/^\//, '');
+        const url = new URL(window.location.origin + this.basePath + pathWithoutLeadingSlash);
 
         // Добавление параметров в URL
         Object.keys(params).forEach(key => {
@@ -63,8 +63,15 @@ class Router {
      */
     handlePopState(event) {
         // Обработка навигации "назад" и "вперед"
-        // Получаем относительный путь из абсолютного
-        const path = PathUtils.getRelativePath(window.location.pathname);
+        // Удаляем базовый путь из pathname для получения относительного пути приложения
+        let path = window.location.pathname;
+        if (path.startsWith(this.basePath)) {
+            path = path.substring(this.basePath.length) || '/';
+        }
+        if (!path.startsWith('/')) {
+            path = '/' + path;
+        }
+        
         const params = Object.fromEntries(new URLSearchParams(window.location.search));
 
         this.handleRoute(path, params);
@@ -111,7 +118,14 @@ class Router {
      */
     start() {
         // Обработка текущего URL при загрузке страницы
-        const path = PathUtils.getRelativePath(window.location.pathname);
+        let path = window.location.pathname;
+        if (path.startsWith(this.basePath)) {
+            path = path.substring(this.basePath.length) || '/';
+        }
+        if (!path.startsWith('/')) {
+            path = '/' + path;
+        }
+        
         const params = Object.fromEntries(new URLSearchParams(window.location.search));
 
         this.handleRoute(path, params);

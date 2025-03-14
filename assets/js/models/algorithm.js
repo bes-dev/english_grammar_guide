@@ -1,5 +1,3 @@
-import PathUtils from '../utils/path-utils.js';
-
 /**
  * AlgorithmModel - модель для работы с алгоритмами ВремяГид
  */
@@ -12,6 +10,7 @@ class AlgorithmModel {
         this.currentStep = null;
         this.userChoices = {};
         this.initialized = false;
+        this.basePath = document.querySelector('base')?.getAttribute('href') || '/';
     }
 
     /**
@@ -49,64 +48,14 @@ class AlgorithmModel {
     async fetchConfig(configType) {
         try {
             // Формируем путь с учетом базового пути приложения
-            const configPath = `config/algorithms/${this.algorithmId}/${configType}.json`;
-            const absolutePath = PathUtils.getAbsolutePath(configPath);
-            
-            console.log(`Загрузка конфигурации ${configType} из:`, absolutePath);
-            
-            // Делаем 3 попытки загрузки с различными путями в случае ошибки
-            let response;
-            let error;
-            
-            // Попытка 1: С использованием абсолютного пути через PathUtils
-            try {
-                response = await fetch(absolutePath);
-                if (response.ok) {
-                    return await response.json();
-                }
-            } catch (err) {
-                console.warn(`Ошибка загрузки ${configType} (попытка 1):`, err);
-                error = err;
+            const path = `${this.basePath}config/algorithms/${this.algorithmId}/${configType}.json`;
+            const response = await fetch(path);
+            if (!response.ok) {
+                throw new Error(`Ошибка загрузки конфигурации: ${response.status}`);
             }
-            
-            // Попытка 2: С использованием относительного пути от корня домена
-            try {
-                const altPath = `/${this.algorithmId ? this.algorithmId + '/' : ''}config/algorithms/${this.algorithmId}/${configType}.json`;
-                console.log(`Попытка 2: Загрузка из ${altPath}`);
-                response = await fetch(altPath);
-                if (response.ok) {
-                    return await response.json();
-                }
-            } catch (err) {
-                console.warn(`Ошибка загрузки ${configType} (попытка 2):`, err);
-                error = err;
-            }
-            
-            // Попытка 3: Прямой путь без обработки
-            try {
-                const directPath = `config/algorithms/${this.algorithmId}/${configType}.json`;
-                console.log(`Попытка 3: Загрузка из ${directPath}`);
-                response = await fetch(directPath);
-                if (response.ok) {
-                    return await response.json();
-                }
-            } catch (err) {
-                console.warn(`Ошибка загрузки ${configType} (попытка 3):`, err);
-                error = err;
-            }
-
-            // Если все попытки не удались, выбрасываем исключение
-            throw new Error(`Не удалось загрузить конфигурацию ${configType}: ${error?.message || 'unknown error'}`);
-            
+            return await response.json();
         } catch (error) {
             console.error(`Ошибка загрузки ${configType}:`, error);
-            
-            // Показать сообщение об ошибке пользователю, если метод showError доступен
-            if (window.showError) {
-                window.showError(`Не удалось загрузить конфигурацию ${configType}. Проверьте подключение к интернету или перезагрузите страницу.`);
-            }
-            
-            // Возвращаем пустые данные по умолчанию в зависимости от типа
             return configType === 'steps' ? [] : (configType === 'results' ? {} : []);
         }
     }
