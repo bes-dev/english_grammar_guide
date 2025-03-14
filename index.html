@@ -34,6 +34,18 @@
     <div id="loading-indicator" class="loading-container">
         <div class="loading-spinner"></div>
         <div class="loading-text">Загрузка приложения...</div>
+        <button id="hide-loading" class="hide-loading-button" style="display: none;" onclick="this.parentElement.classList.add('hidden')">
+            Продолжить без ожидания
+        </button>
+        <script>
+            // Показать кнопку скрытия, если загрузка затянулась
+            setTimeout(function() {
+                const hideLoadingBtn = document.getElementById('hide-loading');
+                if (hideLoadingBtn) {
+                    hideLoadingBtn.style.display = 'block';
+                }
+            }, 5000); // 5 секунд
+        </script>
     </div>
 
     <!-- Контейнер для сообщений об ошибках -->
@@ -149,6 +161,21 @@
         
         .error-container button:hover {
             background-color: #2980b9;
+        }
+        
+        .hide-loading-button {
+            margin-top: 20px;
+            padding: 8px 16px;
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .hide-loading-button:hover {
+            background-color: #95a5a6;
         }
         
         .hidden {

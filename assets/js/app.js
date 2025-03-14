@@ -15,6 +15,17 @@ console.log('Базовый путь:', PathUtils.getBasePath());
 console.log('Текущий URL:', window.location.href);
 console.log('Относительный путь:', PathUtils.getRelativePath(window.location.pathname));
 
+// Скрыть индикатор загрузки сразу при загрузке скрипта, для перестраховки
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.classList.add('hidden');
+        }
+        console.log('ВремяГид: Индикатор загрузки скрыт принудительно');
+    }, 2000); // Даем 2 секунды на загрузку
+});
+
 /**
  * App - основной класс приложения
  */
@@ -112,10 +123,7 @@ class App {
             this.router.start();
             
             // Скрытие индикатора загрузки
-            const loadingIndicator = document.getElementById('loading-indicator');
-            if (loadingIndicator) {
-                loadingIndicator.classList.add('hidden');
-            }
+            this.hideLoadingIndicator();
             
             console.log('ВремяГид: Приложение успешно запущено');
         } catch (error) {
@@ -123,6 +131,30 @@ class App {
             if (window.showError) {
                 window.showError('Ошибка при запуске приложения: ' + error.message);
             }
+            // Даже при ошибке скрываем индикатор загрузки
+            this.hideLoadingIndicator();
+        }
+    }
+    
+    /**
+     * Скрытие индикатора загрузки
+     */
+    hideLoadingIndicator() {
+        // Пытаемся скрыть индикатор загрузки
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.classList.add('hidden');
+            console.log('ВремяГид: Индикатор загрузки скрыт');
+        } else {
+            console.warn('ВремяГид: Не удалось найти индикатор загрузки');
+            // Если элемент не найден, пробуем найти его через 500 мс
+            setTimeout(() => {
+                const indicator = document.getElementById('loading-indicator');
+                if (indicator) {
+                    indicator.classList.add('hidden');
+                    console.log('ВремяГид: Индикатор загрузки скрыт с задержкой');
+                }
+            }, 500);
         }
     }
 }
@@ -138,7 +170,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.showError) {
             window.showError('Ошибка при инициализации приложения: ' + error.message);
         }
+        
+        // Скрываем индикатор загрузки даже при ошибке
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.classList.add('hidden');
+        }
     }
+});
+
+// Дополнительный скрипт, который гарантировано скроет индикатор загрузки через 10 секунд
+// Это обеспечит возможность взаимодействия с приложением даже при проблемах с инициализацией
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator && !loadingIndicator.classList.contains('hidden')) {
+            console.warn('ВремяГид: Принудительное скрытие индикатора загрузки по таймауту (10 сек)');
+            loadingIndicator.classList.add('hidden');
+        }
+    }, 10000); // 10 секунд максимум для индикатора загрузки
 });
 
 export default App;
