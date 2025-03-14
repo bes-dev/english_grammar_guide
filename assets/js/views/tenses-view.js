@@ -23,7 +23,7 @@ class TensesView extends BaseView {
         return `
             <div class="card fade-in">
                 <header>
-                    <div class="logo-small">ВремяГид</div>
+                    <div class="logo-small" id="tenses-logo">ВремяГид</div>
                 </header>
                 
                 <div class="nav-tabs">
@@ -324,6 +324,15 @@ class TensesView extends BaseView {
      * Привязка обработчиков событий
      */
     bindEvents() {
+        // Обработчик для логотипа
+        const logo = this.element.querySelector('#tenses-logo');
+        if (logo) {
+            logo.style.cursor = 'pointer';
+            logo.addEventListener('click', () => {
+                this.eventBus.emit('navigate:home');
+            });
+        }
+        
         // Привязка событий навигации
         const navTabs = this.element.querySelectorAll('.nav-tab');
         navTabs.forEach(tab => {

@@ -141,7 +141,7 @@ class MainView extends BaseView {
         
         return `
             <header>
-                <div class="logo">ВремяГид</div>
+                <div class="logo" id="main-logo">ВремяГид</div>
                 <div class="tagline">Интерактивный помощник для определения нужного времени в английском языке</div>
             </header>
 
@@ -208,6 +208,15 @@ class MainView extends BaseView {
      * Привязка обработчиков событий
      */
     bindEvents() {
+        // Обработчик для логотипа
+        const logo = this.element.querySelector('#main-logo');
+        if (logo) {
+            logo.style.cursor = 'pointer';
+            logo.addEventListener('click', () => {
+                this.eventBus.emit('navigate:home');
+            });
+        }
+        
         // Обработчик для кнопки "Начать"
         const startButtons = this.element.querySelectorAll('.start-btn');
         startButtons.forEach(button => {

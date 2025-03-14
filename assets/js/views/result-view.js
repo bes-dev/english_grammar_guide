@@ -19,7 +19,7 @@ class ResultView extends BaseView {
         if (!data || !data.result) {
             return `
                 <header>
-                    <div class="logo-small">ВремяГид</div>
+                    <div class="logo-small" id="result-logo">ВремяГид</div>
                 </header>
                 <div class="card fade-in">
                     <div class="result-header">
@@ -38,7 +38,7 @@ class ResultView extends BaseView {
 
         return `
             <header>
-                <div class="logo-small">ВремяГид</div>
+                <div class="logo-small" id="result-logo">ВремяГид</div>
             </header>
 
             <div class="card fade-in">
@@ -176,6 +176,15 @@ class ResultView extends BaseView {
      * Привязка обработчиков событий
      */
     bindEvents() {
+        // Обработчик для логотипа
+        const logo = this.element.querySelector('#result-logo');
+        if (logo) {
+            logo.style.cursor = 'pointer';
+            logo.addEventListener('click', () => {
+                this.eventBus.emit('navigate:home');
+            });
+        }
+        
         // Обработчик для кнопки "Начать заново"
         const restartButton = this.element.querySelector('.restart-btn');
         if (restartButton) {

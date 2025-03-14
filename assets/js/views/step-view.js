@@ -18,7 +18,7 @@ class StepView extends BaseView {
     processTemplate(data) {
         return `
             <header>
-                <div class="logo-small">ВремяГид</div>
+                <div class="logo-small" id="step-logo">ВремяГид</div>
             </header>
 
             <div class="card fade-in">
@@ -125,6 +125,15 @@ class StepView extends BaseView {
      * Привязка обработчиков событий
      */
     bindEvents() {
+        // Обработчик для логотипа
+        const logo = this.element.querySelector('#step-logo');
+        if (logo) {
+            logo.style.cursor = 'pointer';
+            logo.addEventListener('click', () => {
+                this.eventBus.emit('navigate:home');
+            });
+        }
+        
         // Обработчики для опций выбора
         const options = this.element.querySelectorAll('.option-btn');
         const nextBtn = this.element.querySelector('.next-btn');

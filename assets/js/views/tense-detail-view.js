@@ -38,7 +38,7 @@ class TenseDetailView extends BaseView {
         if (!tenseData) {
             return `
                 <header>
-                    <div class="logo-small">ВремяГид</div>
+                    <div class="logo-small" id="detail-logo">ВремяГид</div>
                 </header>
                 <div class="card fade-in">
                     <div class="result-header">
@@ -57,7 +57,7 @@ class TenseDetailView extends BaseView {
 
         return `
             <header>
-                <div class="logo-small">ВремяГид</div>
+                <div class="logo-small" id="detail-logo">ВремяГид</div>
             </header>
 
             <div class="card fade-in">
@@ -195,6 +195,15 @@ class TenseDetailView extends BaseView {
      * Привязка обработчиков событий
      */
     bindEvents() {
+        // Обработчик для логотипа
+        const logo = this.element.querySelector('#detail-logo');
+        if (logo) {
+            logo.style.cursor = 'pointer';
+            logo.addEventListener('click', () => {
+                this.eventBus.emit('navigate:home');
+            });
+        }
+        
         // Обработчик для кнопки "Назад"
         const backButton = this.element.querySelector('.back-btn');
         if (backButton) {
