@@ -12,8 +12,8 @@ class Router {
         // Получение базового пути из тега base
         this.basePath = document.querySelector('base')?.getAttribute('href') || '/';
 
-        // Обработка изменения URL
-        window.addEventListener('popstate', this.handlePopState.bind(this));
+        // Обработка изменения хэша вместо popstate для хэш-навигации
+        window.addEventListener('hashchange', this.handleHashChange.bind(this));
     }
 
     static getInstance() {
@@ -40,39 +40,50 @@ class Router {
      * @param {object} params - Параметры для маршрута
      */
     navigate(path, params = {}) {
-        // Изменение URL и обновление страницы
+        // Использование хэш-навигации для лучшей совместимости при обновлении страницы
         // Убираем начальный слеш у пути, чтобы избежать дублирования
         const pathWithoutLeadingSlash = path.replace(/^\//, '');
-        const url = new URL(window.location.origin + this.basePath + pathWithoutLeadingSlash);
-
+        
+        // Формируем URL с использованием хэша
+        let url = window.location.origin + this.basePath + '#/' + pathWithoutLeadingSlash;
+        
         // Добавление параметров в URL
+        const searchParams = new URLSearchParams();
         Object.keys(params).forEach(key => {
-            url.searchParams.append(key, params[key]);
+            searchParams.append(key, params[key]);
         });
+        
+        const searchString = searchParams.toString();
+        if (searchString) {
+            url += '?' + searchString;
+        }
 
-        // Обновление истории браузера
-        window.history.pushState({}, '', url);
+        // Обновление URL
+        window.location.href = url;
 
         // Вызов обработчика для нового URL
         this.handleRoute(path, params);
     }
 
     /**
-     * Обработка события popstate (навигация назад/вперед)
-     * @param {PopStateEvent} event - Событие popstate
+     * Обработка события hashchange
+     * @param {HashChangeEvent} event - Событие hashchange
      */
-    handlePopState(event) {
-        // Обработка навигации "назад" и "вперед"
-        // Удаляем базовый путь из pathname для получения относительного пути приложения
-        let path = window.location.pathname;
-        if (path.startsWith(this.basePath)) {
-            path = path.substring(this.basePath.length) || '/';
-        }
-        if (!path.startsWith('/')) {
-            path = '/' + path;
-        }
+    handleHashChange(event) {
+        // Обработка изменения хэша в URL
+        // Парсим хэш для получения пути и параметров
+        const hash = window.location.hash.slice(1) || '/'; // Удаляем # и используем / по умолчанию
         
-        const params = Object.fromEntries(new URLSearchParams(window.location.search));
+        // Разделяем путь и параметры запроса
+        const [hashPath, queryString] = hash.split('?');
+        
+        // Убеждаемся, что путь начинается с /
+        let path = hashPath.startsWith('/') ? hashPath : '/' + hashPath;
+        
+        // Парсим параметры запроса
+        const params = queryString 
+            ? Object.fromEntries(new URLSearchParams(queryString))
+            : {};
 
         this.handleRoute(path, params);
     }
@@ -117,18 +128,15 @@ class Router {
      * Запуск маршрутизатора
      */
     start() {
-        // Обработка текущего URL при загрузке страницы
-        let path = window.location.pathname;
-        if (path.startsWith(this.basePath)) {
-            path = path.substring(this.basePath.length) || '/';
+        // Обработка текущего хэша при загрузке страницы
+        if (window.location.hash) {
+            // Если есть хэш, обрабатываем его
+            this.handleHashChange();
+        } else {
+            // Если хэша нет, перенаправляем на корневой маршрут с хэшем
+            window.location.href = window.location.origin + this.basePath + '#/';
+            // Хэш-изменение вызовет handleHashChange автоматически
         }
-        if (!path.startsWith('/')) {
-            path = '/' + path;
-        }
-        
-        const params = Object.fromEntries(new URLSearchParams(window.location.search));
-
-        this.handleRoute(path, params);
     }
 
     /**
