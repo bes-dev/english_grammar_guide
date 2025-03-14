@@ -1,3 +1,5 @@
+import PathUtils from '../utils/path-utils.js';
+
 /**
  * AlgorithmModel - модель для работы с алгоритмами ВремяГид
  */
@@ -46,7 +48,10 @@ class AlgorithmModel {
      */
     async fetchConfig(configType) {
         try {
-            const response = await fetch(`config/algorithms/${this.algorithmId}/${configType}.json`);
+            // Формируем путь с учетом базового пути приложения
+            const configPath = `config/algorithms/${this.algorithmId}/${configType}.json`;
+            const absolutePath = PathUtils.getAbsolutePath(configPath);
+            const response = await fetch(absolutePath);
             if (!response.ok) {
                 throw new Error(`Ошибка загрузки конфигурации: ${response.status}`);
             }

@@ -1,4 +1,5 @@
 import EventBus from './utils/event-bus.js';
+import PathUtils from './utils/path-utils.js';
 
 /**
  * Router - маршрутизатор для навигации между экранами
@@ -8,6 +9,9 @@ class Router {
         this.routes = {};
         this.currentRoute = null;
         this.eventBus = EventBus.getInstance();
+        
+        // Получение базового пути из утилиты
+        this.basePath = PathUtils.getBasePath();
 
         // Обработка изменения URL
         window.addEventListener('popstate', this.handlePopState.bind(this));
@@ -37,8 +41,9 @@ class Router {
      * @param {object} params - Параметры для маршрута
      */
     navigate(path, params = {}) {
-        // Изменение URL и обновление страницы
-        const url = new URL(window.location.origin + path);
+        // Получаем абсолютный путь с учетом базового пути приложения
+        const absolutePath = PathUtils.getAbsolutePath(path);
+        const url = new URL(window.location.origin + absolutePath);
 
         // Добавление параметров в URL
         Object.keys(params).forEach(key => {
@@ -58,7 +63,8 @@ class Router {
      */
     handlePopState(event) {
         // Обработка навигации "назад" и "вперед"
-        const path = window.location.pathname || '/';
+        // Получаем относительный путь из абсолютного
+        const path = PathUtils.getRelativePath(window.location.pathname);
         const params = Object.fromEntries(new URLSearchParams(window.location.search));
 
         this.handleRoute(path, params);
@@ -105,7 +111,7 @@ class Router {
      */
     start() {
         // Обработка текущего URL при загрузке страницы
-        const path = window.location.pathname || '/';
+        const path = PathUtils.getRelativePath(window.location.pathname);
         const params = Object.fromEntries(new URLSearchParams(window.location.search));
 
         this.handleRoute(path, params);

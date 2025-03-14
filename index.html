@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ВремяГид - Интерактивный помощник</title>
+    <script>
+        // Автоматическое определение базового пути
+        (function() {
+            const pathSegments = window.location.pathname.split('/');
+            // Находим последний сегмент, который содержит index.html или пустой (для корневого пути)
+            let basePath = '/';
+            for (let i = pathSegments.length - 1; i >= 0; i--) {
+                if (pathSegments[i] === '' || pathSegments[i].includes('index.html')) {
+                    // Вычисляем базовый путь как все сегменты до текущего
+                    basePath = pathSegments.slice(0, i).join('/');
+                    if (basePath) basePath = '/' + basePath + '/';
+                    else basePath = '/';
+                    break;
+                }
+            }
+            // Создаем элемент base и добавляем его в head
+            const baseElement = document.createElement('base');
+            baseElement.href = basePath;
+            document.head.appendChild(baseElement);
+        })();
+    </script>
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/animations.css">
     <link rel="stylesheet" href="assets/css/carousel.css">
