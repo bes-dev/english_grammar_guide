@@ -33,8 +33,8 @@ class StepView extends BaseView {
                 </div>
 
                 <div class="navigation-buttons">
-                    <button class="nav-btn next-btn" disabled>Далее →</button>
                     <button class="nav-btn back-btn">← Назад</button>
+                    <button class="nav-btn next-btn" disabled>Далее →</button>
                 </div>
 
                 <div class="progress-bar">

@@ -1797,7 +1797,7 @@ header {
     }
 
     .navigation-buttons {
-        flex-direction: column;
+        flex-direction: column-reverse;
         gap: 10px;
     }
 
