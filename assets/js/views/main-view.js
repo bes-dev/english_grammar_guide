@@ -156,37 +156,8 @@ class MainView extends BaseView {
                 </div>
             </div>
 
-            <div class="card fade-in delay-1">
-                <div class="card-title">Возможности ВремяГид</div>
-                <div class="feature-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">🔍</div>
-                        <div class="feature-text">Интуитивные вопросы вместо грамматических терминов</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🌐</div>
-                        <div class="feature-text">Поддержка активного и пассивного залога</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🔄</div>
-                        <div class="feature-text">Все типы условных предложений</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">⏱️</div>
-                        <div class="feature-text">Разные способы выражения будущего</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📝</div>
-                        <div class="feature-text">Расширенные объяснения и примеры</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">💡</div>
-                        <div class="feature-text">Подсказки и контекстные рекомендации</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="card fade-in delay-2">
+            <div class="card fade-in delay-1">
                 <div class="nav-tabs">
                     <div class="nav-tab ${activeTab === 'algorithm' ? 'active' : ''}" data-tab="algorithm">🧠 ВремяГид</div>
                     <div class="nav-tab ${activeTab === 'tenses' ? 'active' : ''}" data-tab="tenses">⏰ Времена</div>

@@ -7,29 +7,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + am/is/are + глагол с окончанием -ing"
+                "formula": "Subject + am/is/are + глагол с окончанием -ing",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + am/is/are + not + глагол с окончанием -ing"
+                "formula": "Subject + am/is/are + not + глагол с окончанием -ing",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Am/Is/Are + Subject + глагол с окончанием -ing + ?"
+                "formula": "Am/Is/Are + Subject + глагол с окончанием -ing + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I am meeting my friends this weekend.",
-                "translation": "Я встречаюсь с друзьями в эти выходные."
+                "translation": "Я встречаюсь с друзьями в эти выходные.",
+                "type": "affirmative"
             },
             {
                 "original": "She is not coming to the party tomorrow.",
-                "translation": "Она не придет на вечеринку завтра."
+                "translation": "Она не придет на вечеринку завтра.",
+                "type": "negative"
             },
             {
                 "original": "Are you flying to Paris next month?",
-                "translation": "Ты летишь в Париж в следующем месяце?"
+                "translation": "Ты летишь в Париж в следующем месяце?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -88,29 +94,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + will + глагол в базовой форме"
+                "formula": "Subject + will + глагол в базовой форме",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + will not (won't) + глагол в базовой форме"
+                "formula": "Subject + will not (won't) + глагол в базовой форме",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Will + Subject + глагол в базовой форме + ?"
+                "formula": "Will + Subject + глагол в базовой форме + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I will call you tomorrow.",
-                "translation": "Я позвоню тебе завтра."
+                "translation": "Я позвоню тебе завтра.",
+                "type": "affirmative"
             },
             {
                 "original": "She won't come to the party.",
-                "translation": "Она не придет на вечеринку."
+                "translation": "Она не придет на вечеринку.",
+                "type": "negative"
             },
             {
                 "original": "Will they visit us next summer?",
-                "translation": "Они посетят нас следующим летом?"
+                "translation": "Они посетят нас следующим летом?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -170,29 +182,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + глагол в базовой форме (+ -s/-es в 3-м лице ед. числа)"
+                "formula": "Subject + глагол в базовой форме (+ -s/-es в 3-м лице ед. числа)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + do/does + not + глагол в базовой форме"
+                "formula": "Subject + do/does + not + глагол в базовой форме",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Do/Does + Subject + глагол в базовой форме + ?"
+                "formula": "Do/Does + Subject + глагол в базовой форме + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I read books every evening.",
-                "translation": "Я читаю книги каждый вечер."
+                "translation": "Я читаю книги каждый вечер.",
+                "type": "affirmative"
             },
             {
                 "original": "She doesn't work on Sundays.",
-                "translation": "Она не работает по воскресеньям."
+                "translation": "Она не работает по воскресеньям.",
+                "type": "negative"
             },
             {
                 "original": "Do they live in London?",
-                "translation": "Они живут в Лондоне?"
+                "translation": "Они живут в Лондоне?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -253,29 +271,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + am/is/are + глагол с окончанием -ing"
+                "formula": "Subject + am/is/are + глагол с окончанием -ing",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + am/is/are + not + глагол с окончанием -ing"
+                "formula": "Subject + am/is/are + not + глагол с окончанием -ing",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Am/Is/Are + Subject + глагол с окончанием -ing + ?"
+                "formula": "Am/Is/Are + Subject + глагол с окончанием -ing + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I am reading an interesting book now.",
-                "translation": "Я сейчас читаю интересную книгу."
+                "translation": "Я сейчас читаю интересную книгу.",
+                "type": "affirmative"
             },
             {
                 "original": "She is not working today.",
-                "translation": "Она не работает сегодня."
+                "translation": "Она не работает сегодня.",
+                "type": "negative"
             },
             {
                 "original": "Are they studying for the exam?",
-                "translation": "Они готовятся к экзамену?"
+                "translation": "Они готовятся к экзамену?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -335,29 +359,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + have/has + причастие прошедшего времени (V3)"
+                "formula": "Subject + have/has + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + have/has + not + причастие прошедшего времени (V3)"
+                "formula": "Subject + have/has + not + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Have/Has + Subject + причастие прошедшего времени (V3) + ?"
+                "formula": "Have/Has + Subject + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I have already read 100 pages.",
-                "translation": "Я уже прочитал 100 страниц."
+                "translation": "Я уже прочитал 100 страниц.",
+                "type": "affirmative"
             },
             {
                 "original": "She has not finished her homework yet.",
-                "translation": "Она еще не закончила свое домашнее задание."
+                "translation": "Она еще не закончила свое домашнее задание.",
+                "type": "negative"
             },
             {
                 "original": "Have you ever visited Paris?",
-                "translation": "Ты когда-нибудь был в Париже?"
+                "translation": "Ты когда-нибудь был в Париже?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -419,29 +449,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + have/has + been + глагол с окончанием -ing"
+                "formula": "Subject + have/has + been + глагол с окончанием -ing",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + have/has + not + been + глагол с окончанием -ing"
+                "formula": "Subject + have/has + not + been + глагол с окончанием -ing",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Have/Has + Subject + been + глагол с окончанием -ing + ?"
+                "formula": "Have/Has + Subject + been + глагол с окончанием -ing + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I have been reading this book for a week.",
-                "translation": "Я читаю эту книгу уже неделю."
+                "translation": "Я читаю эту книгу уже неделю.",
+                "type": "affirmative"
             },
             {
                 "original": "She has not been working here for long.",
-                "translation": "Она работает здесь недолго."
+                "translation": "Она работает здесь недолго.",
+                "type": "negative"
             },
             {
                 "original": "How long have you been waiting for me?",
-                "translation": "Как долго ты меня ждешь?"
+                "translation": "Как долго ты меня ждешь?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -501,29 +537,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + глагол в прошедшем времени (V2)"
+                "formula": "Subject + глагол в прошедшем времени (V2)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + did + not + глагол в базовой форме"
+                "formula": "Subject + did + not + глагол в базовой форме",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Did + Subject + глагол в базовой форме + ?"
+                "formula": "Did + Subject + глагол в базовой форме + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I visited Paris last year.",
-                "translation": "Я посетил Париж в прошлом году."
+                "translation": "Я посетил Париж в прошлом году.",
+                "type": "affirmative"
             },
             {
                 "original": "She didn't finish her homework yesterday.",
-                "translation": "Она не закончила свою домашнюю работу вчера."
+                "translation": "Она не закончила свою домашнюю работу вчера.",
+                "type": "negative"
             },
             {
                 "original": "Did they call you last night?",
-                "translation": "Они звонили тебе вчера вечером?"
+                "translation": "Они звонили тебе вчера вечером?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -583,29 +625,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + was/were + глагол с окончанием -ing"
+                "formula": "Subject + was/were + глагол с окончанием -ing",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + was/were + not + глагол с окончанием -ing"
+                "formula": "Subject + was/were + not + глагол с окончанием -ing",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Was/Were + Subject + глагол с окончанием -ing + ?"
+                "formula": "Was/Were + Subject + глагол с окончанием -ing + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I was reading when the phone rang.",
-                "translation": "Я читал, когда зазвонил телефон."
+                "translation": "Я читал, когда зазвонил телефон.",
+                "type": "affirmative"
             },
             {
                 "original": "They weren't working at 9 PM last night.",
-                "translation": "Они не работали в 9 вечера вчера."
+                "translation": "Они не работали в 9 вечера вчера.",
+                "type": "negative"
             },
             {
                 "original": "Was she sleeping when you came home?",
-                "translation": "Она спала, когда ты пришел домой?"
+                "translation": "Она спала, когда ты пришел домой?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -663,29 +711,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + had + причастие прошедшего времени (V3)"
+                "formula": "Subject + had + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + had + not + причастие прошедшего времени (V3)"
+                "formula": "Subject + had + not + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Had + Subject + причастие прошедшего времени (V3) + ?"
+                "formula": "Had + Subject + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I had already read the book before I watched the movie.",
-                "translation": "Я уже прочитал книгу до того, как посмотрел фильм."
+                "translation": "Я уже прочитал книгу до того, как посмотрел фильм.",
+                "type": "affirmative"
             },
             {
                 "original": "She hadn't finished her work when I called.",
-                "translation": "Она не закончила свою работу, когда я позвонил."
+                "translation": "Она не закончила свою работу, когда я позвонил.",
+                "type": "negative"
             },
             {
                 "original": "Had you ever visited London before you moved there?",
-                "translation": "Ты когда-нибудь бывал в Лондоне до того, как переехал туда?"
+                "translation": "Ты когда-нибудь бывал в Лондоне до того, как переехал туда?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -746,29 +800,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + had + been + глагол с окончанием -ing"
+                "formula": "Subject + had + been + глагол с окончанием -ing",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + had + not + been + глагол с окончанием -ing"
+                "formula": "Subject + had + not + been + глагол с окончанием -ing",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Had + Subject + been + глагол с окончанием -ing + ?"
+                "formula": "Had + Subject + been + глагол с окончанием -ing + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I had been reading for two hours before I fell asleep.",
-                "translation": "Я читал в течение двух часов, прежде чем заснул."
+                "translation": "Я читал в течение двух часов, прежде чем заснул.",
+                "type": "affirmative"
             },
             {
                 "original": "She hadn't been working there for long before she got promoted.",
-                "translation": "Она работала там недолго, прежде чем получила повышение."
+                "translation": "Она работала там недолго, прежде чем получила повышение.",
+                "type": "negative"
             },
             {
                 "original": "Had they been waiting for long when the bus arrived?",
-                "translation": "Они долго ждали, когда приехал автобус?"
+                "translation": "Они долго ждали, когда приехал автобус?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -828,29 +888,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + am/is/are + going to + глагол в базовой форме"
+                "formula": "Subject + am/is/are + going to + глагол в базовой форме",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + am/is/are + not + going to + глагол в базовой форме"
+                "formula": "Subject + am/is/are + not + going to + глагол в базовой форме",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Am/Is/Are + Subject + going to + глагол в базовой форме + ?"
+                "formula": "Am/Is/Are + Subject + going to + глагол в базовой форме + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I am going to study tonight.",
-                "translation": "Я собираюсь заниматься сегодня вечером."
+                "translation": "Я собираюсь заниматься сегодня вечером.",
+                "type": "affirmative"
             },
             {
                 "original": "She is not going to apply for that job.",
-                "translation": "Она не собирается подавать заявление на ту работу."
+                "translation": "Она не собирается подавать заявление на ту работу.",
+                "type": "negative"
             },
             {
                 "original": "Are they going to move to a new house?",
-                "translation": "Они собираются переехать в новый дом?"
+                "translation": "Они собираются переехать в новый дом?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -909,29 +975,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + глагол в Present Simple + временное обстоятельство будущего"
+                "formula": "Subject + глагол в Present Simple + временное обстоятельство будущего",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + do/does + not + глагол в базовой форме + временное обстоятельство будущего"
+                "formula": "Subject + do/does + not + глагол в базовой форме + временное обстоятельство будущего",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Do/Does + Subject + глагол в базовой форме + временное обстоятельство будущего + ?"
+                "formula": "Do/Does + Subject + глагол в базовой форме + временное обстоятельство будущего + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The train leaves at 5 PM tomorrow.",
-                "translation": "Поезд отправляется завтра в 5 вечера."
+                "translation": "Поезд отправляется завтра в 5 вечера.",
+                "type": "affirmative"
             },
             {
                 "original": "The meeting does not start until 10 AM.",
-                "translation": "Собрание не начинается до 10 утра."
+                "translation": "Собрание не начинается до 10 утра.",
+                "type": "negative"
             },
             {
                 "original": "Does the plane arrive at 9 PM?",
-                "translation": "Самолет прибывает в 9 вечера?"
+                "translation": "Самолет прибывает в 9 вечера?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -989,29 +1061,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + will be + глагол с окончанием -ing"
+                "formula": "Subject + will be + глагол с окончанием -ing",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + will not (won't) be + глагол с окончанием -ing"
+                "formula": "Subject + will not (won't) be + глагол с окончанием -ing",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Will + Subject + be + глагол с окончанием -ing + ?"
+                "formula": "Will + Subject + be + глагол с окончанием -ing + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "This time tomorrow I will be flying to London.",
-                "translation": "Завтра в это время я буду лететь в Лондон."
+                "translation": "Завтра в это время я буду лететь в Лондон.",
+                "type": "affirmative"
             },
             {
                 "original": "She won't be working all day tomorrow.",
-                "translation": "Она не будет работать весь день завтра."
+                "translation": "Она не будет работать весь день завтра.",
+                "type": "negative"
             },
             {
                 "original": "Will you be using the car tonight?",
-                "translation": "Ты будешь пользоваться машиной сегодня вечером?"
+                "translation": "Ты будешь пользоваться машиной сегодня вечером?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1069,29 +1147,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + will have + причастие прошедшего времени (V3)"
+                "formula": "Subject + will have + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + will not (won't) have + причастие прошедшего времени (V3)"
+                "formula": "Subject + will not (won't) have + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Will + Subject + have + причастие прошедшего времени (V3) + ?"
+                "formula": "Will + Subject + have + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "I will have finished the project by Friday.",
-                "translation": "Я закончу проект к пятнице."
+                "translation": "Я закончу проект к пятнице.",
+                "type": "affirmative"
             },
             {
                 "original": "She won't have graduated by June.",
-                "translation": "Она не закончит учёбу к июню."
+                "translation": "Она не закончит учёбу к июню.",
+                "type": "negative"
             },
             {
                 "original": "Will they have built the new office by the end of next year?",
-                "translation": "Они построят новый офис к концу следующего года?"
+                "translation": "Они построят новый офис к концу следующего года?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1150,29 +1234,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + will have been + глагол с окончанием -ing"
+                "formula": "Subject + will have been + глагол с окончанием -ing",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + will not (won't) have been + глагол с окончанием -ing"
+                "formula": "Subject + will not (won't) have been + глагол с окончанием -ing",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Will + Subject + have been + глагол с окончанием -ing + ?"
+                "formula": "Will + Subject + have been + глагол с окончанием -ing + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "By December, I will have been working on this project for 6 months.",
-                "translation": "К декабрю я буду работать над этим проектом уже 6 месяцев."
+                "translation": "К декабрю я буду работать над этим проектом уже 6 месяцев.",
+                "type": "affirmative"
             },
             {
                 "original": "Next week, they won't have been living here for 10 years yet.",
-                "translation": "На следующей неделе они еще не будут жить здесь 10 лет."
+                "translation": "На следующей неделе они еще не будут жить здесь 10 лет.",
+                "type": "negative"
             },
             {
                 "original": "Will you have been studying English for 5 years by the end of next semester?",
-                "translation": "Ты будешь изучать английский язык уже 5 лет к концу следующего семестра?"
+                "translation": "Ты будешь изучать английский язык уже 5 лет к концу следующего семестра?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1230,29 +1320,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + was/were + причастие прошедшего времени (V3)"
+                "formula": "Subject + was/were + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + was/were + not + причастие прошедшего времени (V3)"
+                "formula": "Subject + was/were + not + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Was/Were + Subject + причастие прошедшего времени (V3) + ?"
+                "formula": "Was/Were + Subject + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The letter was sent yesterday.",
-                "translation": "Письмо было отправлено вчера."
+                "translation": "Письмо было отправлено вчера.",
+                "type": "affirmative"
             },
             {
                 "original": "The building was not constructed in 1985.",
-                "translation": "Здание не было построено в 1985 году."
+                "translation": "Здание не было построено в 1985 году.",
+                "type": "negative"
             },
             {
                 "original": "Was the project completed on time?",
-                "translation": "Был ли проект завершен вовремя?"
+                "translation": "Был ли проект завершен вовремя?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1311,29 +1407,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + was/were + being + причастие прошедшего времени (V3)"
+                "formula": "Subject + was/were + being + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + was/were + not + being + причастие прошедшего времени (V3)"
+                "formula": "Subject + was/were + not + being + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Was/Were + Subject + being + причастие прошедшего времени (V3) + ?"
+                "formula": "Was/Were + Subject + being + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The house was being painted when I arrived.",
-                "translation": "Дом красили, когда я приехал."
+                "translation": "Дом красили, когда я приехал.",
+                "type": "affirmative"
             },
             {
                 "original": "The issue wasn't being discussed at the meeting.",
-                "translation": "Вопрос не обсуждался на собрании."
+                "translation": "Вопрос не обсуждался на собрании.",
+                "type": "negative"
             },
             {
                 "original": "Was the patient being examined when the doctor noticed the problem?",
-                "translation": "Пациента осматривали, когда врач заметил проблему?"
+                "translation": "Пациента осматривали, когда врач заметил проблему?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1391,29 +1493,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + had + been + причастие прошедшего времени (V3)"
+                "formula": "Subject + had + been + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + had + not + been + причастие прошедшего времени (V3)"
+                "formula": "Subject + had + not + been + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Had + Subject + been + причастие прошедшего времени (V3) + ?"
+                "formula": "Had + Subject + been + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The report had been completed before the meeting started.",
-                "translation": "Отчет был завершен до начала собрания."
+                "translation": "Отчет был завершен до начала собрания.",
+                "type": "affirmative"
             },
             {
                 "original": "The house had not been sold before we made our offer.",
-                "translation": "Дом не был продан до того, как мы сделали наше предложение."
+                "translation": "Дом не был продан до того, как мы сделали наше предложение.",
+                "type": "negative"
             },
             {
                 "original": "Had all the preparations been finished by the time they arrived?",
-                "translation": "Все приготовления были закончены к тому времени, как они прибыли?"
+                "translation": "Все приготовления были закончены к тому времени, как они прибыли?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1472,29 +1580,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + am/is/are + причастие прошедшего времени (V3)"
+                "formula": "Subject + am/is/are + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + am/is/are + not + причастие прошедшего времени (V3)"
+                "formula": "Subject + am/is/are + not + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Am/Is/Are + Subject + причастие прошедшего времени (V3) + ?"
+                "formula": "Am/Is/Are + Subject + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "English is spoken in many countries.",
-                "translation": "Английский язык используется во многих странах."
+                "translation": "Английский язык используется во многих странах.",
+                "type": "affirmative"
             },
             {
                 "original": "The museum is not closed on Mondays.",
-                "translation": "Музей не закрыт по понедельникам."
+                "translation": "Музей не закрыт по понедельникам.",
+                "type": "negative"
             },
             {
                 "original": "Are these cars manufactured in Germany?",
-                "translation": "Эти автомобили производятся в Германии?"
+                "translation": "Эти автомобили производятся в Германии?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1554,29 +1668,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + am/is/are + being + причастие прошедшего времени (V3)"
+                "formula": "Subject + am/is/are + being + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + am/is/are + not + being + причастие прошедшего времени (V3)"
+                "formula": "Subject + am/is/are + not + being + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Am/Is/Are + Subject + being + причастие прошедшего времени (V3) + ?"
+                "formula": "Am/Is/Are + Subject + being + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The house is being painted right now.",
-                "translation": "Дом сейчас красится."
+                "translation": "Дом сейчас красится.",
+                "type": "affirmative"
             },
             {
                 "original": "The documents are not being processed at the moment.",
-                "translation": "Документы в данный момент не обрабатываются."
+                "translation": "Документы в данный момент не обрабатываются.",
+                "type": "negative"
             },
             {
                 "original": "Is the meeting being recorded?",
-                "translation": "Собрание записывается?"
+                "translation": "Собрание записывается?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1635,29 +1755,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + have/has + been + причастие прошедшего времени (V3)"
+                "formula": "Subject + have/has + been + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + have/has + not + been + причастие прошедшего времени (V3)"
+                "formula": "Subject + have/has + not + been + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Have/Has + Subject + been + причастие прошедшего времени (V3) + ?"
+                "formula": "Have/Has + Subject + been + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The report has been completed.",
-                "translation": "Отчет был завершен."
+                "translation": "Отчет был завершен.",
+                "type": "affirmative"
             },
             {
                 "original": "The museum has not been renovated since 1980.",
-                "translation": "Музей не ремонтировался с 1980 года."
+                "translation": "Музей не ремонтировался с 1980 года.",
+                "type": "negative"
             },
             {
                 "original": "Has your passport been renewed yet?",
-                "translation": "Твой паспорт уже был обновлен?"
+                "translation": "Твой паспорт уже был обновлен?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1718,29 +1844,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + will + be + причастие прошедшего времени (V3)"
+                "formula": "Subject + will + be + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + will + not + be + причастие прошедшего времени (V3)"
+                "formula": "Subject + will + not + be + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Will + Subject + be + причастие прошедшего времени (V3) + ?"
+                "formula": "Will + Subject + be + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The letter will be sent tomorrow.",
-                "translation": "Письмо будет отправлено завтра."
+                "translation": "Письмо будет отправлено завтра.",
+                "type": "affirmative"
             },
             {
                 "original": "The new bridge will not be completed until next year.",
-                "translation": "Новый мост не будет завершен до следующего года."
+                "translation": "Новый мост не будет завершен до следующего года.",
+                "type": "negative"
             },
             {
                 "original": "Will the problem be solved soon?",
-                "translation": "Проблема будет решена скоро?"
+                "translation": "Проблема будет решена скоро?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1799,29 +1931,35 @@
         "formulas": [
             {
                 "title": "Утвердительное предложение",
-                "formula": "Subject + will + have + been + причастие прошедшего времени (V3)"
+                "formula": "Subject + will + have + been + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "Отрицательное предложение",
-                "formula": "Subject + will + not + have + been + причастие прошедшего времени (V3)"
+                "formula": "Subject + will + not + have + been + причастие прошедшего времени (V3)",
+                "type": "negative"
             },
             {
                 "title": "Вопросительное предложение",
-                "formula": "Will + Subject + have + been + причастие прошедшего времени (V3) + ?"
+                "formula": "Will + Subject + have + been + причастие прошедшего времени (V3) + ?",
+                "type": "question"
             }
         ],
         "examples": [
             {
                 "original": "The report will have been completed by Monday.",
-                "translation": "Отчет будет завершен к понедельнику."
+                "translation": "Отчет будет завершен к понедельнику.",
+                "type": "affirmative"
             },
             {
                 "original": "The new bridge will not have been constructed by the end of this year.",
-                "translation": "Новый мост не будет построен к концу этого года."
+                "translation": "Новый мост не будет построен к концу этого года.",
+                "type": "negative"
             },
             {
                 "original": "Will all the arrangements have been made by the time they arrive?",
-                "translation": "Будут ли все приготовления сделаны к тому времени, как они прибудут?"
+                "translation": "Будут ли все приготовления сделаны к тому времени, как они прибудут?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -1880,29 +2018,35 @@
         "formulas": [
             {
                 "title": "Основная формула",
-                "formula": "If + Present Simple, Present Simple"
+                "formula": "If + Present Simple, Present Simple",
+                "type": "affirmative"
             },
             {
                 "title": "Альтернативная формула",
-                "formula": "When + Present Simple, Present Simple"
+                "formula": "When + Present Simple, Present Simple",
+                "type": "affirmative"
             },
             {
                 "title": "С изменением порядка",
-                "formula": "Present Simple + if/when + Present Simple"
+                "formula": "Present Simple + if/when + Present Simple",
+                "type": "affirmative"
             }
         ],
         "examples": [
             {
                 "original": "If you heat water to 100°C, it boils.",
-                "translation": "Если нагреть воду до 100°C, она закипает."
+                "translation": "Если нагреть воду до 100°C, она закипает.",
+                "type": "affirmative"
             },
             {
                 "original": "Ice melts if you heat it.",
-                "translation": "Лёд тает, если его нагреть."
+                "translation": "Лёд тает, если его нагреть.",
+                "type": "affirmative"
             },
             {
                 "original": "When I feel tired, I drink coffee.",
-                "translation": "Когда я чувствую усталость, я пью кофе."
+                "translation": "Когда я чувствую усталость, я пью кофе.",
+                "type": "affirmative"
             }
         ],
         "usage": [
@@ -1962,29 +2106,35 @@
         "formulas": [
             {
                 "title": "Основная формула",
-                "formula": "If + Present Simple, will + инфинитив"
+                "formula": "If + Present Simple, will + инфинитив",
+                "type": "affirmative"
             },
             {
                 "title": "С модальными глаголами",
-                "formula": "If + Present Simple, can/may/might/must + инфинитив"
+                "formula": "If + Present Simple, can/may/might/must + инфинитив",
+                "type": "affirmative"
             },
             {
                 "title": "С изменением порядка",
-                "formula": "Will + инфинитив + if + Present Simple"
+                "formula": "Will + инфинитив + if + Present Simple",
+                "type": "affirmative"
             }
         ],
         "examples": [
             {
                 "original": "If it rains, I will stay at home.",
-                "translation": "Если пойдет дождь, я останусь дома."
+                "translation": "Если пойдет дождь, я останусь дома.",
+                "type": "affirmative"
             },
             {
                 "original": "I will go to the beach if the weather is nice.",
-                "translation": "Я пойду на пляж, если погода будет хорошей."
+                "translation": "Я пойду на пляж, если погода будет хорошей.",
+                "type": "affirmative"
             },
             {
                 "original": "If you study hard, you can pass the exam.",
-                "translation": "Если ты будешь усердно учиться, ты сможешь сдать экзамен."
+                "translation": "Если ты будешь усердно учиться, ты сможешь сдать экзамен.",
+                "type": "affirmative"
             }
         ],
         "usage": [
@@ -2043,29 +2193,35 @@
         "formulas": [
             {
                 "title": "Основная формула",
-                "formula": "If + Past Simple, would + инфинитив"
+                "formula": "If + Past Simple, would + инфинитив",
+                "type": "affirmative"
             },
             {
                 "title": "С другими модальными глаголами",
-                "formula": "If + Past Simple, could/might + инфинитив"
+                "formula": "If + Past Simple, could/might + инфинитив",
+                "type": "affirmative"
             },
             {
                 "title": "С изменением порядка",
-                "formula": "Would + инфинитив + if + Past Simple"
+                "formula": "Would + инфинитив + if + Past Simple",
+                "type": "affirmative"
             }
         ],
         "examples": [
             {
                 "original": "If I had more time, I would read more books.",
-                "translation": "Если бы у меня было больше времени, я бы читал больше книг."
+                "translation": "Если бы у меня было больше времени, я бы читал больше книг.",
+                "type": "affirmative"
             },
             {
                 "original": "She would travel around the world if she were rich.",
-                "translation": "Она бы путешествовала по миру, если бы была богата."
+                "translation": "Она бы путешествовала по миру, если бы была богата.",
+                "type": "affirmative"
             },
             {
                 "original": "What would you do if you won the lottery?",
-                "translation": "Что бы ты сделал, если бы выиграл в лотерею?"
+                "translation": "Что бы ты сделал, если бы выиграл в лотерею?",
+                "type": "question"
             }
         ],
         "usage": [
@@ -2124,29 +2280,35 @@
         "formulas": [
             {
                 "title": "Основная формула",
-                "formula": "If + Past Perfect, would + have + причастие прошедшего времени (V3)"
+                "formula": "If + Past Perfect, would + have + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "С другими модальными глаголами",
-                "formula": "If + Past Perfect, could/might + have + причастие прошедшего времени (V3)"
+                "formula": "If + Past Perfect, could/might + have + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "С изменением порядка",
-                "formula": "Would + have + причастие прошедшего времени (V3) + if + Past Perfect"
+                "formula": "Would + have + причастие прошедшего времени (V3) + if + Past Perfect",
+                "type": "affirmative"
             }
         ],
         "examples": [
             {
                 "original": "If I had known about the party, I would have come.",
-                "translation": "Если бы я знал о вечеринке, я бы пришел."
+                "translation": "Если бы я знал о вечеринке, я бы пришел.",
+                "type": "affirmative"
             },
             {
                 "original": "She would have passed the exam if she had studied harder.",
-                "translation": "Она бы сдала экзамен, если бы училась усерднее."
+                "translation": "Она бы сдала экзамен, если бы училась усерднее.",
+                "type": "affirmative"
             },
             {
                 "original": "If the weather hadn't been so bad, we could have gone to the beach.",
-                "translation": "Если бы погода не была такой плохой, мы могли бы пойти на пляж."
+                "translation": "Если бы погода не была такой плохой, мы могли бы пойти на пляж.",
+                "type": "negative"
             }
         ],
         "usage": [
@@ -2205,29 +2367,35 @@
         "formulas": [
             {
                 "title": "Прошлое → Настоящее",
-                "formula": "If + Past Perfect, would/could/might + инфинитив"
+                "formula": "If + Past Perfect, would/could/might + инфинитив",
+                "type": "affirmative"
             },
             {
                 "title": "Настоящее → Прошлое",
-                "formula": "If + Past Simple, would/could/might + have + причастие прошедшего времени (V3)"
+                "formula": "If + Past Simple, would/could/might + have + причастие прошедшего времени (V3)",
+                "type": "affirmative"
             },
             {
                 "title": "С изменением порядка",
-                "formula": "Would + инфинитив/have + причастие прошедшего времени (V3) + if + соответствующее время"
+                "formula": "Would + инфинитив/have + причастие прошедшего времени (V3) + if + соответствующее время",
+                "type": "affirmative"
             }
         ],
         "examples": [
             {
                 "original": "If I had studied medicine, I would be a doctor now.",
-                "translation": "Если бы я изучал медицину (в прошлом), я был бы сейчас врачом."
+                "translation": "Если бы я изучал медицину (в прошлом), я был бы сейчас врачом.",
+                "type": "affirmative"
             },
             {
                 "original": "If I weren't so busy, I would have helped you yesterday.",
-                "translation": "Если бы я не был так занят (сейчас), я бы помог тебе вчера."
+                "translation": "Если бы я не был так занят (сейчас), я бы помог тебе вчера.",
+                "type": "negative"
             },
             {
                 "original": "She would have a better job now if she had finished university.",
-                "translation": "У нее была бы сейчас работа получше, если бы она закончила университет."
+                "translation": "У нее была бы сейчас работа получше, если бы она закончила университет.",
+                "type": "affirmative"
             }
         ],
         "usage": [

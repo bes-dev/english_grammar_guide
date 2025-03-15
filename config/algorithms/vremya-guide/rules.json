@@ -12,7 +12,8 @@
   {
     "stepId": "step1",
     "choice": "condition",
-    "nextStep": "step2"
+    "nextStep": "step3_condition",
+    "skipSteps": ["step2", "step4_form"]
   },
   {
     "stepId": "step2",
@@ -71,141 +72,184 @@
   {
     "stepId": "step3_actor_future",
     "choice": "prediction",
-    "resultId": "future_simple"
+    "nextStep": "step4_form",
+    "saveResult": "future_simple"
   },
   {
     "stepId": "step3_actor_future",
     "choice": "intention",
-    "resultId": "be_going_to"
+    "nextStep": "step4_form",
+    "saveResult": "be_going_to"
   },
   {
     "stepId": "step3_actor_future",
     "choice": "arrangement",
-    "resultId": "present_continuous_future"
+    "nextStep": "step4_form",
+    "saveResult": "present_continuous_future"
   },
   {
     "stepId": "step3_actor_future",
     "choice": "schedule",
-    "resultId": "present_simple_future"
+    "nextStep": "step4_form",
+    "saveResult": "present_simple_future"
   },
   {
     "stepId": "step3_actor_future",
     "choice": "inProgress",
-    "resultId": "future_continuous"
+    "nextStep": "step4_form",
+    "saveResult": "future_continuous"
   },
   {
     "stepId": "step3_actor_future",
     "choice": "completed",
-    "resultId": "future_perfect"
+    "nextStep": "step4_form",
+    "saveResult": "future_perfect"
   },
   {
     "stepId": "step3_actor_future",
     "choice": "duration",
-    "resultId": "future_perfect_continuous"
+    "nextStep": "step4_form",
+    "saveResult": "future_perfect_continuous"
   },
   {
     "stepId": "step3_actor_present",
     "choice": "regular",
-    "resultId": "present_simple"
+    "nextStep": "step4_form",
+    "saveResult": "present_simple"
   },
   {
     "stepId": "step3_actor_present",
     "choice": "inProgress",
-    "resultId": "present_continuous"
+    "nextStep": "step4_form",
+    "saveResult": "present_continuous"
   },
   {
     "stepId": "step3_actor_present",
     "choice": "completed",
-    "resultId": "present_perfect"
+    "nextStep": "step4_form",
+    "saveResult": "present_perfect"
   },
   {
     "stepId": "step3_actor_present",
     "choice": "duration",
-    "resultId": "present_perfect_continuous"
+    "nextStep": "step4_form",
+    "saveResult": "present_perfect_continuous"
   },
   {
     "stepId": "step3_actor_past",
     "choice": "simple",
-    "resultId": "past_simple"
+    "nextStep": "step4_form",
+    "saveResult": "past_simple"
   },
   {
     "stepId": "step3_actor_past",
     "choice": "inProgress",
-    "resultId": "past_continuous"
+    "nextStep": "step4_form",
+    "saveResult": "past_continuous"
   },
   {
     "stepId": "step3_actor_past",
     "choice": "before",
-    "resultId": "past_perfect"
+    "nextStep": "step4_form",
+    "saveResult": "past_perfect"
   },
   {
     "stepId": "step3_actor_past",
     "choice": "duration",
-    "resultId": "past_perfect_continuous"
+    "nextStep": "step4_form",
+    "saveResult": "past_perfect_continuous"
   },
   {
     "stepId": "step3_object_future",
     "choice": "simple",
-    "resultId": "future_simple_passive"
+    "nextStep": "step4_form",
+    "saveResult": "future_simple_passive"
   },
   {
     "stepId": "step3_object_future",
     "choice": "completed",
-    "resultId": "future_perfect_passive"
+    "nextStep": "step4_form",
+    "saveResult": "future_perfect_passive"
   },
   {
     "stepId": "step3_object_present",
     "choice": "regular",
-    "resultId": "present_simple_passive"
+    "nextStep": "step4_form",
+    "saveResult": "present_simple_passive"
   },
   {
     "stepId": "step3_object_present",
     "choice": "inProgress",
-    "resultId": "present_continuous_passive"
+    "nextStep": "step4_form",
+    "saveResult": "present_continuous_passive"
   },
   {
     "stepId": "step3_object_present",
     "choice": "completed",
-    "resultId": "present_perfect_passive"
+    "nextStep": "step4_form",
+    "saveResult": "present_perfect_passive"
   },
   {
     "stepId": "step3_object_past",
     "choice": "simple",
-    "resultId": "past_simple_passive"
+    "nextStep": "step4_form",
+    "saveResult": "past_simple_passive"
   },
   {
     "stepId": "step3_object_past",
     "choice": "inProgress",
-    "resultId": "past_continuous_passive"
+    "nextStep": "step4_form",
+    "saveResult": "past_continuous_passive"
   },
   {
     "stepId": "step3_object_past",
     "choice": "before",
-    "resultId": "past_perfect_passive"
+    "nextStep": "step4_form",
+    "saveResult": "past_perfect_passive"
   },
   {
     "stepId": "step3_condition",
     "choice": "zero",
+    "saveResult": "zero_conditional",
     "resultId": "zero_conditional"
   },
   {
     "stepId": "step3_condition",
     "choice": "first",
+    "saveResult": "first_conditional",
     "resultId": "first_conditional"
   },
   {
     "stepId": "step3_condition",
     "choice": "second",
+    "saveResult": "second_conditional",
     "resultId": "second_conditional"
   },
   {
     "stepId": "step3_condition",
     "choice": "third",
+    "saveResult": "third_conditional",
     "resultId": "third_conditional"
   },
   {
     "stepId": "step3_condition",
     "choice": "mixed",
+    "saveResult": "mixed_conditional",
     "resultId": "mixed_conditional"
+  },
+  {
+    "stepId": "step4_form",
+    "choice": "affirmative",
+    "resultType": "form"
+  },
+  {
+    "stepId": "step4_form",
+    "choice": "question",
+    "resultType": "form"
+  },
+  {
+    "stepId": "step4_form",
+    "choice": "negative",
+    "resultType": "form"
   }
 ]

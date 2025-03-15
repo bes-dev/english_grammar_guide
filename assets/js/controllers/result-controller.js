@@ -35,13 +35,15 @@ class ResultController {
      * Рендеринг результата
      */
     async render() {
+        // Добавляем отладочную информацию
+        console.log('Выборы пользователя:', this.model.userChoices);
+        console.log('Текущий шаг:', this.model.currentStep);
+        
         const result = this.model.getResult();
+        console.log('Полученный результат:', result);
         
         await this.view.render({ result });
         this.view.show();
-        
-        // Прокрутка страницы в начало
-        window.scrollTo(0, 0);
     }
 
     /**

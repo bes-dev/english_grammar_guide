@@ -89,20 +89,85 @@ class AlgorithmModel {
      */
     getNextStep() {
         // Определение следующего шага на основе правил и выборов пользователя
-        const nextStepId = this.determineNextStep();
+        const result = this.determineNextStepWithSkips();
         
-        if (!nextStepId) {
+        if (!result || !result.nextStepId) {
             return null; // Если следующего шага нет (результат)
         }
         
-        const nextStep = this.steps.find(step => step.id === nextStepId);
+        const nextStep = this.steps.find(step => step.id === result.nextStepId);
         
         if (nextStep) {
             this.currentStep = nextStep;
-            return nextStep;
+            return { 
+                step: nextStep,
+                skippedSteps: result.skippedSteps || []
+            };
         }
         
         return null;
+    }
+    
+    /**
+     * Определение следующего шага с учетом возможности пропуска шагов
+     * @returns {object} Объект с id следующего шага и массивом пропущенных шагов
+     */
+    determineNextStepWithSkips() {
+        const currentStepId = this.currentStep.id;
+        const choice = this.userChoices[currentStepId];
+        
+        // Если нет выбора для текущего шага, не можем определить следующий
+        if (!choice) {
+            return { nextStepId: null, skippedSteps: [] };
+        }
+        
+        // Поиск в правилах с учетом предыдущих выборов
+        const relevantRules = this.rules.filter(r => r.stepId === currentStepId && r.choice === choice);
+        
+        if (relevantRules.length === 0) {
+            return { nextStepId: null, skippedSteps: [] };
+        }
+        
+        // Проверяем правила с учетом предыдущих шагов
+        for (const rule of relevantRules) {
+            // Если в правиле нет условия prevChoice или оно соответствует предыдущему выбору
+            if (!rule.prevChoice || this.userChoices[this.getPrevStepId(currentStepId)] === rule.prevChoice) {
+                // Сохраняем промежуточный результат, если он есть в правиле
+                if (rule.saveResult) {
+                    this.userChoices['savedResult'] = rule.saveResult;
+                }
+                
+                const skippedSteps = rule.skipSteps || [];
+                
+                // Если есть nextStep, возвращаем его вместе с пропущенными шагами
+                return { 
+                    nextStepId: rule.nextStep || null,
+                    skippedSteps: skippedSteps
+                };
+            }
+        }
+        
+        // Если не нашли подходящее правило, возвращаем первое
+        const rule = relevantRules[0];
+        
+        // Сохраняем промежуточный результат, если он есть в правиле
+        if (rule.saveResult) {
+            console.log('Сохраняем промежуточный результат:', rule.saveResult);
+            this.userChoices['savedResult'] = rule.saveResult;
+        }
+        
+        // Если это правило для формы и у него есть resultType=form
+        if (rule.resultType === 'form') {
+            // То это финальный шаг и нам не нужен nextStep
+            console.log('Правило с resultType=form - это финальный шаг');
+            return { nextStepId: null, skippedSteps: [] };
+        }
+        
+        // Иначе возвращаем nextStep если он есть
+        return { 
+            nextStepId: rule.nextStep || null,
+            skippedSteps: rule.skipSteps || []
+        };
     }
 
     /**
@@ -177,13 +242,34 @@ class AlgorithmModel {
         for (const rule of relevantRules) {
             // Если в правиле нет условия prevChoice или оно соответствует предыдущему выбору
             if (!rule.prevChoice || this.userChoices[this.getPrevStepId(currentStepId)] === rule.prevChoice) {
+                // Сохраняем промежуточный результат, если он есть в правиле
+                if (rule.saveResult) {
+                    this.userChoices['savedResult'] = rule.saveResult;
+                }
+                
                 // Если есть nextStep, возвращаем его, иначе это шаг к результату
                 return rule.nextStep || null;
             }
         }
         
         // Если не нашли подходящее правило, возвращаем первое
-        return relevantRules[0].nextStep || null;
+        const rule = relevantRules[0];
+        
+        // Сохраняем промежуточный результат, если он есть в правиле
+        if (rule.saveResult) {
+            console.log('Сохраняем промежуточный результат:', rule.saveResult);
+            this.userChoices['savedResult'] = rule.saveResult;
+        }
+        
+        // Если это правило для формы и у него есть resultType=form
+        if (rule.resultType === 'form') {
+            // То это финальный шаг и нам не нужен nextStep
+            console.log('Правило с resultType=form - это финальный шаг');
+            return null;
+        }
+        
+        // Иначе возвращаем nextStep если он есть
+        return rule.nextStep || null;
     }
 
     /**
@@ -204,8 +290,76 @@ class AlgorithmModel {
      * @returns {object|null} Объект результата или null
      */
     getResult() {
-        const resultId = this.determineResult();
-        return resultId ? this.results[resultId] : null;
+        // Получаем ID результата
+        let resultId = this.determineResult();
+        
+        if (!resultId) {
+            console.log('Не удалось определить ID результата');
+            return null;
+        }
+        
+        console.log('Определен ID результата:', resultId);
+        
+        // Специальная обработка для шага формы
+        if (this.currentStep && this.currentStep.id === 'step4_form') {
+            // Форма выбрана (affirmative, question, negative)
+            const formType = this.userChoices[this.currentStep.id];
+            // Получаем сохраненный результат
+            const savedResult = this.userChoices['savedResult'];
+            
+            console.log('На шаге формы - тип формы:', formType, 'сохраненный результат:', savedResult);
+            
+            if (savedResult && this.results[savedResult]) {
+                // Берём базовый результат и фильтруем формулы в зависимости от выбранной формы предложения
+                const baseResult = JSON.parse(JSON.stringify(this.results[savedResult])); // Глубокое клонирование
+                
+                // Фильтруем только ту формулу, которая соответствует выбранной форме
+                if (baseResult.formulas && baseResult.formulas.length > 0) {
+                    console.log('Фильтруем формулы по типу:', formType);
+                    
+                    // Выбираем только подходящую формулу по полю type
+                    const filteredFormula = baseResult.formulas.find(f => f.type === formType);
+                    
+                    console.log('Найдена подходящая формула:', filteredFormula ? 'да' : 'нет');
+                    
+                    // Обновляем результат только с одной формулой, если она найдена
+                    if (filteredFormula) {
+                        baseResult.formulas = [filteredFormula];
+                        
+                        // Фильтруем примеры соответственно типу формы
+                        if (baseResult.examples && baseResult.examples.length > 0) {
+                            // Фильтруем по полю type
+                            const filteredExamples = baseResult.examples.filter(example => 
+                                example.type === formType
+                            );
+                            
+                            // Если нашли примеры с нужным типом, используем их
+                            if (filteredExamples.length > 0) {
+                                baseResult.examples = filteredExamples;
+                                console.log('Отфильтровано примеров по типу:', filteredExamples.length);
+                            } else {
+                                console.log('Не найдено примеров с типом ' + formType + ', оставляем все примеры');
+                            }
+                        }
+                    }
+                }
+                
+                console.log('Возвращаем результат с фильтрацией по форме');
+                return baseResult;
+            } else {
+                console.log('Нет сохраненного результата или результат не найден в данных');
+            }
+        }
+        
+        // Если в форме не нашли сохраненный результат или это не шаг формы, 
+        // то возвращаем обычный результат из общей коллекции
+        if (this.results[resultId]) {
+            console.log('Возвращаем обычный результат:', resultId);
+            return this.results[resultId];
+        }
+        
+        console.log('Результат не найден в данных:', resultId);
+        return null;
     }
 
     /**
@@ -217,14 +371,40 @@ class AlgorithmModel {
         const currentStepId = this.currentStep.id;
         const choice = this.userChoices[currentStepId];
         
-        // Поиск правила, ведущего к результату
-        const resultRule = this.rules.find(r => 
+        if (!choice) {
+            return null;
+        }
+        
+        // Ищем правило для текущего шага и выбора
+        const matchingRule = this.rules.find(r => 
             r.stepId === currentStepId && 
-            r.choice === choice && 
-            r.resultId
+            r.choice === choice
         );
         
-        return resultRule ? resultRule.resultId : null;
+        if (!matchingRule) {
+            console.log('Правило не найдено для', currentStepId, choice);
+            return null;
+        }
+        
+        // Если это шаг формы предложения
+        if (currentStepId === 'step4_form') {
+            // Проверяем, есть ли resultType=form в правиле
+            if (matchingRule.resultType === 'form') {
+                console.log('Шаг формы с типом результата form:', choice);
+                // Для формы предложения просто возвращаем выбор (affirmative, question, negative)
+                // Этот выбор будет использован в getResult() для фильтрации формул и примеров
+                return choice;
+            }
+        }
+        
+        // Проверяем, есть ли в правиле resultId
+        if (matchingRule.resultId) {
+            console.log('Найден resultId в правиле:', matchingRule.resultId);
+            return matchingRule.resultId;
+        }
+        
+        // Если нет результата, возвращаем null
+        return null;
     }
 
     /**

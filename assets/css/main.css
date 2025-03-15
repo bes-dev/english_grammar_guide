@@ -279,6 +279,25 @@ header {
     color: var(--success);
 }
 
+/* Стили для пропущенных шагов */
+.step.skipped .step-circle {
+    background: linear-gradient(135deg, #a8b0c0, #c8d0e0);
+    border: 1px dashed #94a3b8;
+    opacity: 0.7;
+}
+
+.step.skipped .step-label {
+    color: #94a3b8;
+    font-style: italic;
+}
+
+.step.skipped .step-circle::after {
+    content: '↷';
+    position: absolute;
+    font-size: 14px;
+    color: var(--gray);
+}
+
 /* Стили для вопросов */
 .question-title {
     font-size: 24px;

@@ -108,6 +108,8 @@ class App {
 // Инициализация приложения при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     const app = new App();
+    // Make the store globally available for views
+    window.store = Store.getInstance();
     app.start();
 });
 

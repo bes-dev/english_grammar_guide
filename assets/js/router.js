@@ -113,6 +113,9 @@ class Router {
             return;
         }
 
+        // Прокрутка страницы в начало
+        window.scrollTo(0, 0);
+        
         // Скрытие текущего представления (если есть)
         if (this.currentRoute && this.currentRoute.hideView) {
             this.currentRoute.hideView();

@@ -33,12 +33,17 @@ class StepController {
     async initialize(params = {}) {
         await this.model.initialize();
         
+        // Сохраняем полные данные о шагах для доступа из представления
+        window.fullStepsData = this.model.steps;
+        
         // Проверяем, пришли ли мы сюда после события "restart:algorithm"
         const resetRequired = params.reset === 'true';
         
         if (resetRequired) {
             // Если требуется сброс, вызываем reset() у модели
             this.model.reset();
+            // Очищаем информацию о пропущенных шагах
+            this.store.setState({ skippedSteps: [] });
             return this;
         }
         
@@ -52,6 +57,8 @@ class StepController {
             const firstStep = this.model.steps.find(step => step.id === 'step1');
             if (firstStep) {
                 this.model.setCurrentStep('step1');
+                // Очищаем информацию о пропущенных шагах при начале нового алгоритма
+                this.store.setState({ skippedSteps: [] });
             }
         }
         
@@ -87,11 +94,6 @@ class StepController {
         const steps = this.model.steps;
         const currentIndex = steps.findIndex(step => step.id === currentStep.id);
         
-        // Проверяем, является ли текущий шаг шагом 2 (Время) и был ли предыдущий выбор "condition"
-        const isStep2 = currentStep.id === 'step2';
-        const prevStepChoice = this.model.userChoices['step1'];
-        const isConditionalPlaceholder = isStep2 && prevStepChoice === 'condition';
-        
         const viewData = {
             title: currentStep.title,
             options: currentStep.options,
@@ -101,14 +103,14 @@ class StepController {
             progress: this.calculateProgress(currentIndex),
             hint: currentStep.hint,
             stepLabel: currentStep.label,
-            isConditionalPlaceholder: isConditionalPlaceholder
+            isConditionalPlaceholder: false
         };
         
         await this.view.render(viewData);
         
-        // Если есть сохраненный выбор для этого шага и это не заглушка, отмечаем его
+        // Если есть сохраненный выбор для этого шага, отмечаем его
         const selectedValue = this.model.userChoices[currentStep.id];
-        if (selectedValue && !isConditionalPlaceholder) {
+        if (selectedValue) {
             const options = this.view.element.querySelectorAll('.option-btn');
             options.forEach(option => {
                 if (option.dataset.value === selectedValue) {
@@ -120,14 +122,6 @@ class StepController {
                     }
                 }
             });
-        }
-        
-        // Если это заглушка для условных предложений, автоматически устанавливаем выбор "present"
-        if (isConditionalPlaceholder && !selectedValue) {
-            // Выбираем "present" как значение по умолчанию для условных предложений
-            // Этот выбор не важен, так как все равно произойдет переход к step3_condition
-            this.model.setChoice(currentStep.id, 'present');
-            this.store.setUserChoice(currentStep.id, 'present');
         }
     }
 
@@ -155,11 +149,60 @@ class StepController {
     handleNextStep() {
         const currentStep = this.model.getCurrentStep();
         
+        // Отладочная информация
+        console.log('Текущий шаг:', currentStep);
+        console.log('Все выборы пользователя:', this.model.userChoices);
+        
         // Сохраняем текущий шаг в историю
         this.store.setCurrentStep(currentStep.id);
         
+        // На шаге перед формой нам нужно запомнить промежуточный результат
+        if (currentStep.id.startsWith('step3_')) {
+            // Находим правило для данного шага и выбора
+            const choice = this.model.userChoices[currentStep.id];
+            const rule = this.model.rules.find(r => 
+                r.stepId === currentStep.id && 
+                r.choice === choice
+            );
+            
+            if (rule && rule.saveResult) {
+                console.log('Сохраняем промежуточный результат:', rule.saveResult);
+                this.model.userChoices['savedResult'] = rule.saveResult;
+                this.store.setUserChoice('savedResult', rule.saveResult);
+            }
+            
+            // Если это шаг условного предложения, то сразу идем к результату
+            if (currentStep.id === 'step3_condition') {
+                const savedResult = this.model.userChoices['savedResult'];
+                console.log('Шаг условного предложения завершен, переходим к результату:', savedResult);
+                
+                if (savedResult && this.model.results[savedResult]) {
+                    console.log('Переходим к результату из условного предложения');
+                    this.eventBus.emit('algorithm:complete');
+                    return;
+                }
+            }
+        }
+        
+        // Если это шаг формы и у нас есть выбор, то сразу идем к результату
+        if (currentStep.id === 'step4_form' && this.model.userChoices[currentStep.id]) {
+            const formChoice = this.model.userChoices[currentStep.id];
+            const savedResult = this.model.userChoices['savedResult'];
+            
+            console.log('Форма выбрана:', formChoice);
+            console.log('Сохраненный результат:', savedResult);
+            
+            if (savedResult && this.model.results[savedResult]) {
+                console.log('Переходим к результату из шага формы');
+                this.eventBus.emit('algorithm:complete');
+                return;
+            }
+        }
+        
         // Проверяем, есть ли результат для текущего выбора
         const result = this.model.getResult();
+        console.log('Получен результат:', result);
+        
         if (result) {
             // Если есть результат, переходим к нему
             this.eventBus.emit('algorithm:complete');
@@ -167,9 +210,28 @@ class StepController {
         }
         
         // Иначе переходим к следующему шагу
-        const nextStep = this.model.getNextStep();
+        const nextStepData = this.model.getNextStep();
+        console.log('Следующий шаг:', nextStepData);
         
-        if (nextStep) {
+        if (nextStepData) {
+            const { step, skippedSteps } = nextStepData;
+            
+            // Обрабатываем пропущенные шаги
+            if (skippedSteps && skippedSteps.length > 0) {
+                console.log('Пропускаем шаги:', skippedSteps);
+                
+                // Сохраняем информацию о пропущенных шагах
+                this.store.setState({ skippedSteps });
+                
+                // Для каждого пропущенного шага получаем информацию
+                skippedSteps.forEach(stepId => {
+                    const skippedStep = this.model.steps.find(s => s.id === stepId);
+                    if (skippedStep && skippedStep.canBeSkipped) {
+                        console.log('Пропускаем шаг:', skippedStep.label);
+                    }
+                });
+            }
+            
             // Переход к следующему шагу
             this.renderCurrentStep();
         } else {
@@ -194,6 +256,39 @@ class StepController {
         const prevStepId = this.store.getPreviousStep();
         
         if (prevStepId) {
+            // Проверяем, не был ли предыдущий шаг пропущен
+            const skippedSteps = this.store.getState().skippedSteps || [];
+            if (skippedSteps.includes(prevStepId)) {
+                console.log('Предыдущий шаг был пропущен, ищем непропущенный шаг');
+                
+                // Ищем первый непропущенный шаг в истории
+                const history = this.store.getState().history || [];
+                let foundPrevStepId = null;
+                
+                for (let i = history.length - 1; i >= 0; i--) {
+                    if (!skippedSteps.includes(history[i]) && history[i] !== currentStep.id) {
+                        foundPrevStepId = history[i];
+                        break;
+                    }
+                }
+                
+                if (foundPrevStepId) {
+                    // Удаляем текущий шаг из истории
+                    const historyIndex = this.store.getState().history.indexOf(currentStep.id);
+                    if (historyIndex >= 0) {
+                        const newHistory = [...this.store.getState().history];
+                        newHistory.splice(historyIndex, 1);
+                        this.store.setState({ history: newHistory });
+                    }
+                    
+                    // Устанавливаем найденный непропущенный шаг
+                    this.model.setCurrentStep(foundPrevStepId);
+                    this.store.setCurrentStep(foundPrevStepId);
+                    this.renderCurrentStep();
+                    return;
+                }
+            }
+            
             // Удаляем текущий шаг из истории
             const historyIndex = this.store.getState().history.indexOf(currentStep.id);
             if (historyIndex >= 0) {
@@ -205,6 +300,12 @@ class StepController {
             // Устанавливаем предыдущий шаг
             this.model.setCurrentStep(prevStepId);
             this.store.setCurrentStep(prevStepId);
+            
+            // Очищаем информацию о пропущенных шагах при возврате к шагу выбора фокуса
+            if (prevStepId === 'step1') {
+                this.store.setState({ skippedSteps: [] });
+            }
+            
             this.renderCurrentStep();
         } else {
             // Если история пуста, но мы не на первом шаге, переходим к первому шагу
@@ -213,6 +314,8 @@ class StepController {
                 if (firstStep) {
                     this.model.setCurrentStep('step1');
                     this.store.setCurrentStep('step1');
+                    // Очищаем информацию о пропущенных шагах
+                    this.store.setState({ skippedSteps: [] });
                     this.renderCurrentStep();
                 } else {
                     // Если не можем найти первый шаг, возвращаемся на главную
@@ -239,17 +342,33 @@ class StepController {
      * @returns {number} Процент прогресса
      */
     calculateProgress(currentIndex) {
-        // В соответствии с 5-шаговым дизайном:
+        // В соответствии с 6-шаговым дизайном:
         // Начало - 0%
         // Фокус (шаг 1, индекс 0) - 20%
         // Время (шаг 2, индекс 1) - 40%
         // Характер (шаг 3, индексы 2+) - 60%
-        // Результат - 80-100%
+        // Форма (шаг 4) - 80%
+        // Результат - 100%
+
+        // Определяем, какой это шаг по логической последовательности
+        const currentStep = this.model.getCurrentStep();
+        
+        // Получаем информацию о пропущенных шагах
+        const skippedSteps = this.store.getState().skippedSteps || [];
+        
+        // Если текущий шаг - Условие (step3_condition) и был пропущен шаг Время (step2),
+        // то увеличиваем процент прогресса, так как мы фактически прошли два шага
+        if (currentStep && currentStep.id === 'step3_condition' && skippedSteps.includes('step2')) {
+            return 60; // Прогресс такой же, как для шага 3
+        }
         
         if (currentIndex === 0) {
             return 20; // Шаг 1 - Фокус
         } else if (currentIndex === 1) {
             return 40; // Шаг 2 - Время
+        } else if (currentStep && currentStep.id === 'step4_form') {
+            // Для формы учитываем возможные пропущенные шаги
+            return skippedSteps.length > 0 ? 80 : 80; // В любом случае 80%, но потенциально можно сделать разницу
         } else {
             return 60; // Шаг 3 - Характер (любой вариант)
         }
